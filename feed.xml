@@ -1,0 +1,52 @@
+---
+# A reusable podcast RSS feed generated from the channel information in _data/channel.yml and the episodes in _episodes/*.md which works on Apple Podcasts
+# Format specification: https://podcasters.apple.com/support/823-podcast-requirements
+
+# TODO: improve this by make only parsing the optional tags if they are set
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"  xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.data.channel.title | escape }}</title>
+    <description>{{ site.data.channel.description | escape }}</description>
+    <itunes:image href="{{ site.data.channel.itunes-image }}" />
+    <language>{{ site.data.channel.language | escape }}</language>
+    <itunes:category text="{{ site.data.channel.itunes-category | escape }}"></itunes:category>
+    <itunes:explicit>{{ site.data.channel.itunes-explicit | escape }}</itunes:explicit>
+    <itunes:author>{{ site.data.channel.itunes-author | escape }}</itunes:author>
+    <link>{{ site.data.channel.link | escape }}</link>
+    <itunes:owner>
+      <itunes:name>{{ site.data.channel.itunes-owner-name | escape }}</itunes:name>
+      <itunes:email>{{ site.data.channel.itunes-owner-email | escape }}</itunes:email>
+    </itunes:owner>
+    <itunes:type>{{ site.data.channel.itunes-type | escape }}</itunes:type>
+    <copyright>{{ site.data.channel.copyright | escape }}</copyright>
+    <atom:link href="{{ site.url }}{{ site.baseurl }}/feed.xml" rel="self" type="application/rss+xml" />
+
+    {% for episode in site.episodes %}
+    <item>
+      <title>{{ episode.title | escape }}</title>
+      <enclosure
+        url="{{ episode.enclosure-url | escape }}"
+        length="{{ episode.enclosure-length | escape }}"
+        type="{{ episode.enclosure-type }}"
+      />
+      <guid isPermaLink="false">{{ episode.guid | escape }}</guid>
+      <pubDate>{{ episode.pubDate | escape }}</pubDate>
+      <itunes:duration>{{ episode.itunes-duration | escape }}</itunes:duration>
+      <itunes:explicit>{{ episode.itunes-explicit | escape }}</itunes:explicit>
+      <itunes:episode>{{ episode.itunes-episode | escape }}</itunes:episode>
+      <itunes:episodeType>{{ episode.itunes-episodeType | escape }}</itunes:episodeType>
+      <description>
+        <![CDATA[
+{% if episode.description -%}
+          {{ episode.description | strip_html | strip_newlines | truncate: 255 }}
+{%- else -%}
+          {{ episode.content | strip_html | strip_newlines | truncate: 255 }}
+{%- endif %}
+        ]]>
+      </description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

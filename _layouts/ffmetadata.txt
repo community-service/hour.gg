@@ -1,0 +1,18 @@
+{%- comment -%}
+This template implement ffmetadata format for an episode chapters.
+Specification: https://ffmpeg.org/ffmpeg-formats.html#Metadata-1
+TODO: this does not implement escaping of \n in the chapter title as required by spec
+{%- endcomment -%}
+;FFMETADATA1
+{%- for chapter in page.timeline %}
+
+[CHAPTER]
+TIMEBASE=1/1
+START={{ chapter.seconds }}
+{%- if forloop.last %}
+END={{ chapter.seconds | plus: 1 }}
+{% else %}
+END={{ page.timeline[forloop.index].seconds }}
+{% endif -%}
+title={{ chapter.title | replace: '\', '\\\\' | replace: '=', '\=' | replace: ';', '\;' | replace: '#', '\#' | replace: '\\', '\' }}
+{%- endfor -%}

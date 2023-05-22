@@ -1,0 +1,20 @@
+collections:
+  episodes:
+    output: true
+  ffmetadata:
+    output: true
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: episodes
+    values:
+      layout: episode
+  - 
+    scope:
+      path: ""
+      type: ffmetadata
+    values:
+      layout: ffmetadata
+      permalink: /ffmetadata/:path.txt
