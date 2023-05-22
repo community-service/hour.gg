@@ -1,0 +1,8 @@
+_site
+/vendor
+Gemfile.lock # Because GitHub Pages does not consider that file when building
+/.bundle
+
+#
+/chapters.txt
+/chapters.ffmetadata
