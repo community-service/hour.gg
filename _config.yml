@@ -18,3 +18,9 @@ defaults:
     values:
       layout: ffmetadata
       permalink: /ffmetadata/:path.txt
+
+# https://jekyllrb.com/docs/configuration/liquid/
+liquid:
+  error_mode: strict
+#  strict_variables: true
+#  strict_filters: true

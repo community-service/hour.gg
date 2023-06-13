@@ -48,11 +48,13 @@
           <i class="bi bi-youtube"></i>
         </a>
         {% endif %}
-        {% for youtube-cut in page.youtube-cuts %}
+        {% if page contains 'youtube-cuts' %}
+          {% for youtube-cut in page.youtube-cuts %}
         <a href="{{ youtube-cut.url }}" class="btn btn-secondary ms-3" target="_blank" rel="noopener" title="{{ youtube-cut.name | escape }}">
           <i class="bi bi-youtube"></i>
         </a>
-        {% endfor %}
+          {% endfor %}
+        {% endif %}
       </div>
       <h2 id="timeline" class="mt-4">Timeline</h2>
       <div class="timeline">
@@ -74,6 +76,12 @@
         </div>
         {% endfor %}
       </div>
+      <h2 class="mt-5">Badges</h2>
+      {% for badge in page.badges %}
+      <div>
+        <p>{{ badge.recipient }} -- {{ badge.type }}</p>
+      </div>
+      {% endfor %}
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
