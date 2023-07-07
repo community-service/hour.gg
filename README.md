@@ -1,10 +1,4 @@
-# podcast.phor.net
-
-This is a reusable project template to self-publish your YouTube channel or other audio files as a podcast. Output fully complies with Apple Podcasts for Creators [RSS feed requirements](https://podcasters.apple.com/support/823-podcast-requirements).
-
-We use Jekyll to generate the RSS feed and HTML pages, and GitHub Pages to host the site. And you would go around registering your podcast with iTunes, Google Play, and other podcast directories.
-
-The data (_data, _episodes) in this repository are for the NFT/Web3 Community Service hour. 
+# hour.gg
 
 Subscribe to Community Service Hour at:
 
@@ -18,47 +12,20 @@ Subscribe to Community Service Hour at:
 - Overcast // NEED LINK
 - RSS: https://podcast.phor.net/feed.xml
 
-## Syndicate your podcast
+## Draft episodes
 
-- Register on Spotify (no signup required!): https://podcasters.spotify.com/
-- Register on Apple Podcasts: https://podcasters.apple.com/
+New episodes can be drafted like this:
 
-## Audio encoding
-
-We follow all Apple [audio requirements](https://podcasters.apple.com/support/893-audio-requirements) and, when appropriate, their recommendations.
-
-Format:
-
-* > For RSS feeds, Apple Podcasts accepts MP3 or AAC formats.
-
-* > For RSS feeds, we strongly recommend using AAC instead of MP3.
-
-* > When choosing AAC, we recommend using the MP4 format over the ADTS format because MP4 allows for the most-efficient streaming usage and accurate seeking.
-
-Bit rate:
-
-* > ... recommended bit rate...
-  > | **Number of channels** | **22.05/24 kHz** | **44.1/48 kHz** |
-  | :--------------------- | :--------------- | :-------------- |
-  | 1 (mono)               | 40–80 kbps       | 64–128 kbps     |
-  | 2 (stereo)             | 80–160 kbps      | 128–256 kbps    |
-
-Levels:
-
-* > ... we recommend that the audio signals are preconditioned so the overall loudness remains around -16 dB LKFS, with a +/- 1 dB tolerance, and that the true-peak value doesn’t exceed -1 dB FS
-
-Our selections:
-
-* AAC/MP4
-* Stereo, 44.1kHz, 160kbps
-* Overall loudness of -16 dB LKFS with +/- 1 dB tolerance, true peak of -1 dBTP
-* Encode loudness information in the header of the MP4 file
-
-## Chapter markers
-
-Specification: https://podcasters.apple.com/support/2482-using-chapters-on-apple-podcasts
-
-This site generates the ffmetadata files needed by ffmpeg to add chapter titles into an episode. See the output /ffmetadata folder. Also, a separate text-to-ffmetadata.js script is provided for convenience.
+```sh
+EPISODE="2023-02-07-episode-62"
+PUBDATE="Tue, 7 Feb 2023 18:00:00 -0500" # New York EST/EDT as appropriate
+URL="https://media.phor.net/csh/$EPISODE.m4a"
+UUID=$(uuidgen)
+cp _drafts/YYYY-MM-DD-episode-N.md _drafts/$EPISODE.md
+sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" _drafts/$EPISODE.md
+sed -i '' -e "s/pubDate: .*/pubDate: \"$PUBDATE\"/" _drafts/$EPISODE.md
+sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
+```
 
 ## Production
 
@@ -74,7 +41,7 @@ Encode audio like:
 ffmpeg -i IN.m4v -vn -acodec aac -ac 1 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f mp4 -movflags +faststart YYYY-mm-dd-episode-NN-WITHOUT-CHAPTERS.m4a
 ```
 
-Encluse chapter markers to make final audio like:
+Enclose chapter markers to make final audio like:
 
 ```sh
 ffmpeg -i 2022-03-08-episode-14-WITHOUT-CHAPTERS.m4a -i ~/Sites/podcast.phor.net/_site/ffmetadata/2022-03-08-episode-14.txt -map_metadata 1 -codec copy 2022-03-08-episode-14.m4a
@@ -83,12 +50,12 @@ ffmpeg -i 2022-03-08-episode-14-WITHOUT-CHAPTERS.m4a -i ~/Sites/podcast.phor.net
 Update metadata like:
 
 ```sh
-NUM=15
-MEDIADIR=~/Desktop/OUT\ DOES\ NOT\ HAVE\ CHAPTER\ MARKERS
+NUM=59
+MEDIADIR=~/Desktop
 
 # Set UUID
 UUID=$(uuidgen)
-sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" *-*-*-episode-$NUM.md
+sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" _episodes/*-*-*-episode-$NUM.md
 
 # Set itunes-duration
 DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $MEDIADIR/*-*-*-episode-$NUM.m4a | cut -d. -f1)
