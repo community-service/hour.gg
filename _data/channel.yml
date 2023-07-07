@@ -11,7 +11,7 @@ title: "Community Service Hour"
 # The maximum amount of text allowed for this tag is 4000 bytes.
 description: "We take questions, discuss the scene last week, blog and do projects. Live show every Tuesday @ 6pm New York time. With your cohosts William Entriken (lead author of ERC-721) and Daniel Tedesco."
 
-itunes-image: "https://podcast.phor.net/channel.jpg"
+itunes-image: "https://hour.gg/podcast.jpg"
 language: "en-us"
 itunes-category: "Technology" # The repo only supports one category, but Apple supports multiple
 itunes-explicit: "no" # Apple docs say to use "false" but EVERYBODY is using "no" https://github.com/search?q=%22itunes%3Aexplicit%22&type=code
