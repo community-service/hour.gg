@@ -18,6 +18,7 @@ New episodes can be drafted like this:
 
 ```sh
 EPISODE="2023-02-07-episode-62"
+NUMBER="62"
 PUBDATE="Tue, 7 Feb 2023 18:00:00 -0500" # New York EST/EDT as appropriate
 URL="https://media.phor.net/csh/$EPISODE.m4a"
 UUID=$(uuidgen)
@@ -25,6 +26,7 @@ cp _drafts/YYYY-MM-DD-episode-N.md _drafts/$EPISODE.md
 sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" _drafts/$EPISODE.md
 sed -i '' -e "s/pubDate: .*/pubDate: \"$PUBDATE\"/" _drafts/$EPISODE.md
 sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
+sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
 
 ## Production
