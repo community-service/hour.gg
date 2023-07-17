@@ -2,15 +2,14 @@ import os
 import openai
 import json
 import yaml
-import ruamel.yaml
-import frontmatter
 
 # Retrieve your API key from an environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 model = "gpt-4"
 
-
+# Define function call for GPT-4
 def create_function_call_message(function_name, messages, functions):
+    '''Create a function call message for GPT-4 to process'''
     try:
         response = openai.ChatCompletion.create(
             model=model,
@@ -18,8 +17,8 @@ def create_function_call_message(function_name, messages, functions):
             functions=functions,
             function_call={"name": function_name},
         )
-    except Exception as e:
-        print(e)
+    except Exception as exception:
+        print(exception)
 
     response_message = response["choices"][0]["message"]
 
@@ -30,6 +29,7 @@ def create_function_call_message(function_name, messages, functions):
 
 
 def process_notes(raw_notes, desired_output_format, parameter_list, suggestions=None):
+    '''Process raw notes into a desired format, taking into account any corrections'''
     function_name = "process_notes"
 
     messages = [
@@ -130,6 +130,7 @@ def process_notes(raw_notes, desired_output_format, parameter_list, suggestions=
 
 
 def main():
+    '''Main function'''
     # User input parameters
     parameter_list = [
         "title",
@@ -148,18 +149,14 @@ def main():
 
     # Get the parent directory of the current directory
     parent_dir = os.path.dirname(os.getcwd())
-
     # Get the path to the _drafts directory
     drafts_dir = os.path.join(parent_dir, 'hour.gg/_drafts')
-
     # Get an ordered list of all files in the _drafts directory
     files = sorted(os.listdir(drafts_dir))
     print(f'List of files to process (in order):\n{files}')
 
     # Loop over every file in the _drafts directory
     for filename in files:
-        # Get the full path to the file
-        file_path = os.path.join(drafts_dir, filename)
 
         process_or_skip = input(f'\n\nUpdate, save, and exit notes doc for {filename}. Then, hit return. Or skip this file by entering "skip":  ')
 
