@@ -31,70 +31,50 @@ sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 
 ## Production
 
-Add a new episode by adding a `_episodes/YYYY-MM-DD-episode-NN.md` file and fill in the chapter metadata. And build the website with:
+Draft a new episode and fill in the `title`, `description`, `youtube-full`, `discussion`, `timeline`, `badges`.
+
+Build the website and validate the front matter/YAML using:
 
 ```sh
-bundle exec jekyll build
+bundle exec jekyll build --drafts
+# The --drafts option does not seem to be working. So it is necessary to temporarily move the files in /_drafts to /_episodes before building.
 ```
 
-Encode audio like:
+Now encode the podcast audio file like:
 
 ```sh
-ffmpeg -i IN.m4v -vn -acodec aac -ac 1 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f mp4 -movflags +faststart YYYY-mm-dd-episode-NN-WITHOUT-CHAPTERS.m4a
+NUMBER="60"
+DATE="2023-01-24"
+IN="Episode $NUMBER.m4v"
+OUT="$DATE-episode-$NUMBER.m4a"
+METADATA=~/Sites/hour.gg/_site/ffmetadata/$DATE-episode-$NUMBER.txt
+ffmpeg -i "$IN" -vn -acodec aac -ac 1 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i "$METADATA" -map_metadata 1 -codec copy "$OUT"
 ```
 
-Enclose chapter markers to make final audio like:
+Update front matter with the media metadata like:
 
 ```sh
-ffmpeg -i 2022-03-08-episode-14-WITHOUT-CHAPTERS.m4a -i ~/Sites/podcast.phor.net/_site/ffmetadata/2022-03-08-episode-14.txt -map_metadata 1 -codec copy 2022-03-08-episode-14.m4a
-```
-
-Update metadata like:
-
-```sh
-NUM=59
+NUMBER=60
 MEDIADIR=~/Desktop
 
-# Set UUID
-UUID=$(uuidgen)
-sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" _episodes/*-*-*-episode-$NUM.md
-
 # Set itunes-duration
-DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $MEDIADIR/*-*-*-episode-$NUM.m4a | cut -d. -f1)
-sed -i '' -e "s/itunes-duration: .*/itunes-duration: $DURATION/" _episodes/*-*-*-episode-$NUM.md
+DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $MEDIADIR/*-*-*-episode-$NUMBER.m4a | cut -d. -f1)
+sed -i '' -e "s/itunes-duration: .*/itunes-duration: $DURATION/" _drafts/*-*-*-episode-$NUMBER.md
 
 # Set enclosure-length
-# get size of $MEDIADIR/*-*-*-episode-$NUM.m4a in bytes
-SIZE=$(stat -f%z $MEDIADIR/*-*-*-episode-$NUM.m4a)
-sed -i '' -e "s/enclosure-length: .*/enclosure-length: $SIZE/" _episodes/*-*-*-episode-$NUM.md
+# get size of $MEDIADIR/*-*-*-episode-$NUMBER.m4a in bytes
+SIZE=$(stat -f%z $MEDIADIR/*-*-*-episode-$NUMBER.m4a)
+sed -i '' -e "s/enclosure-length: .*/enclosure-length: $SIZE/" _drafts/*-*-*-episode-$NUMBER.md
 ```
 
-Now upload your media to the media storage location. And publish your XML site.
+Now upload your media to the media storage location. You can publish the episode by moving it from the `/_drafts` folder to the `/_episodes` folder.
 
----
+## Enrichment
 
+Each episode file should include a `## Quick notes and links` section below the front matter section.
 
+This is in Markdown format, with an unordered list including useful keywords, hyperlinks for more information on items we discussed and hyperlinks (Twitter or homepage preferred) for people that we mention.
 
-TIPS AND HACKS:
+Below that begin immediately with another layer-2 heading (`##`) for the first topic. And include a transcript for each topic of the show. This includes time codes, mention of who is speaking. (This will automatically link to jump the episode to that point.)
 
-```
-ADD notes from audio transcrbe to show notes
-
-<!-- TODO: add summary here
-
-❯ ffmpeg -i 2022-12-21-episode-3.m4a -ss 00:07:22 -to 00:17:49 -c copy out.m4a
-❯ ./products/hear -d -i ~/Desktop/out.m4a > pushpull.txt   
-And use a text model for:
-
-Topic: Push and pull Ether sending
-
-Garbled text:
-
-INPUT HERE <<< >>>
-
-Cleaned up, intelligible text:
-
-THIS IS YOUR OUTPUT <<< >>>
- -->
-```
-
+The required format for these extra headings and text is not decided. (But the quick notes and links part IS decided, go ahead and use that.) 
