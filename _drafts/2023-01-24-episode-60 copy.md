@@ -1,7 +1,8 @@
 ---
 guid: "50A1D8A8-B792-4516-9A4C-3D4DFE8B0389"
 title: "NFT.nyc vision"
-description: '''Learn about NFT.nyc's vision for the future of  the NFT space and how they're planning to bring the community together to share ideas. Hear from Jodee and Cameron, organizers of the largest event in the NFT and crypto space, about what to expect in 2023.'''   
+description: "Learn about NFT.nyc's vision for the future of the NFT space and how they're planning to bring the community together to share ideas. Hear from Jodee and Cameron, organizers of the largest event in the NFT and 
+crypto space, about what to expect in 2023."
 pubDate: "Mon, 24 Jan 2022 18:00:00 -0500"
 itunes-explicit: "no"
 itunes-episode: 60

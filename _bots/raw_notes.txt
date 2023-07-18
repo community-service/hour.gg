@@ -1,0 +1,79 @@
+<!-- Output copied to clipboard! -->
+
+<!-----
+
+Yay, no errors, warnings, or alerts!
+
+Conversion time: 4.112 seconds.
+
+
+Using this Markdown file:
+
+1. Paste this output into your source file.
+2. See the notes and action items below regarding this conversion run.
+3. Check the rendered output (headings, lists, code blocks, tables) for proper
+   formatting and use a linkchecker before you publish this page.
+
+Conversion notes:
+
+* Docs to Markdown version 1.0β34
+* Sat Jul 15 2023 22:53:46 GMT-0700 (PDT)
+* Source doc: Community Service Hour program
+* This is a partial selection. Check to make sure intra-doc links work.
+----->
+
+
+
+# Episode 84—Taho
+
+2023-07-11 at 18:00 New York time / [upcoming Spaces](https://twitter.com/i/spaces/1gqGvyyvdazKB?s=20) / [upcoming Twitch](https://www.twitch.tv/fulldecent/schedule?seriesID=a65aa988-263f-4926-971b-b1ab2f03ef3a)
+
+
+
+* [https://youtu.be/3k_WMCcN11U](https://youtu.be/3k_WMCcN11U) / [tw](https://twitter.com/fulldecent/status/1678964717681819648) / [dc](https://discord.com/channels/513179688865234945/882640701794451536/1128523714020003931)
+* [https://youtube.com/shorts/jjmAWbhGZ3Q?feature=share](https://youtube.com/shorts/jjmAWbhGZ3Q?feature=share) 
+
+TIMELINE
+
+
+
+* 00:43 Dumb business ideas
+* 01:15 Announcing RainbowMask
+* 02:49 Dan's dumb business ideas
+* 05:54 Review Taho
+* 10:43 Big stacks
+* 11:16 UI dead space
+* 12:02 Ul abilities
+* 14:14 UI Token spam
+* 15:09 Overall impression
+
+NOTES
+
+
+
+* For later:  Why Chainlink is not random
+* Review Taho wallet [https://taho.xyz/](https://taho.xyz/) (use Arc browser, use Arc note tab)
+
+BADGES, STAYED TO END
+
+
+
+* @dtedesco1
+* @VjDeliria
+* @xtinatedesco
+* @T012n4d0
+
+TWEET
+
+
+
+1. Today's episode was a review of @taho_xyz ping @Pitunia11 @taho_xyz \
+ \
+[https://youtu.be/3k_WMCcN11U](https://youtu.be/3k_WMCcN11U)
+2. We also discussed another web3, RainbowMask that has no accounts and signs every message non-interactively [https://blog.phor.net/2023/07/11/RainbowMask,-random-accounts-to-login-to-web3.html](https://blog.phor.net/2023/07/11/RainbowMask,-random-accounts-to-login-to-web3.html)
+3. Thank you for staying to the end! \
+@dtedesco1 \
+@VjDeliria \
+@xtinatedesco \
+@T012n4d0 \
+ \
