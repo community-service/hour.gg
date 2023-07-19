@@ -118,6 +118,34 @@ def process_notes(raw_notes, desired_output_format, parameter_list, suggestions=
                         },
                         "description": "Array of badge objects. Each object has a 'type' string and a 'recipient' string. Recipient MUST NOT include the @ symbol.",
                     },
+                    "## Quick notes and links": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "note and/or link": {
+                                    "type": "string",
+                                    "quick note": "Markdown formatted bullet point containing a note and/or link. NEVER enclose in quotes. Format example: - See [FullDecent's quick non-transferrable ERC-721 implementation ('badges')](https://github.com/fulldecent/solidity-template/blob/main/contracts/Tokens/NonTransferrableERC721.sol) based on [Solmate](https://github.com/transmissions11/solmate) by [@transmissions11](https://twitter.com/transmissions11)",
+                                },
+                            },
+                            "required": ["note and/or link"],
+                        },
+                        "description": "Array of enhanced show notes based on raw_notes. Enhance the notes by including hyperlinks for relevant entities that are mentioned inside. NEVER enclose in quotes. Don't include links to this episode's twitch stream, youtube video, or tweets--those are handled elsewhere.",
+                    },
+                    "## Wrap up tweets drafts": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tweet draft": {
+                                    "type": "string",
+                                    "description": "A wrap-up tweet for the episode either summarizing what was covered, asking an intriguing question relevant to the episode, sharing a hot take, asking for feedback, sharing a link, or a combination of these. Keep it exciting and engaging. Example:  'Is less validators bad? For some prior art we can always compare to @trondao which has only 27 super representatives.' Second example: 'Here is Episode 82—Cupcake Sister, checking out Ella's first NFT unboxing. I purchased it on the street in China from a vending machine. Is it legal in China? Let's find out!' Third example: 'Check out Remix at https://remix.ethereum.org and now I can see all this documentation that was always there. Here is where to find it… [[ PHOTO ]]'",
+                                },
+                            },
+                            "required": ["tweet"],
+                        },
+                        "description": "Array of drafts for a wrap-up tweet thread. Each tweet should be modular, but the total array of tweets should cover the key and most interesting things covered in the episodes. Use the notes and timestamps for a reference of what to include.",
+                    },
                 },
                 "required": parameter_list
             },
@@ -153,55 +181,55 @@ def main():
     drafts_dir = os.path.join(parent_dir, 'hour.gg/_drafts')
     # Get an ordered list of all files in the _drafts directory
     files = sorted(os.listdir(drafts_dir))
-    print(f'List of files to process (in order):\n{files}')
+    print(f'List of files in the _drafts directory (in order):\n{files}')
 
     # Loop over every file in the _drafts directory
-    for filename in files:
+    # for filename in files:
 
-        process_or_skip = input(f'\n\nUpdate, save, and exit notes doc for {filename}. Then, hit return. Or skip this file by entering "skip":  ')
+    # process_or_skip = input(f'\n\nUpdate, save, and exit notes doc for {filename}. Then, hit return. Or skip this file by entering "skip":  ')
 
-        # If the user wants to skip this file, then skip it
-        if process_or_skip == "skip":
-            continue
+    # # If the user wants to skip this file, then skip it
+    # if process_or_skip == "skip":
+    #     continue
 
-        # Initialize suggestions as an empty string
-        suggestions = ""
+    # Initialize suggestions as an empty string
+    suggestions = ""
 
-        # Loop until the user is satisfied with the result.
-        while True:
+    # Loop until the user is satisfied with the result.
+    while True:
 
-            # Read the raw notes from the file
-            with open("_bots/raw_notes.txt", "r") as notes_file:
-                raw_notes = notes_file.read()
+        # Read the raw notes from the file
+        with open("_bots/raw_notes.txt", "r") as notes_file:
+            raw_notes = notes_file.read()
 
-            # Call the function
-            result = process_notes(raw_notes, desired_output_format, parameter_list, suggestions)
+        # Call the function
+        result = process_notes(raw_notes, desired_output_format, parameter_list, suggestions)
 
-            # Example results, for testing.
-            # result = {'episode-file-name': '2023-02-07-episode-62', 'title': "'Soulbind'", 'description': "'In episode 62, we delve into the world of soulbound tokens. We discuss the proposed EIP-6049 and the mechanisms of Ethereum consensus changes. We also cover various concepts around these tokens such as EOA evaluation, attributes, personhood, and business models. Lastly, we explore the potential of soulbound tokens in ticketing.'", 'youtube-full': 'https://youtu.be/rlePJziAY6Y', 'discussion': 'https://twitter.com/fulldecent/status/1623232559147515904', 'timeline': [{'seconds': 0, 'title': 'Intro'}, {'seconds': 43, 'title': 'EIP-6049'}, {'seconds': 169, 'title': 'How do Eth consensus changes happen?'}, {'seconds': 518, 'title': 'Intro to Soulbind'}, {'seconds': 603, 'title': 'Existing standard for soulbound NFTs'}, {'seconds': 638, 'title': 'Can we standardize EOA evaluation?'}, {'seconds': 871, 'title': 'Attributes and personhood'}, {'seconds': 932, 'title': 'Business model and product interview'}, {'seconds': 1238, 'title': 'Mintable tokens and spam'}, {'seconds': 1304, 'title': 'Content moderation: keys = calls'}, {'seconds': 1350, 'title': 'Is burnable really soulbound?'}, {'seconds': 1383, 'title': 'Can SBT be mutable?'}, {'seconds': 1512, 'title': 'I Leveling up token'}, {'seconds': 1604, 'title': 'Ticketing'}], 'badges': [{'type': 'stayed-to-end', 'recipient': 'Rito_Rhymes'}, {'type': 'stayed-to-end', 'recipient': '037'}, {'type': 'stayed-to-end', 'recipient': 'exstalis'}, {'type': 'stayed-to-end', 'recipient': '0xrobrecht'}, {'type': 'stayed-to-end', 'recipient': 'cer_andrew'}, {'type': 'stayed-to-end', 'recipient': 'EllieVoxel'}, {'type': 'stayed-to-end', 'recipient': 'dtedesco1'}]}
+        # Example results, for testing.
+        # result = {'episode-file-name': '2023-02-07-episode-62', 'title': "'Soulbind'", 'description': "'In episode 62, we delve into the world of soulbound tokens. We discuss the proposed EIP-6049 and the mechanisms of Ethereum consensus changes. We also cover various concepts around these tokens such as EOA evaluation, attributes, personhood, and business models. Lastly, we explore the potential of soulbound tokens in ticketing.'", 'youtube-full': 'https://youtu.be/rlePJziAY6Y', 'discussion': 'https://twitter.com/fulldecent/status/1623232559147515904', 'timeline': [{'seconds': 0, 'title': 'Intro'}, {'seconds': 43, 'title': 'EIP-6049'}, {'seconds': 169, 'title': 'How do Eth consensus changes happen?'}, {'seconds': 518, 'title': 'Intro to Soulbind'}, {'seconds': 603, 'title': 'Existing standard for soulbound NFTs'}, {'seconds': 638, 'title': 'Can we standardize EOA evaluation?'}, {'seconds': 871, 'title': 'Attributes and personhood'}, {'seconds': 932, 'title': 'Business model and product interview'}, {'seconds': 1238, 'title': 'Mintable tokens and spam'}, {'seconds': 1304, 'title': 'Content moderation: keys = calls'}, {'seconds': 1350, 'title': 'Is burnable really soulbound?'}, {'seconds': 1383, 'title': 'Can SBT be mutable?'}, {'seconds': 1512, 'title': 'I Leveling up token'}, {'seconds': 1604, 'title': 'Ticketing'}], 'badges': [{'type': 'stayed-to-end', 'recipient': 'Rito_Rhymes'}, {'type': 'stayed-to-end', 'recipient': '037'}, {'type': 'stayed-to-end', 'recipient': 'exstalis'}, {'type': 'stayed-to-end', 'recipient': '0xrobrecht'}, {'type': 'stayed-to-end', 'recipient': 'cer_andrew'}, {'type': 'stayed-to-end', 'recipient': 'EllieVoxel'}, {'type': 'stayed-to-end', 'recipient': 'dtedesco1'}]}
 
-            front_matter_new = yaml.dump(result, sort_keys=False)
-            print(f'\n\nYour notes were processed into the following content:\n\n{front_matter_new}')
+        front_matter_new = yaml.dump(result, sort_keys=False)
+        print(f'\n\nYour notes were processed into the following content:\n\n{front_matter_new}')
 
-            # Ask the user for any suggestions
-            new_suggestions = input(f"\nUpate and save the notes files and enter any suggestions (or hit return once you're happy with the results): ")
+        # Ask the user for any suggestions
+        new_suggestions = input(f"\nUpate and save the notes files and enter any suggestions (or hit return once you're happy with the results): ")
 
-            # If the user has no suggestions, append to the output file and exit
-            if new_suggestions == "":
-                episode_file_name = result["episode-file-name"] + '.md'
-                output_file_path = f'_drafts/{episode_file_name}'
-                # Check that the output_file_name is the same as the target file_path
-                # If exception is raised, alert the user that their output is not matched to the correct file
-                # assert episode_file_name == filename, f'The notes you shared are for: {episode_file_name}, but you are trying to save to: {filename}'
+        # If the user has no suggestions, append to the output file and exit
+        if new_suggestions == "":
+            episode_file_name = result["episode-file-name"] + '.md'
+            output_file_path = f'_drafts/{episode_file_name}'
+            # Check that the output_file_name is the same as the target file_path
+            # If exception is raised, alert the user that their output is not matched to the correct file
+            # assert episode_file_name == filename, f'The notes you shared are for: {episode_file_name}, but you are trying to save to: {filename}'
 
-                with open(output_file_path, "a") as output_file:
-                    print(f'\n\n{front_matter_new}')
-                    output_file.write(f'\n\n<!--\n\n{front_matter_new}\n\n-->')
-                    output_file.close()
-                    print(f'\n\nYour notes were saved to {output_file_path}')
-                break
+            with open(output_file_path, "a") as output_file:
+                print(f'\n\n{front_matter_new}')
+                output_file.write(f'\n\n<!--\n\n{front_matter_new}\n\n-->')
+                output_file.close()
+                print(f'\n\nYour notes were saved to {output_file_path}')
+            break
 
-            suggestions = new_suggestions + f'\n\nFor reference, your previous output was this: {result}'
+        suggestions = new_suggestions + f'\n\nFor reference, your previous output was this: {result}'
 
 if __name__ == "__main__":
     main()
