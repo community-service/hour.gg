@@ -16,7 +16,7 @@ language: "en-us"
 itunes-category: "Technology" # The repo only supports one category, but Apple supports multiple
 itunes-explicit: "no" # Apple docs say to use "false" but EVERYBODY is using "no" https://github.com/search?q=%22itunes%3Aexplicit%22&type=code
 itunes-author: "William Entriken"
-link: "https://phor.net/#hour"
+link: "https://hour.gg"
 itunes-owner-name: "William Entriken"
 itunes-owner-email: "csh-feed-owner@phor.net"
 
@@ -28,6 +28,5 @@ copyright: Copyright William Entriken
 #itunes-block:
 #itunes-complete:
 
-link: "https://phor.net/#hour"
 pub-date: "2023-01-01T00:00:00+00:00"
 language: "en-US"

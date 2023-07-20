@@ -10,7 +10,7 @@ Subscribe to Community Service Hour at:
 - Pocket Casts // NEED LINK
 - RadioPublic // NEED LINK
 - Overcast // NEED LINK
-- RSS: https://podcast.phor.net/feed.xml
+- RSS: https://hour.gg/podcast.xml
 
 ## Draft episodes
 
