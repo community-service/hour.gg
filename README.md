@@ -12,6 +12,37 @@ Subscribe to Community Service Hour at:
 - Overcast // NEED LINK
 - RSS: https://hour.gg/podcast.xml
 
+## Process
+
+```mermaid
+graph LR
+s[Record show]
+v[Make video]
+v2[Make video cuts]
+yt[Publish to YouTube]
+tw[Tweet]
+hgg[hour.gg episode draft]
+sn[Show notes]
+pm[Podcast m4a file]
+hggl[hour.gg website live]
+p[Podcast]
+
+v-->yt
+v-->v2
+v--add timestamps-->sn
+yt--include link-->tw
+v--add timestamps-->hgg
+v--add edited transcript-->hgg
+v2--include link-->tw
+s--add title, description-->hgg
+s-->v
+hgg--use timestamps-->pm
+pm--add filesizes-->hggl
+hggl-->p
+```
+
+
+
 ## Draft episodes
 
 New episodes can be drafted like this:
