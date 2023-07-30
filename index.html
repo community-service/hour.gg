@@ -4,7 +4,7 @@
 layout: none
 ---
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <title>Community Service Hour</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -70,15 +70,20 @@ layout: none
   <nav class="navbar navbar-expand-sm bg-primary navbar-dark fs-4 my-4">
     <div class="container-xl">
       <ul class="navbar-nav mb-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#about-us">About us            
-            <span class="hstack d-inline-flex">
-              <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-              <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-              <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-              <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-              <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-              <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+16</span>
+        <li class="nav-item">          
+          <a class="nav-link" href="#about-us">
+            <span>About us</span>
+            <!-- Randomly show 5 participants -->
+            {% assign all_participants = "" | split: "" -%}
+            {% for participant in site.data.participants -%}
+              {% assign all_participants = all_participants | push: participant[0] -%}
+            {% endfor -%}
+            {% assign participants = all_participants | sample: 5 -%}
+            {% for participant in participants -%}
+            <img src="/assets/participants/{{ participant }}.jpg" class="rounded-circle" style="width: 2rem; height: 2rem; margin-right: -0.5rem;" alt="Photo of {{ participant }}">
+            {% endfor -%}
+            <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
+              {{- site.data.participants.size | minus: 5 -}}
             </span>
           </a>
         </li>
@@ -105,7 +110,7 @@ layout: none
       <a class="btn btn-sm rounded-pill btn-primary" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple Podcasts</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ">Spotify</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN">YouTube</a>
-      <a class="btn btn-sm rounded-pill btn-primary" href="feed.xml">RSS</a>
+      <a class="btn btn-sm rounded-pill btn-primary" href="podcast.xml">RSS</a>
     </h1>
 
     {% assign episodes = site.episodes | sort: 'date' | reverse %}
@@ -115,12 +120,18 @@ layout: none
         <h2>
           #{{ episode.itunes-episode}}: {{ episode.title | escape }}
           <span class="hstack d-inline-flex">
-            <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-            <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-            <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-            <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-            <i class="bi bi-person-circle" style="margin-left: -0.2rem;"></i>
-            <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+16</span>
+            <!-- Participants from this specific episode -->
+            {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
+            {% for participant_id in some_participant_ids %}
+            <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
+            {% endfor %}
+            <!-- + how many not shown... -->
+            {% assign remaining = episode.badges.size | minus: 3 %}
+            {% if remaining > 0 %}
+            <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
+              {{- remaining -}}
+            </span>
+            {% endif %}
           </span>
         </h2>
         <p>{{ episode.description | escape }}</p>
@@ -139,32 +150,24 @@ layout: none
   <section class="container-xl mt-4">
     <h1 id="about-us">About us</h1>
     <p class="lead">Your cohosts on the weekly call are William Entriken and Daniel Tedesco. </p>
-    <p class="lead">Participants in <em>Community Service Hour</em> are recognized for joining in our weekly call, and presenting projects. They direct the future of our program. Points from the past 10 weeks are shown like <span class="badge text-bg-warning rounded-pill">+20</span>. Points provide access to special groups, decision making and may possibly be redeemed for a blockchain token in the future.</p>
+    <p class="lead">Participants in <em>Community Service Hour</em> are recognized for joining in our weekly call, and presenting projects. They direct the future of our program. <!-- TODO: Participants from the past 10 weeks are shown below -->. Badges provide access to special groups, decision making and may possibly be redeemed for a blockchain token in the future.</p>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
-      <div class="col hstack align-self-start gap-2">
-        <img src="assets/profiles/fulldecent.jpg" class="rounded-circle" style="width: 3rem; height: 3rem;">
+    <!--<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">-->
+    <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4">
+      <!-- Show all participants (TODO: only show those with activity in the past 10 weeks) -->
+      {% assign all_participants2 = "" | split: "" -%}
+      {% for participant in site.data.participants -%}
+        {% assign all_participants2 = all_participants2 | push: participant[0] -%}
+      {% endfor -%}
+      {% for participant in all_participants2 -%}
+      <div class="col hstack align-self-start gap-2 mb-3">
+        <img src="/assets/participants/{{ participant }}.jpg" alt="{{ participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
         <div>
-          <h5 class="card-title"><a href="twit">@fulldecent</a><span class="badge text-bg-warning rounded-pill ms-2">+12</span></h5>
-          <p class="card-text"> William Entriken</p>
+          <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[participant].twitter }}">@{{ site.data.participants[participant].twitter }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
+          <p class="card-text">{{ site.data.participants[participant].name }}</p>
         </div>
       </div>
-
-      <div class="col hstack align-self-start gap-2">
-        <img src="assets/profiles/dtedesco1.jpg" class="rounded-circle" style="width: 3rem; height: 3rem;">
-        <div>
-          <h5 class="card-title"><a href="twit">@dtedesco1</a><span class="badge text-bg-warning rounded-pill ms-2">+12</span></h5>
-          <p class="card-text"> Daniel Tedesco</p>
-        </div>
-      </div>
-
-      <div class="col hstack align-self-start gap-2">
-        <img src="assets/profiles/fulldecent.jpg" class="rounded-circle" style="width: 3rem; height: 3rem;">
-        <div>
-          <h5 class="card-title"><a href="twit">@fulldecent</a><span class="badge text-bg-warning rounded-pill ms-2">+8</span></h5>
-          <p class="card-text"> William Entriken</p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </section>
 

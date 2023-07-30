@@ -1,3 +1,20 @@
+TODO: 
+
+- [ ] Update episodes 59 thru 1 to add badges
+
+- [ ] Update blank /assets/participants/*jpg photos from Twitter
+
+- [ ] Update participant names from Twitter, add to _data/participants.yml
+
+- [ ] Make a validation check for any missing profile photos:
+
+  ```sh
+  yq 'keys | .[]' _data/participants.yml | while IFS=$'0' read handle; do ls assets/participants/$handle.jpg > /dev/null; done
+  ```
+
+  `grep -ri TODO .`
+
+
 # hour.gg
 
 Subscribe to Community Service Hour at:
@@ -41,15 +58,13 @@ pm--add filesizes-->hggl
 hggl-->p
 ```
 
-
-
 ## Draft episodes
 
 New episodes can be drafted like this:
 
 ```sh
-EPISODE="2023-02-07-episode-62"
 NUMBER="62"
+EPISODE="2023-02-07-episode-$NUMBER"
 PUBDATE="Tue, 7 Feb 2023 18:00:00 -0500" # New York EST/EDT as appropriate
 URL="https://media.phor.net/csh/$EPISODE.m4a"
 UUID=$(uuidgen)
@@ -62,13 +77,22 @@ sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 
 ## Production
 
-Draft a new episode and fill in the `title`, `description`, `youtube-full`, `discussion`, `timeline`, `badges`.
+Draft a new episode and fill in the `title`, `description`, `badges`, `timeline`, `youtube-full`, `discussion`.
+
+* `title` from the show notes
+* `description` from the show notes
+* `badges` from the show notes
+  * Use their Twitter handle, lowercased, and if it is a number (e.g. `037` ) put it in quotes (e.g. `"037"`)
+  * Add this person to _/data/participants.yml if not already there, and add their profile photo to assets/participants/
+* `timeline` from the show notes (if published)
+* `youtube-full` from the show notes (if published)
+* `discussion` from the show notes (if published)
 
 Build the website and validate the front matter/YAML using:
 
 ```sh
 bundle exec jekyll build --drafts
-# The --drafts option does not seem to be working. So it is necessary to temporarily move the files in /_drafts to /_episodes before building.
+# The --drafts option does not seem to be working. So it is necessary to temporarily move the files in /_drafts to /_episodes before building. Move back before making PR!
 ```
 
 Now encode the podcast audio file like:
@@ -108,4 +132,4 @@ This is in Markdown format, with an unordered list including useful keywords, hy
 
 Below that begin immediately with another layer-2 heading (`##`) for the first topic. And include a transcript for each topic of the show. This includes time codes, mention of who is speaking. (This will automatically link to jump the episode to that point.)
 
-The required format for these extra headings and text is not decided. (But the quick notes and links part IS decided, go ahead and use that.) 
+The required format for these extra headings and text is not decided. (But the quick notes and links part IS decided, go ahead and use that.)

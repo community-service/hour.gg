@@ -25,7 +25,7 @@ itunes-duration: UPDATE ME
 # CSH information
 badges:
   - type: stayed-to-end
-    recipient: fulldecent
+    participant: fulldecent
   - type: stayed-to-end
-    recipient: dtedesco1
+    participant: dtedesco1
 ---

@@ -1,3 +1,7 @@
+---
+layout: none
+---
+
 This is a reusable project template to self-publish your YouTube channel or other audio files as a podcast. Output fully complies with Apple Podcasts for Creators [RSS feed requirements](https://podcasters.apple.com/support/823-podcast-requirements).
 
 We use Jekyll to generate the RSS feed and HTML pages, and GitHub Pages to host the site. And you would go around registering your podcast with iTunes, Google Play, and other podcast directories.

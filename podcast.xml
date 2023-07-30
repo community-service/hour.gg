@@ -21,7 +21,7 @@
     </itunes:owner>
     <itunes:type>{{ site.data.channel.itunes-type | escape }}</itunes:type>
     <copyright>{{ site.data.channel.copyright | escape }}</copyright>
-    <atom:link href="{{ site.url }}{{ site.baseurl }}/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ site.url }}{{ site.baseurl }}/podcast.xml" rel="self" type="application/rss+xml" />
 
     {% for episode in site.episodes %}
     <item>

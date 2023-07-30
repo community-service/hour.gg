@@ -78,8 +78,17 @@
       </div>
       <h2 class="mt-5">Badges</h2>
       {% for badge in page.badges %}
-      <div>
-        <p>{{ badge.recipient }} -- {{ badge.type }}</p>
+
+      <div class="col hstack align-self-start gap-2 mb-3">
+        <img src="/assets/participants/{{ badge.participant }}.jpg" alt="{{ badge.participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
+        <div>
+          <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].twitter }}">@{{ site.data.participants[badge.participant].twitter }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
+          <p class="card-text">
+            <!-- TODO: define badges in _data/badges.yml and pull styling from there -->
+            {{ site.data.participants[badge.participant].name }}
+            <span class="badge text-bg-warning">{{ badge.type }}</span>
+          </p>
+        </div>
       </div>
       {% endfor %}
     </div>
