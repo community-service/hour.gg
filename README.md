@@ -75,6 +75,7 @@ sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
 sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
 
+And also update _data/upcoming-episodes.yml
 ## Production
 
 Draft a new episode and fill in the `title`, `description`, `badges`, `timeline`, `youtube-full`, `discussion`.

@@ -1,0 +1,8 @@
+---
+---
+[
+{% for upcoming-episode in site.data.upcoming-episodes -%}
+    {{ upcoming-episode | jsonify }}
+    {%- unless forloop.last -%},{%- endunless -%}
+{% endfor %}
+]
