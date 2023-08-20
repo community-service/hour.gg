@@ -2,7 +2,7 @@
 # A reusable podcast RSS feed generated from the channel information in _data/channel.yml and the episodes in _episodes/*.md which works on Apple Podcasts
 # Format specification: https://podcasters.apple.com/support/823-podcast-requirements
 
-# TODO: improve this by make only parsing the optional tags if they are set
+# I want to improve this by make only parsing the optional tags if they are set (not possible with Jekyll / Liquid)
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"  xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">

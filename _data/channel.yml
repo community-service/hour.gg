@@ -7,9 +7,8 @@
 
 title: "Community Service Hour"
 
-# TODO: this supports text for now, to support HTML we need to use CDATA
 # The maximum amount of text allowed for this tag is 4000 bytes.
-description: "We take questions, discuss the scene last week, blog and do projects. Live show every Tuesday @ 6pm New York time. With your cohosts William Entriken (lead author of ERC-721) and Daniel Tedesco."
+description: "We take questions, discuss the scene each week, blog and do projects. Live show every Tuesday @ 6pm New York time. With your cohosts William Entriken (lead author of ERC-721) and Daniel Tedesco."
 
 itunes-image: "https://hour.gg/podcast.jpg"
 language: "en-us"

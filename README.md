@@ -1,33 +1,12 @@
-TODO: 
+# Community Service Hour
 
-- [ ] Update episodes 59 thru 1 to add badges
+https://hour.gg/
 
-- [ ] Update blank /assets/participants/*jpg photos from Twitter
+We do **projects**, **take questions** and **discuss** the tech scene each week.
 
-- [ ] Update participant names from Twitter, add to _data/participants.yml
-
-- [ ] Make a validation check for any missing profile photos:
-
-  ```sh
-  yq 'keys | .[]' _data/participants.yml | while IFS=$'0' read handle; do ls assets/participants/$handle.jpg > /dev/null; done
-  ```
-
-  `grep -ri TODO .`
-
-
-# hour.gg
-
-Subscribe to Community Service Hour at:
-
-- Apple Podcasts: https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217
-- Google Podcasts: https://podcasts.google.com/feed/aHR0cHM6Ly9wb2RjYXN0LnBob3IubmV0L2ZlZWQueG1s?sa=X&ved=0CAMQ4aUDahcKEwignIL6m7f8AhUAAAAAHQAAAAAQBA
-- Spotify: https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ
-- Stitcher // NEED LINK
-- Breaker // NEED LINK
-- Pocket Casts // NEED LINK
-- RadioPublic // NEED LINK
-- Overcast // NEED LINK
-- RSS: https://hour.gg/podcast.xml
+| Join live                                                    | Participate                                                  | Add to calendar                                              | Past episodes                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Twitch](https://www.twitch.tv/fulldecent), [X Spaces](https://twitter.com/fulldecent), [Rumble](https://rumble.com/c/c-3482588), [YouTube](https://youtube.com/live/CbWMp2VEtsM?feature=share) | [Send questions](https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23NFTCommunityServiceHour), [GitHub project board](https://github.com/users/fulldecent/projects/2), [blog post drafts](https://github.com/users/fulldecent/projects/3) | [Add to calendar ICS](https://calendar.google.com/calendar/ical/liurhb5cqvar2i6n6ekeanap44%40group.calendar.google.com/public/basic.ics), [add to Google Calendar](https://calendar.google.com/event?action=TEMPLATE&tmeid=NHA4ZXBrZWJkczlsamdmMzJpYmc2MnVqNWxfMjAyMjA2MjFUMjIwMDAwWiBsaXVyaGI1Y3F2YXIyaTZuNmVrZWFuYXA0NEBn&tmsrc=liurhb5cqvar2i6n6ekeanap44%40group.calendar.google.com&scp=ALL), [Discord, click "events"](https://discord.com/invite/6nTGNdjQ3B), [join IRL workshops](https://phor.net/#speaking) | [Apple Podcasts](https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217), [Spotify](https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ), [TikTok](https://www.tiktok.com/@fulldecent) |
 
 ## Process
 
@@ -35,7 +14,7 @@ Subscribe to Community Service Hour at:
 graph LR
 s[Record show]
 v[Make video]
-v2[Make video cuts]
+v2[Make Shorts]
 yt[Publish to YouTube]
 tw[Tweet]
 hgg[hour.gg episode draft]
@@ -76,6 +55,7 @@ sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
 
 And also update _data/upcoming-episodes.yml
+
 ## Production
 
 Draft a new episode and fill in the `title`, `description`, `badges`, `timeline`, `youtube-full`, `discussion`.
