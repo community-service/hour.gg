@@ -39,7 +39,7 @@ hggl-->p
 
 ## Draft episodes
 
-New episodes can be drafted like this:
+New episodes can be drafted like this (you do the whole year's worth):
 
 ```sh
 NUMBER="62"
@@ -54,14 +54,14 @@ sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
 sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
 
-And also update _data/upcoming-episodes.yml
+And also update [_data/upcoming-episodes.yml](_data/upcoming-episodes.yml)
 
 ## Production
 
 Draft a new episode and fill in the `title`, `description`, `badges`, `timeline`, `youtube-full`, `discussion`.
 
 * `title` from the show notes
-* `description` from the show notes
+* `description` from the show notes, up to 400 characters
 * `badges` from the show notes
   * Use their Twitter handle, lowercased, and if it is a number (e.g. `037` ) put it in quotes (e.g. `"037"`)
   * Add this person to _/data/participants.yml if not already there, and add their profile photo to assets/participants/
@@ -81,7 +81,7 @@ Now encode the podcast audio file like:
 ```sh
 NUMBER="60"
 DATE="2023-01-24"
-IN="Episode $NUMBER.m4v"
+IN="Episode $NUMBER.mov"
 OUT="$DATE-episode-$NUMBER.m4a"
 METADATA=~/Sites/hour.gg/_site/ffmetadata/$DATE-episode-$NUMBER.txt
 ffmpeg -i "$IN" -vn -acodec aac -ac 1 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i "$METADATA" -map_metadata 1 -codec copy "$OUT"
