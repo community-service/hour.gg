@@ -85,7 +85,7 @@
           <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].twitter }}">@{{ site.data.participants[badge.participant].twitter }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
           <p class="card-text">
             {{ site.data.participants[badge.participant].name }}
-            <span class="badge text-bg-warning">{{ badge.type }}</span>
+            <span class="badge text-bg-warning" title="{{ site.data.badges[badge.type].description }}">{{ site.data.badges[badge.type].name }}</span>
           </p>
         </div>
       </div>
