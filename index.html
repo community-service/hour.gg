@@ -131,7 +131,7 @@ layout: none
       </div>
     </div>        
 
-    {% assign episodes = site.episodes | sort: 'date' | reverse %}
+    {% assign episodes = site.episodes | sort: 'date' | reverse | slice: 0, 10 %}
     {% for episode in episodes %}
     <div class="row my-4">
       <div class="col-12 col-lg-10">
@@ -163,6 +163,10 @@ layout: none
       {% endif %}
     </div>
     {% endfor %}
+
+    <p class="mt-5">
+      <a class="link-primary" href="episodes">See all episodes &hellip;</a>
+    </p>
   </section>
 
   <section class="container-xl mt-4">
