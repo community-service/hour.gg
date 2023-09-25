@@ -48,4 +48,4 @@ Our selections:
 
 Specification: https://podcasters.apple.com/support/2482-using-chapters-on-apple-podcasts
 
-This site generates the ffmetadata files needed by ffmpeg to add chapter titles into an episode. See the output /ffmetadata folder. Also, a separate text-to-ffmetadata.js script is provided for convenience.
+This site generates the ffmetadata files needed by ffmpeg to add chapter titles into an episode. See the timecode cool.

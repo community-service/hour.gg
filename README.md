@@ -2,7 +2,7 @@
 
 https://hour.gg/
 
-We do **projects**, **take questions** and **discuss** the tech scene each week.
+Learn tech, pitch projects, [ask anything](https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour), [earn badges](https://hour.gg/#about-us).    
 
 | Join live                                                    | Participate                                                  | Add to calendar                                              | Past episodes                                                |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -13,33 +13,33 @@ We do **projects**, **take questions** and **discuss** the tech scene each week.
 ```mermaid
 graph LR
 s[Record show]
-v[Make video]
-v2[Make Shorts]
-yt[Publish to YouTube]
+v[Main video]
+v2[TikTok]
+yt[YouTube]
 tw[Tweet]
-hgg[hour.gg episode draft]
-sn[Show notes]
 pm[Podcast m4a file]
-hggl[hour.gg website live]
-p[Podcast]
+hggdraft[Episode draft]
+hggpublished[hour.gg and podcast]
 
-v-->yt
-v-->v2
-v--add timestamps-->sn
-yt--include link-->tw
-v--add timestamps-->hgg
-v--add edited transcript-->hgg
-v2--include link-->tw
-s--add title, description-->hgg
-s-->v
-hgg--use timestamps-->pm
-pm--add filesizes-->hggl
-hggl-->p
+v--Publish-->yt
+v--Cut-->v2
+yt--Link-->tw
+v2--Link-->tw
+s--Edit-->v
+s--Pull request-->hggdraft
+v--Timecode tool-->pm
+pm--Add filesizes-->hggpublished
+hggdraft-->hggpublished
+
+click yt "https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"
+click hgg "https://github.com/community-service/hour.gg/tree/main/_drafts"
+click draft "https://github.com/community-service/hour.gg/tree/main/_drafts"
+click v2 "https://www.tiktok.com/@fulldecent"
 ```
 
-## Draft episodes
+## Upcoming episodes
 
-New episodes can be drafted like this (you do the whole year's worth):
+Upcoming episodes can be drafted like this (do all episodes for the year to save time):
 
 ```sh
 NUMBER="62"
@@ -58,13 +58,16 @@ And also update [_data/upcoming-episodes.yml](_data/upcoming-episodes.yml)
 
 ## Production
 
-Draft a new episode and fill in the `title`, `description`, `badges`, `timeline`, `youtube-full`, `discussion`.
+Edit the [upcoming episode file](https://github.com/community-service/hour.gg/tree/main/_drafts) to fill in:
 
 * `title` from the show notes
 * `description` from the show notes, up to 400 characters
 * `badges` from the show notes
-  * Use their Twitter handle, lowercased, and if it is a number (e.g. `037` ) put it in quotes (e.g. `"037"`)
-  * Add this person to _/data/participants.yml if not already there, and add their profile photo to assets/participants/
+  * Use their X handle, lowercased, and if it is a number (e.g. `037` ) put it in quotes (e.g. `"037"`)
+  * Add this person to [_/data/participants.yml](_/data/participants.yml) if not already there, and add their profile photo to [assets/participants/](assets/participants/)
+
+Then produce the episode and fill in:
+
 * `timeline` from the show notes (if published)
 * `youtube-full` from the show notes (if published)
 * `discussion` from the show notes (if published)
@@ -87,7 +90,7 @@ METADATA=~/Sites/hour.gg/_site/ffmetadata/$DATE-episode-$NUMBER.txt
 ffmpeg -i "$IN" -vn -acodec aac -ac 1 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i "$METADATA" -map_metadata 1 -codec copy "$OUT"
 ```
 
-Update front matter with the media metadata like:
+Update front matter with the media metadata using the [timecode tool](http://hour.gg/timecode-tool).
 
 ```sh
 NUMBER=60
@@ -104,6 +107,7 @@ sed -i '' -e "s/enclosure-length: .*/enclosure-length: $SIZE/" _drafts/*-*-*-epi
 ```
 
 Now upload your media to the media storage location. You can publish the episode by moving it from the `/_drafts` folder to the `/_episodes` folder.
+
 
 ## Enrichment
 

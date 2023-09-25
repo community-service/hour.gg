@@ -1,8 +1,6 @@
 collections:
   episodes:
     output: true
-  ffmetadata:
-    output: true
 
 defaults:
   -
@@ -11,13 +9,6 @@ defaults:
       type: episodes
     values:
       layout: episode
-  - 
-    scope:
-      path: ""
-      type: ffmetadata
-    values:
-      layout: ffmetadata
-      permalink: /ffmetadata/:path.txt
 
 # https://jekyllrb.com/docs/configuration/liquid/
 liquid:
