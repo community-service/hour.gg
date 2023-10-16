@@ -5,6 +5,10 @@
 #   Use their publicly known name.
 # twitter:
 #   Use the Twitter profile handle without the @ symbol and in its original case.
+# github:
+#   Your GitHub username
+# ethereum:
+#   The public account for your ethereum identity, can be in 0x1234... format or a name service format
 
 fulldecent:
   name: William Entriken
