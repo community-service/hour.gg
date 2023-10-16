@@ -11,6 +11,7 @@
         --bs-body-bg: #341334;
         --bs-body-color: #f8fafc;
         --bs-primary-rgb: 242, 47, 84;
+        --bs-link-color-rgb: 242, 47, 84;
       }
       .btn-primary {
         --bs-btn-bg: #f22f54;
@@ -28,10 +29,18 @@
   </head>
   <body>
     <div class="container py-4">
+
+      <nav aria-label="breadcrumb" class="text-primary">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">CSH</a></li>
+          <li class="breadcrumb-item"><a href="/episodes">Episodes</a></li>
+        </ol>
+      </nav>
+
       <h1>
         {{ page.itunes-episode }} / {{ page.title | escape }}
       </h1>
-      <p>{{ page.description | escape }}</p>
+      <p class="lead">{{ page.description | escape }}</p>
       <!-- Show large audio player -->
       <div class="d-flex align-items-center">
         <audio controls>
@@ -56,40 +65,57 @@
           {% endfor %}
         {% endif %}
       </div>
-      <h2 id="timeline" class="mt-4">Timeline</h2>
-      <div class="timeline">
-        {% for item in page.timeline %}
-        {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
-        {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-        {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-        {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
-        {% if hoursHH == "00" %}
-          {% assign time = minutesMM | append: ":" | append: secondsSS %}
-        {% endif %}
-        <div>
-          <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
-          {% if page.youtube-full %}
-          <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
-          {% endif %}
-          <code>{{ time }}</code>
-          {{ item.title | escape }}
+      <div class="row row-cols-1 row-cols-lg-2">
+        <div class="col">
+          <h2 id="timeline" class="mt-4">Timeline</h2>
+          <div class="timeline">
+            {% for item in page.timeline %}
+            {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
+            {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
+            {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
+            {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
+            {% if hoursHH == "00" %}
+              {% assign time = minutesMM | append: ":" | append: secondsSS %}
+            {% endif %}
+            <div>
+              <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
+              {% if page.youtube-full %}
+              <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
+              {% endif %}
+              <code>{{ time }}</code>
+              {{ item.title | escape }}
+            </div>
+            {% endfor %}
+          </div>    
         </div>
-        {% endfor %}
-      </div>
-      <h2 class="mt-5">Badges</h2>
-      {% for badge in page.badges %}
+        <div class="col">
+          <h2>Badges</h2>
+          {% for badge in page.badges %}
+    
+          <div class="col hstack align-self-start gap-2 mb-3">
+            <img src="/assets/participants/{{ badge.participant }}.jpg" alt="{{ badge.participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
+            <div>
+              <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].twitter }}">@{{ site.data.participants[badge.participant].twitter }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
+              <p class="card-text">
+                {{ site.data.participants[badge.participant].name }}
+                <span class="badge text-bg-warning" title="{{ site.data.badges[badge.type].description }}">{{ site.data.badges[badge.type].name }}</span>
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div> <!-- .row -->
+      <hr>
 
-      <div class="col hstack align-self-start gap-2 mb-3">
-        <img src="/assets/participants/{{ badge.participant }}.jpg" alt="{{ badge.participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
-        <div>
-          <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].twitter }}">@{{ site.data.participants[badge.participant].twitter }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
-          <p class="card-text">
-            {{ site.data.participants[badge.participant].name }}
-            <span class="badge text-bg-warning" title="{{ site.data.badges[badge.type].description }}">{{ site.data.badges[badge.type].name }}</span>
-          </p>
-        </div>
-      </div>
-      {% endfor %}
+      <h2>
+        Episode notes
+      </h2>
+      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: "%Y-%m-%d" }}-episode-{{ page.itunes-episode }}.md" class="icon-link mb-5">
+        <i class="bi bi-github"></i>
+        Edit these notes&hellip;
+      </a>
+
+      {{ content }}
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

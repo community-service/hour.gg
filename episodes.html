@@ -46,27 +46,55 @@ layout: none
 
     {% assign episodes = site.episodes | sort: 'date' | reverse %}
     {% for episode in episodes %}
-    <div class="row my-4">
-      <div class="col-12 col-lg-10">
-        <h2>
-          {{ episode.itunes-episode}} / {{ episode.title | escape }}
-          <span class="hstack d-inline-flex">
-            <!-- Participants from this specific episode -->
-            {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
-            {% for participant_id in some_participant_ids %}
-            <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
-            {% endfor %}
-            <!-- + how many not shown... -->
-            {% assign remaining = episode.badges.size | minus: 3 %}
-            {% if remaining > 0 %}
-            <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
-              {{- remaining -}}
-            </span>
-            {% endif %}
-          </span>
-        </h2>
-        <p>{{ episode.description | escape }}</p>
-        <p><a class="link-primary" href="{{ episode.url | relative_url }}">Read more&hellip;</a></p>
+    <h2 class="d-flex gap-1 align-items-center">
+      <a href="{{ episode.url | relative_url }}" class="link-primary">
+        {{ episode.itunes-episode}} / {{ episode.title | escape }}
+      </a>
+      <span class="hstack d-inline-flex">
+        <!-- Participants from this specific episode -->
+        {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
+        {% for participant_id in some_participant_ids %}
+        <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
+        {% endfor %}
+        <!-- + how many not shown... -->
+        {% assign remaining = episode.badges.size | minus: 3 %}
+        {% if remaining > 0 %}
+        <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
+          {{- remaining -}}
+        </span>
+        {% endif %}
+      </span>
+    </h2>
+    <div class="row mb-4">
+      <div class="col-lg">
+        <ul>
+          <!-- timeline entries -->
+          <!-- Set timeline = episode.timeline except 00:00 Intro -->
+          {% assign timeline = episode.timeline | where_exp: "item", "item.seconds > 0" %}
+          {% for item in timeline %}
+          {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
+          {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
+          {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
+          {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
+          {% if hoursHH == "00" %}
+            {% assign time = minutesMM | append: ":" | append: secondsSS %}
+          {% endif %}
+          <li>
+            <code>{{ time }}</code>
+            {{ item.title | escape }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-lg">
+        <!-- page excerpt -->
+        {{ episode.excerpt }}
+
+        <!-- edit on GitHub, use this episode's file name -->
+        <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: "%Y-%m-%d" }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
+          <i class="bi bi-github"></i>
+          Edit these notes&hellip;
+        </a>
       </div>
     </div>
     {% endfor %}

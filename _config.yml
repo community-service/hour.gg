@@ -9,6 +9,7 @@ defaults:
       type: episodes
     values:
       layout: episode
+      excerpt_separator: <!--end of quick notes-->
 
 # https://jekyllrb.com/docs/configuration/liquid/
 liquid:
