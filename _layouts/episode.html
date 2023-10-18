@@ -37,11 +37,14 @@
         </ol>
       </nav>
 
-      <h1>
+      <h1 class="fs-3">
 {% if page.posted == false %}
         <span class="badge rounded-pill bg-warning text-dark">Draft</span>
 {% endif %}
         {{ page.itunes-episode }} / {{ page.title | escape }}
+        {% if page.subtitle != "" %}
+        <br><small>{{ page.subtitle | escape }}</small>
+        {% endif %}
       </h1>
       <p class="lead">{{ page.description | escape }}</p>
 

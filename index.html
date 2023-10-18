@@ -132,9 +132,16 @@ layout: none
     {% for episode in episodes %}
     <div class="row my-4">
       <div class="col-12 col-lg-10 position-relative">
-        <h2>
+        <h2 class="fs-4">
           <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
-            {{ episode.itunes-episode}} / {{ episode.title | escape }}
+            <div>
+              {{ episode.itunes-episode}} / {{ episode.title | escape }}
+              {% if episode.subtitle != "" %}
+              <br><small>{{ episode.subtitle }}</small>
+              {% endif %}
+            </div>
+            
+
             <span class="hstack d-inline-flex ms-1">
               <!-- Participants from this specific episode -->
               {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
