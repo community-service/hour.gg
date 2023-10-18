@@ -32,20 +32,16 @@ After the video is edited, fill in:
 
 * `discussion` the X URL
 
-* `enclosure-length`
+* `enclosure-length` and `itunes-duration`
 
   ```sh
-  PODCAST="Episode 85.m4a"
-  SIZE=$(stat -f%z $PODCAST)
-  echo $SIZE
-  ```
-
-* `itunes-duration`
-
-  ```sh
-  PODCAST="Episode 85.m4a"
-  DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $PODCAST | cut -d. -f1)
-  echo $DURATION
+  EPISODE=2023-08-29-episode-91
+  export SIZE=$(ssh media.phor.net 'stat -c %s **/media/csh/'$EPISODE.m4a)
+  # yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md # MESSES UP WHITESPACE
+  sed -i '' "s/enclosure-length:.*/enclosure-length: $SIZE/" _episodes/$EPISODE.md
+  
+  export DURATION=$(ssh media.phor.net 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 **/media/csh/'$EPISODE.m4a '| cut -d. -f1')
+  sed -i '' "s/itunes-duration:.*/itunes-duration: $DURATION/" _episodes/$EPISODE.md
   ```
 
 * Upload the audio file, then set `posted: true`

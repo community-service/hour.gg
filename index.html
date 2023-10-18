@@ -121,7 +121,7 @@ layout: none
     </div>
 
     <h1 class="my-4">
-      <a class="link-primary" href="/episodes">Past episodes</a>
+      <a class="link-primary" href="/episodes">Episodes</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple Podcasts</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ">Spotify</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN">YouTube</a>
@@ -140,8 +140,6 @@ layout: none
               <br><small>{{ episode.subtitle }}</small>
               {% endif %}
             </div>
-            
-
             <span class="hstack d-inline-flex ms-1">
               <!-- Participants from this specific episode -->
               {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}

@@ -3,7 +3,6 @@ posted: false
 guid: UPDATE ME
 title: UPDATE ME
 subtitle: UPDATE ME
-subtitle: ""
 description: UPDATE ME 
 time: UPDATE ME
 pubDate: UPDATE ME
