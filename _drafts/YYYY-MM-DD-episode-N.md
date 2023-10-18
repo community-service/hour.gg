@@ -1,8 +1,10 @@
 ---
+posted: false
 guid: UPDATE ME
 title: UPDATE ME
 subtitle: UPDATE ME
 description: UPDATE ME 
+time: UPDATE ME
 pubDate: UPDATE ME
 itunes-explicit: "no"
 itunes-episode: UPDATE ME

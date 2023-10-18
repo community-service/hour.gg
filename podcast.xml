@@ -23,7 +23,8 @@
     <copyright>{{ site.data.channel.copyright | escape }}</copyright>
     <atom:link href="{{ site.url }}{{ site.baseurl }}/podcast.xml" rel="self" type="application/rss+xml" />
 
-    {% for episode in site.episodes %}
+    {% assign episodes = site.episodes | where: "posted", "true" | sort: "date" | reverse %}
+    {% for episode in episodes %}
     <item>
       <title>{{ episode.title | escape }}</title>
       <enclosure
