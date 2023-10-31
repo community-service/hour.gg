@@ -97,3 +97,13 @@ sed -i '' -e "s/pubDate: .*/pubDate: \"$PUBDATE\"/" _drafts/$EPISODE.md
 sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
 sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
+
+### Maintenance
+
+```sh
+# Roll forward episodes
+mv _episodes/2023-10-31-episode-100 _episodes/2023-11-07-episode-100
+sed -i '' 's/2023-10-31/2023-11-07/g' _episodes/2023-11-07-episode-100.md
+sed -i '' 's/31 Oct 2023/07 Nov 2023/g' _episodes/2023-11-07-episode-100.md
+# ... autocomplete rest
+```
