@@ -35,7 +35,7 @@ After the video is edited, fill in:
 * `enclosure-length` and `itunes-duration`
 
   ```sh
-  EPISODE=2023-08-29-episode-91
+  EPISODE=2023-10-10-episode-97
   export SIZE=$(ssh media.phor.net 'stat -c %s **/media/csh/'$EPISODE.m4a)
   # yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md # MESSES UP WHITESPACE
   sed -i '' "s/enclosure-length:.*/enclosure-length: $SIZE/" _episodes/$EPISODE.md
@@ -43,6 +43,8 @@ After the video is edited, fill in:
   export DURATION=$(ssh media.phor.net 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 **/media/csh/'$EPISODE.m4a '| cut -d. -f1')
   sed -i '' "s/itunes-duration:.*/itunes-duration: $DURATION/" _episodes/$EPISODE.md
   ```
+
+  
 
 * Upload the audio file, then set `posted: true`
 
