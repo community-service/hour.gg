@@ -14,7 +14,7 @@ description: "Learn tech, pitch projects, ask anything, earn badges. Live every 
 itunes-image: "https://hour.gg/podcast.jpg"
 language: "en-us"
 itunes-category: "Technology" # The repo only supports one category, but Apple supports multiple
-itunes-explicit: "no" # Apple docs say to use "false" but EVERYBODY is using "no" https://github.com/search?q=%22itunes%3Aexplicit%22&type=code
+itunes-explicit: false
 itunes-author: "William Entriken"
 link: "https://hour.gg"
 itunes-owner-name: "William Entriken"

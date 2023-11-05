@@ -5,8 +5,7 @@ title: UPDATE ME
 subtitle: UPDATE ME
 description: UPDATE ME 
 time: UPDATE ME
-pubDate: UPDATE ME
-itunes-explicit: "no"
+itunes-explicit: false
 itunes-episode: UPDATE ME
 itunes-episodeType: full
 

@@ -89,13 +89,11 @@ Draft upcoming episodes like this (do all episodes through the next February to 
 NUMBER="62"
 EPISODE="2023-02-07-episode-$NUMBER"
 TIME="2023-02-07 18:00:00 -0500"
-PUBDATE="Tue, 7 Feb 2023 18:00:00 -0500" # New York EST/EDT as appropriate
 URL="https://media.phor.net/csh/$EPISODE.m4a"
 UUID=$(uuidgen)
 cp _drafts/YYYY-MM-DD-episode-N.md _drafts/$EPISODE.md
 sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" _drafts/$EPISODE.md
 sed -i '' -e "s/title: .*/title: \"Episode $NUMBER\"/" _drafts/$EPISODE.md
-sed -i '' -e "s/pubDate: .*/pubDate: \"$PUBDATE\"/" _drafts/$EPISODE.md
 sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
 sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```

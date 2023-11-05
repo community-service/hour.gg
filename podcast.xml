@@ -33,7 +33,7 @@
         type="{{ episode.enclosure-type }}"
       />
       <guid isPermaLink="false">{{ episode.guid | escape }}</guid>
-      <pubDate>{{ episode.pubDate | escape }}</pubDate>
+      <pubDate>{{ episode.time | date_to_rfc822 }}</pubDate>
       <itunes:duration>{{ episode.itunes-duration | escape }}</itunes:duration>
       <itunes:explicit>{{ episode.itunes-explicit | escape }}</itunes:explicit>
       <itunes:episode>{{ episode.itunes-episode | escape }}</itunes:episode>
