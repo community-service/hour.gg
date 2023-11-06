@@ -1,0 +1,132 @@
+---
+layout: none
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Community Service Hour</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg=" crossorigin="anonymous">
+    <link rel="alternate" type="application/rss+xml" title="Community Service Hour" href="/podcast.xml">
+
+    <style>
+      :root {
+        --bs-body-bg: #341334;
+        --bs-body-color: #f8fafc;
+        --bs-primary-rgb: 242, 47, 84;
+        --bs-link-color-rgb: 242, 47, 84;
+      }
+      .btn-primary {
+        --bs-btn-bg: #f22f54;
+        --bs-btn-border-color: #f22f54;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #ce3e59;
+        --bs-btn-hover-border-color: #ce3e59;
+        --bs-btn-focus-shadow-rgb: 0 0 0;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #a84b5c;
+        --bs-btn-active-border-color: #a84b5c;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+      }
+    </style>
+  </head>
+<body>
+  <section class="container-xl py-4">
+
+    <nav aria-label="breadcrumb" class="text-primary">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">CSH</a></li>
+      </ol>
+    </nav>
+
+    <h1 class="my-4">Adding member information</h1>
+    <p class="lead">
+      We at Community Service Hour recognize the contribution of all participants in our weekly show using badges. These are featured mainly on our <a href="/">homepage</a> and <a href="/episodes">episodes pages</a>.
+    </p>
+
+    <p class="lead">
+      However, collecting <strong>profile photos</strong> and <strong>names</strong> (if public) for each participant requires human effort. X specifically blocks robots. And we need your help!
+    </p>
+
+    <p class="lead">
+      For any missing NAME below, please get their name from X and then paste in on the EDIT button. Likewise, for missing photos, please download from the X profile page, name the file as the lowercase X username, and then upload it using the EDIT button.
+    </p>
+
+    <h2 class="mt-5">Game progress</h2>
+    {% assign numerator = 0 %}
+    {% assign denominator = 0 %}
+    {% for participant in site.data.participants -%}
+      {% assign denominator = denominator | plus: 2 %}
+      {% if participant[1].name != "???" %}
+        {% assign numerator = numerator | plus: 1 %}
+      {% endif %}
+      {% assign exists = false %}
+      {% for file in site.static_files %}
+        {% if file.path contains participant[0] %}
+          {% assign exists = true %}
+        {% endif %}
+      {% endfor %}
+      {% if exists == true %}
+        {% assign numerator = numerator | plus: 1 %}
+      {% endif %}
+    {% endfor -%}
+    <!-- Bootstrap progress bar -->
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: {{ numerator | times: 100 | divided_by: denominator }}%;" aria-valuenow="{{ numerator | times: 100 | divided_by: denominator }}" aria-valuemin="0" aria-valuemax="100">{{ numerator | times: 100 | divided_by: denominator }}%</div>
+    </div>
+
+    <h2 class="mt-5">All participants/badges</h2>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <td>x</td>
+        <td>name</td>
+        <td>photo</td>
+      </tr>
+    {% for participant in site.data.participants -%}
+      <tr>
+        <td>
+          {{ participant[0] }}
+        </td>
+        <td class="position-relative">
+          <a href="http://twitter.com/{{ participant[1].x }}" class="stretched-link" target="_blank">
+            {{ participant[1].x }}
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-primary" href="https://github.com/community-service/hour.gg/blob/main/_data/participants.yml">
+            Edit
+          </a>
+          {% if participant[1].name == "???" %}
+          <span class="badge rounded-pill bg-warning text-dark">Missing</span>
+          {% else %}
+          {{ participant[1].name }}
+          {% endif %}
+        </td>
+        <td>
+          <a class="btn btn-primary" href="https://github.com/community-service/hour.gg/tree/main/assets/participants">
+            Edit
+          </a>
+          {% assign exists = false %}
+          {% for file in site.static_files %}
+            {% if file.path contains participant[0] %}
+              {% assign exists = true %}
+              <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant[0] }}">
+            {% endif %}
+          {% endfor %}
+          {% if exists == false %}
+            <span class="badge rounded-pill bg-warning text-dark">Missing</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor -%}
+    </table>
+
+  </section>
+
+  <footer class="container-xl my-4 py-4">
+    <a class="lead link-primary" href="https://github.com/community-service/hour.gg">Edit this page &hellip;</a>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
