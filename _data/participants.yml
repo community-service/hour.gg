@@ -1,237 +1,417 @@
-# id:#   If the participant is known by their Twitter handle, lowercase it and use that as the ID.:
-#   If the id numeric (e.g. 037), enclose the id with double quotes (").
-#   Otherwise, choose a unique ID and use that consistently across episodes.
+# Hey everyone, here is where you can update your "identity" in the Community Service Hour community.
+# This is for your tokens/badges. And also if we refer you for jobs/work.
+#
+# LISTEN UP!
+#
+# The ID (the first line that is not indented in each group)
+#   For 99.9% of people this is your X username but just all lowercased.
+#   And if your username starts with a number, put it in quotes like this: "037"
+#
+# x:
+#   Use the X profile handle without the @ symbol and in its original uppercase/lowercase spelling.
+#
 # name:
-#   Use their publicly known name.
-# twitter:
-#   Use the Twitter profile handle without the @ symbol and in its original case.
+#   Your publicly known name.
+#   Then put a "#" (which is a comment) and paste exactly which URL this name is listed on. (Usually the X profile page)
+#   We do this for privacy reasons, to ensure we are not doxxing people that did not intend to be doxxed.
+#   Thank you!
+#
 # github:
 #   Your GitHub username
+#   Then put a "#" (which is a comment) and prove that this X profile endorses that GitHub account.
+#   Again, this is a privacy thing, thank you for understanding!
+#
 # ethereum:
 #   The public account for your ethereum identity, can be in 0x1234... format or a name service format
+#   Again, privacy is super important here and we require proof that this is authorized.
 
 fulldecent:
-  name: William Entriken
-  twitter: fulldecent
+  x: fulldecent
+  name: William Entriken # https://twitter.com/fulldecent
+  github: # https://twitter.com/fulldecent > https://phor.net > https://github.com/fulldecent
+  ethereum: fulldecent.eth # https://twitter.com/fulldecent > https://phor.net
 dtedesco1:
-  name: Daniel Tedesco
-  twitter: dtedesco1
+  x: dtedesco1
+  name: Daniel Tedesco # https://twitter.com/dtedesco1
+  github: # https://twitter.com/dtedesco1 > https://dtedes.co > https://github.com/dtedesco1
 "037":
   name: ???
-  twitter: "037"
-0xrobrecht:
+  x: "037"
+"0xrobrecht":
   name: ???
-  twitter: 0xrobrecht
-1lunam:
+  x: "0xrobrecht"
+"1lunam":
   name: ???
-  twitter: 1LunaM
-33807vf2:
+  x: "1LunaM"
+"33807vf2":
   name: ???
-  twitter: 33807VF2
-7anac:
+  x: "33807VF2"
+"7anac":
   name: ???
-  twitter: 7anac
+  x: "7anac"
 amiacs:
   name: ???
-  twitter: amiacs
+  x: amiacs
 ana_s_14:
   name: ???
-  twitter: Ana_S_14
+  x: Ana_S_14
 anereseth:
   name: ???
-  twitter: anereseth
+  x: anereseth
 axellemoortgat:
   name: ???
-  twitter: axellemoortgat
+  x: axellemoortgat
 bestrabbiever:
   name: ???
-  twitter: BestRabbiEver
+  x: BestRabbiEver
 bturtel:
   name: ???
-  twitter: BTurtel
+  x: BTurtel
 cameronjohnbale:
   name: ???
-  twitter: CameronJohnBale
+  x: CameronJohnBale
 cer_andrew:
   name: ???
-  twitter: cer_andrew
+  x: cer_andrew
 cryptonerdylady:
   name: ???
-  twitter: cryptonerdylady
+  x: cryptonerdylady
 darianbailey14:
   name: ???
-  twitter: darianbailey14
+  x: darianbailey14
 digidot:
   name: ???
-  twitter: digidot
-dot_______:
-  name: ???
-  twitter: dot_______
-duribeb:
-  name: ???
-  twitter: duribeb
-ellievoxel:
-  name: ???
-  twitter: EllieVoxel
-ethereumremix:
-  name: ???
-  twitter: EthereumRemix
-exstalis:
-  name: ???
-  twitter: exstalis
-gjohnsx:
-  name: ???
-  twitter: gjohnsx
-gm8xx8:
-  name: ???
-  twitter: gm8xx8
-h_t_v_:
-  name: ???
-  twitter: H_T_V_
-jacobhaap:
-  name: ???
-  twitter: jacobhaap
-jeremymckane:
-  name: ???
-  twitter: jeremymckane
-jhinnbay:
-  name: ???
-  twitter: jhinnbay
-legend:
-  name: ???
-  twitter: Legend
-lockey374:
-  name: ???
-  twitter: Lockey374
-lorvg_eraeu:
-  name: ???
-  twitter: lorvg_eraeu
-madr00t:
-  name: ???
-  twitter: madr00t
-marco_anima:
-  name: ???
-  twitter: Marco_ANIMA
-missvikii:
-  name: ???
-  twitter: missvikii
-mlitman:
-  name: ???
-  twitter: mlitman
-nunya_crypto:
-  name: ???
-  twitter: nunya_crypto
-qbuttonphd:
-  name: ???
-  twitter: qbuttonphd
-retromort:
-  name: ???
-  twitter: retromort
-rito_rhymes:
-  name: ???
-  twitter: Rito_Rhymes
-rocsolmiami:
-  name: ???
-  twitter: rocsolmiami
-ryestew:
-  name: ???
-  twitter: ryestew
-sbu_honeyradio:
-  name: ???
-  twitter: SBU_HoneyRadio
-scarletdeth:
-  name: ???
-  twitter: scarletdeth
-stackierobins0n:
-  name: ???
-  twitter: StackieRobins0n
-su9liminal:
-  name: ???
-  twitter: su9liminal
-sylo_tv:
-  name: ???
-  twitter: sylo_tv
-t012n4d0:
-  name: ???
-  twitter: t012n4d0
-tasrikan:
-  name: ???
-  twitter: tasrikan
-temmanuel:
-  name: ???
-  twitter: temmanuel
-thealchemist_17:
-  name: ???
-  twitter: thealchemist_17
-themiamiape:
-  name: ???
-  twitter: TheMiamiApe
-thewhyman:
-  name: ???
-  twitter: thewhyman
-urbanwarriornft:
-  name: ???
-  twitter: UrbanWarriorNFT
-vjdeliria:
-  name: ???
-  twitter: VjDeliria
-warontheworm:
-  name: ???
-  twitter: warontheworm
-web3news_media:
-  name: ???
-  twitter: web3news_media
-wingdude:
-  name: ???
-  twitter: WingDude
-xtinatedesco:
-  name: ???
-  twitter: xtinatedesco
-yodude38:
-  name: ???
-  twitter: yodude38
-jamescbury:
-  name: ???
-  twitter: jamescbury  
-diana_bnb:
-  name: ???
-  twitter: diana_bnb
-lorelordnft:
-  name: ???
-  twitter: lorelordnft
+  x: digidot
 dov_______:
   name: ???
-  twitter: dov_______
+  x: dov_______
+duribeb:
+  name: ???
+  x: duribeb
+ellievoxel:
+  name: ???
+  x: EllieVoxel
+ethereumremix:
+  name: ???
+  x: EthereumRemix
+exstalis:
+  name: ???
+  x: exstalis
+gjohnsx:
+  name: ???
+  x: gjohnsx
+gm8xx8:
+  name: ???
+  x: gm8xx8
+h_t_v_:
+  name: ???
+  x: H_T_V_
+jacobhaap:
+  name: ???
+  x: jacobhaap
+jeremymckane:
+  name: ???
+  x: jeremymckane
+jhinnbay:
+  name: ???
+  x: jhinnbay
+legend:
+  name: ???
+  x: Legend
+lockey374:
+  name: ???
+  x: Lockey374
+lorvg_eraeu:
+  name: ???
+  x: lorvg_eraeu
+madr00t:
+  name: ???
+  x: madr00t
+marco_anima:
+  name: ???
+  x: Marco_ANIMA
+missvikii:
+  name: ???
+  x: missvikii
+mlitman:
+  name: ???
+  x: mlitman
+nunya_crypto:
+  name: ???
+  x: nunya_crypto
+qbuttonphd:
+  name: ???
+  x: qbuttonphd
+retromort:
+  name: ???
+  x: retromort
+rito_rhymes:
+  name: ???
+  x: Rito_Rhymes
+rocsolmiami:
+  name: ???
+  x: rocsolmiami
+ryestew:
+  name: ???
+  x: ryestew
+sbu_honeyradio:
+  name: ???
+  x: SBU_HoneyRadio
+scarletdeth:
+  name: ???
+  x: scarletdeth
+stackierobins0n:
+  name: ???
+  x: StackieRobins0n
+su9liminal:
+  name: ???
+  x: su9liminal
+sylo_tv:
+  name: ???
+  x: sylo_tv
+t012n4d0:
+  name: ???
+  x: t012n4d0
+tasrikan:
+  name: ???
+  x: tasrikan
+temmanuel:
+  name: ???
+  x: temmanuel
+thealchemist_17:
+  name: ???
+  x: thealchemist_17
+themiamiape:
+  name: ???
+  x: TheMiamiApe
+thewhyman:
+  name: ???
+  x: thewhyman
+urbanwarriornft:
+  name: ???
+  x: UrbanWarriorNFT
+vjdeliria:
+  name: ???
+  x: VjDeliria
+warontheworm:
+  name: ???
+  x: warontheworm
+web3news_media:
+  name: ???
+  x: web3news_media
+wingdude:
+  name: ???
+  x: WingDude
+xtinatedesco:
+  name: ???
+  x: xtinatedesco
+yodude38:
+  name: ???
+  x: yodude38
+jamescbury:
+  name: ???
+  x: jamescbury  
+diana_bnb:
+  name: ???
+  x: diana_bnb
+lorelordnft:
+  name: ???
+  x: lorelordnft
 ronard50882140:
   name: ???
-  twitter: ronard50882140
+  x: ronard50882140
 zeno3956:
   name: ???
-  twitter: zeno3956
+  x: zeno3956
 terminaldao:
   name: ???
-  twitter: terminaldao
+  x: terminaldao
 cliffvandercave:
   name: ???
-  twitter: cliffvandercave
+  x: cliffvandercave
 natyshi_:
   name: ???
-  twitter: natyshi_
+  x: natyshi_
 afri_deva:
   name: ???
-  twitter: afri_deva
+  x: afri_deva
 criptochocolate:
   name: ???
-  twitter: criptochocolate
+  x: criptochocolate
 uchihacfc:
   name: ???
-  twitter: uchihacfc
+  x: uchihacfc
 teleworkgroupp:
   name: ???
-  twitter: teleworkgroupp
+  x: teleworkgroupp
 chelobyte:
   name: ???
-  twitter: chelobyte
+  x: chelobyte
 ervincastrop:
   name: ???
-  twitter: ervincastrop
+  x: ervincastrop
+sizzlejia:
+  name: ???
+  x: sizzlejia
+jasonji2022:
+  name: ???
+  x: jasonji2022
+_iwylie:
+  name: ???
+  x: _iwylie
+audiochain_io:
+  name: ???
+  x: audiochain_io
+babycoby_:
+  name: ???
+  x: babycoby_
+begumbitir:
+  name: ???
+  x: begumbitir
+bitboypunk:
+  name: ???
+  x: bitboypunk
+chili_me:
+  name: ???
+  x: chili_me
+dac_cybercoffee:
+  name: ???
+  x: dac_cybercoffee
+digawen_xd:
+  name: ???
+  x: digawen_xd
+djing_04:
+  name: ???
+  x: djing_04
+dkarr1234:
+  name: ???
+  x: dkarr1234
+domsvg:
+  name: ???
+  x: domsvg
+dustdust213:
+  name: ???
+  x: dustdust213
+fellasophic:
+  name: ???
+  x: fellasophic
+findartsociety:
+  name: ???
+  x: findartsociety
+gpuhawk    :
+  name: ???
+  x: gpuhawk
+iamnotbarkmeta:
+  name: ???
+  x: iamnotbarkmeta
+itscuzzo:
+  name: ???
+  x: itscuzzo
+itsnickreyes:
+  name: ???
+  x: itsnickreyes
+jeffalomaniac:
+  name: ???
+  x: jeffalomaniac
+kinako588:
+  name: ???
+  x: kinako588
+lana_lux:
+  name: ???
+  x: lana_lux
+lazererik:
+  name: ???
+  x: lazererik
+lil_astr_0:
+  name: ???
+  x: lil_astr_0
+lil_kat002:
+  name: ???
+  x: lil_kat002
+lucasgw:
+  name: ???
+  x: lucasgw
+magicking_:
+  name: ???
+  x: magicking_
+marctehan:
+  name: ???
+  x: marctehan
+meadowmarque:
+  name: ???
+  x: meadowmarque
+merwyx:
+  name: ???
+  x: merwyx
+metaweardrip:
+  name: ???
+  x: metaweardrip
+mooncatrescuer:
+  name: ???
+  x: mooncatrescuer
+musik4l:
+  name: ???
+  x: musik4l
+nft_hoarder0:
+  name: ???
+  x: nft_hoarder0
+nfthypeman:
+  name: ???
+  x: nfthypeman
+noahjelich:
+  name: ???
+  x: noahjelich
+nosocialengine:
+  name: ???
+  x: nosocialengine
+nowandishh60492:
+  name: ???
+  x: nowandishh60492
+perusojohn:
+  name: ???
+  x: perusojohn
+ppcbz:
+  name: ???
+  x: ppcbz
+raxonchain:
+  name: ???
+  x: raxonchain
+realsternbauer:
+  name: ???
+  x: realsternbauer
+reubenmetcalfe:
+  name: ???
+  x: reubenmetcalfe
+rungoodrussell:
+  name: ???
+  x: rungoodrussell
+sandergansen:
+  name: ???
+  x: sandergansen
+shaggyrax:
+  name: ???
+  x: shaggyrax
+streetphoto_eth:
+  name: ???
+  x: streetphoto_eth
+substratexyz:
+  name: ???
+  x: substratexyz
+tigerisfine:
+  name: ???
+  x: tigerisfine
+tommybytes:
+  name: ???
+  x: tommybytes
+ulticrypto:
+  name: ???
+  x: ulticrypto
+ynnitan:
+  name: ???
+  x: ynnitan
+yourezekielx:
+  name: ???
+  x: yourezekielx
+zomlings  :
+  name: ???
+  x: zomlings

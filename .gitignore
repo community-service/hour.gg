@@ -1,4 +1,5 @@
 _site
 /vendor
-/Gemfile.lock # Because GitHub Pages does not consider that file when building
+# Because GitHub Pages does not consider that file when building
+/Gemfile.lock
 /.bundle
