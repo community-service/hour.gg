@@ -107,3 +107,29 @@ sed -i '' 's/2023-10-31/2023-11-07/g' _episodes/2023-11-07-episode-100.md
 sed -i '' 's/31 Oct 2023/07 Nov 2023/g' _episodes/2023-11-07-episode-100.md
 # ... autocomplete rest
 ```
+
+### YouTube description template
+
+```
+PASTE TIMELINE HERE
+
+JOIN TUESDAYS AT 6PM NEW YORK // https://hour.gg // with your cohosts William Entriken and Daniel Tedesco
+
+PASTE KEYWORDS/HASHTAGS HERE
+
+MEDIA CREDITS
+“Block Shape Diamond” by Tamiya @ Sketchfab, modified, CC BY 4.0.
+“Diamond” by DarkPixel Studios @ Sketchfab, modified, CC BY 4.0.
+“Sentence photo” by creativeart @ freepik, modified.
+“Scary Island” by Verified Picasso @ YouTube.
+“Tech texture vector” by starline @ freepik, modified.
+Motion graphics by Gisela Leyva
+```
+
+### Our tech stack
+
+- [OBS](https://obsproject.com) / [obs-transition-move plugin](https://obsproject.com/forum/resources/move-transition.913/)
+- [Elmedia Video Player](https://www.elmedia-video-player.com/) (mirror iPhone to Mac)
+- [GSKAIWEN Studio LED Kit](https://amzn.to/3eXJ3Xy) / [Alexis iO2 USB audio](https://www.alesis.com/products/legacy/io2) / Samson microphone / [Lavalier Lapel mic](https://amzn.to/3MWMl9U)
+- Twitch / Twitter Spaces / Discord event
+- OBS / 1 stream audio / 2 vocal mic / 3 aux mic / 4 laptop mic / 5 desktop audio / 6 other audio
