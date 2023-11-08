@@ -31,3 +31,5 @@ badges:
   - type: stayed-to-end
     participant: dtedesco1
 ---
+
+<!--end of quick notes-->

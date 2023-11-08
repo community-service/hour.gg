@@ -213,7 +213,7 @@ document.getElementById('file').addEventListener('change', function() {
             let endSeconds = (i + 1 < chapters.length) ? chapters[i + 1].seconds : (parseInt(chapters[i].seconds, 10) + 1).toString();
             ffmpegFormat += `[CHAPTER]\nTIMEBASE=1/1\nSTART=${chapters[i].seconds}\nEND=${endSeconds}\ntitle=${chapters[i].title}\n\n`;
         }
-        ffmpegFormat += 'EOF\nffmpeg -i "$INPUT" -vn -acodec aac -ac 1 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i /tmp/ffmetadata.txt -map_metadata 1 -codec copy "$OUTPUT"';
+        ffmpegFormat += 'EOF\nffmpeg -i "$INPUT" -vn -acodec aac -ac 2 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i /tmp/ffmetadata.txt -map_metadata 1 -codec copy "$OUTPUT"';
         document.getElementById('ffmpeg').textContent = ffmpegFormat;
     };
 

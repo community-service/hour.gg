@@ -98,16 +98,6 @@ sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
 sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
 
-### Maintenance
-
-```sh
-# Roll forward episodes
-mv _episodes/2023-10-31-episode-100 _episodes/2023-11-07-episode-100
-sed -i '' 's/2023-10-31/2023-11-07/g' _episodes/2023-11-07-episode-100.md
-sed -i '' 's/31 Oct 2023/07 Nov 2023/g' _episodes/2023-11-07-episode-100.md
-# ... autocomplete rest
-```
-
 ### YouTube description template
 
 ```
@@ -124,6 +114,46 @@ MEDIA CREDITS
 “Scary Island” by Verified Picasso @ YouTube.
 “Tech texture vector” by starline @ freepik, modified.
 Motion graphics by Gisela Leyva
+```
+
+### Do transcript
+
+```sh
+#!/bin/zsh
+
+# Define the path to the whisper.cpp directory and model
+whisper_path="$HOME/Developer/whisper.cpp"
+model_path="$whisper_path/models/ggml-base.en.bin"
+
+# Loop through all .m4a files in the current directory
+for episode in *.m4a; do
+  base="${episode:r}"
+  ffmpeg -i "${episode}" -ar 16000 -ac 2 -f wav - | \
+  "${whisper_path}/main" --language en --diarize --output-txt --model "${model_path}" --output-file "${base}" -
+  echo "Finished processing ${episode}"
+done
+```
+
+
+```
+
+❯ openai api chat.completions.create --model gpt-4-1106-preview -g system "You are a helpful chatbot" -g user 'hello'
+
+
+
+
+
+export episode=2021-12-21-episode-3
+
+
+ffmpeg -i 2021-12-21-episode-3.m4a -ar 16000 -f wav - | ~/Developer/whisper.cpp/main --language en --output-txt --model ~/Developer/whisper.cpp/models/ggml-base.en.bin --output-file 2021-12-21-episode-3-CPP -
+
+
+for remote_file_path in $(ssh apps.phor.net "ls domains/phor.net/public_html/media/csh/*.m4a"); do
+  echo "Downloading ${remote_file_path}"
+  filename=$(basename -- "$remote_file_path")
+  ssh apps.phor.net "cat ${remote_file_path}" | whisper - --language English | tee "${filename}.transcript.txt"
+done
 ```
 
 ### Our tech stack
