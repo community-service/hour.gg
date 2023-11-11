@@ -123,36 +123,36 @@ Motion graphics by Gisela Leyva
 
 # Define the path to the whisper.cpp directory and model
 whisper_path="$HOME/Developer/whisper.cpp"
-model_path="$whisper_path/models/ggml-base.en.bin"
+model_path="${whisper_path}/models/ggml-base.en.bin"
 
 # Loop through all .m4a files in the current directory
-for episode in *.m4a; do
-  base="${episode:r}"
-  ffmpeg -i "${episode}" -ar 16000 -ac 2 -f wav - | \
-  "${whisper_path}/main" --language en --diarize --output-txt --model "${model_path}" --output-file "${base}" -
-  echo "Finished processing ${episode}"
+for episode_file in *.m4a; do
+    # Extract the base name without the extension for the episode
+    episode="${episode_file%.m4a}"
+
+    # Process the episode file with ffmpeg and pass the output to whisper
+    ffmpeg -i "${episode_file}" -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-txt --model "${model_path}" --output-file "${episode}" -
 done
 ```
 
 
 ```
+FOLDER=~/Sites/hour.gg/_episodes
 
-❯ openai api chat.completions.create --model gpt-4-1106-preview -g system "You are a helpful chatbot" -g user 'hello'
+the next step on improving this is to provide an example input and manually created output of exactly what we want and then include that in the command run!
 
+do this as a tbone, make tbones bigger
 
-
-
-
-export episode=2021-12-21-episode-3
-
-
-ffmpeg -i 2021-12-21-episode-3.m4a -ar 16000 -f wav - | ~/Developer/whisper.cpp/main --language en --output-txt --model ~/Developer/whisper.cpp/models/ggml-base.en.bin --output-file 2021-12-21-episode-3-CPP -
-
-
-for remote_file_path in $(ssh apps.phor.net "ls domains/phor.net/public_html/media/csh/*.m4a"); do
-  echo "Downloading ${remote_file_path}"
-  filename=$(basename -- "$remote_file_path")
-  ssh apps.phor.net "cat ${remote_file_path}" | whisper - --language English | tee "${filename}.transcript.txt"
+for episode_file in *.txt; do
+    EPISODE="${episode_file%.txt}" # Strips the .txt extension and assigns to EPISODE
+    CONTENT=$(cat "$episode_file")
+    
+    # Call the OpenAI API and append the output to the markdown file in the desired folder
+    openai api chat.completions.create \
+        --model gpt-4-1106-preview \
+        -g user "$CONTENT" \
+        -g system 'Transform the following raw transcript into a well-structured markdown document. Ensure that you include headings for different speakers, bullet points for key topics discussed, and italicize any emphasized words. Also, please correct any obvious grammatical mistakes and format the content to be clear and professional.' \
+        --stream | tee -a "$FOLDER/$EPISODE.md"
 done
 ```
 
