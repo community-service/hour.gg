@@ -103,7 +103,7 @@ sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
 ```
 PASTE TIMELINE HERE
 
-JOIN TUESDAYS AT 6PM NEW YORK // https://hour.gg // with your cohosts William Entriken and Daniel Tedesco
+Join our live weekly call // https://hour.gg // with your cohosts William Entriken and Daniel Tedesco
 
 PASTE KEYWORDS/HASHTAGS HERE
 
