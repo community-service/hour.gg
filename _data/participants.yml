@@ -38,8 +38,8 @@ dtedesco1:
 "037":
   x: "037"
   name: AKM # https://x.com/037 > https://spuz.me/about/ > https://www.linkedin.com/in/uname
-  github: # https://x.com/037 > https://spuz.me/about/ > https://github.com/649
-  ethereum: 0xB3b021519e57d5ad33C4b7FE6eaB9495e3e9Bd64
+  github: "649" # https://x.com/037 > https://spuz.me/about/ > https://github.com/649
+  ethereum: 0xB3b021519e57d5ad33C4b7FE6eaB9495e3e9Bd64 # https://github.com/649 > https://qmosi.com/akm
 "0xrobrecht":
   x: "0xrobrecht"
   name: ???
