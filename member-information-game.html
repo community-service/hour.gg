@@ -41,18 +41,18 @@ layout: none
 
     <h1 class="my-4">Member information game</h1>
 
-    <iframe class="float-end" width="560" height="315" src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe class="float-lg-end" width="560" height="315" src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
     <p class="lead">
-      We at Community Service Hour recognize the contribution of all participants in our weekly show using badges. These are featured mainly on our <a href="/">homepage</a> and <a href="/episodes">episodes pages</a>.
+      We at Community Service Hour recognize the contribution of all participants on our <a href="/">homepage</a> and <a href="/episodes">episodes pages</a>.
     </p>
 
     <p class="lead">
-      However, collecting <strong>profile photos</strong> and <strong>names</strong> (if public) for each participant requires human effort. X specifically blocks robots. And we need your help!
+      Please help us fill in your information so we can do our token drops.
     </p>
 
     <p class="lead">
-      For any missing NAME below, please get their name from X and then paste in on the EDIT button. Likewise, for missing photos, please download from the X profile page, name the file as the lowercase X username, and then upload it using the EDIT button.
+      Only use publicly available information. And see the video for help --&gt;
     </p>
 
     <h2 class="mt-5">Game progress</h2>
@@ -97,28 +97,32 @@ layout: none
           </a>
         </td>
         <td>
-          <a class="btn btn-primary" href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank">
-            Edit
-          </a>
           {% if participant[1].name == "???" %}
-          <span class="badge rounded-pill bg-warning text-dark">Missing</span>
+          <a class="btn btn-primary" href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank">
+            Add name
+          </a>
           {% else %}
           {{ participant[1].name }}
+          <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank">
+            Edit
+          </a>
           {% endif %}
         </td>
         <td>
-          <a class="btn btn-primary" href="https://github.com/community-service/hour.gg/upload/main/assets/participants" target="_blank">
-            Edit
-          </a>
           {% assign exists = false %}
           {% for file in site.static_files %}
             {% if file.path contains participant[0] %}
               {% assign exists = true %}
-              <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant[0] }}">
-            {% endif %}
+              <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem" alt="Photo of {{ participant[0] }}">
+              <a href="https://github.com/community-service/hour.gg/upload/main/assets/participants" target="_blank">
+                Edit
+              </a>
+                {% endif %}
           {% endfor %}
           {% if exists == false %}
-            <span class="badge rounded-pill bg-warning text-dark">Missing</span>
+          <a class="btn btn-primary" href="https://github.com/community-service/hour.gg/upload/main/assets/participants" target="_blank">
+            Add photo
+          </a>
           {% endif %}
         </td>
       </tr>
