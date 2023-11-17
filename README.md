@@ -16,7 +16,7 @@ When a show is over, please edit the [episode file](_episodes) (anybody can pull
 * `description` from the show notes, up to 400 characters
 * `badges` from the show notes
   * Use their X handle, lowercased, and if it is a number (e.g. `037`) put it in quotes (e.g. `"037"`)
-  * If new, add this person to [_/data/participants.yml](_/data/participants.yml) and add their profile photo to [assets/participants/](assets/participants/)
+  * If new, add this person to [_data/participants.yml](_data/participants.yml) and add their profile photo to [assets/participants/](assets/participants/)
 * Add quick notes and links below the `---` front matter
   * Add useful keywords and hyperlinks for items we discussed
   * Add hyperlinks (X or homepage preferred) for people that we mention
