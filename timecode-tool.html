@@ -150,6 +150,7 @@ title: Timecode tool
   }
 
   document.getElementById('file').addEventListener('change', function () {
+    const fileNameBase = this.files[0].name.split('.')[0];
     const fileReader = new FileReader();
     fileReader.onload = function () {
       const lines = fileReader.result.split('\n');
@@ -205,8 +206,7 @@ title: Timecode tool
       document.getElementById('yaml').textContent = yamlFormat;
 
       // ffmpeg format:
-      const filenameBase = this.files[0].name.split('.')[0];
-      let ffmpegFormat = `INPUT="${filenameBase}.mov"\nOUTPUT="${filenameBase}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n`;
+      let ffmpegFormat = `INPUT="${fileNameBase}.mov"\nOUTPUT="${fileNameBase}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n`;
       ffmpegFormat += ';FFMETADATA1\n\n';
       for (let i = 0; i < chapters.length; i++) {
         let endSeconds = (i + 1 < chapters.length) ? chapters[i + 1].seconds : (parseInt(chapters[i].seconds, 10) + 1).toString();
