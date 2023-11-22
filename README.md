@@ -155,5 +155,5 @@ done
 - [OBS](https://obsproject.com) / [obs-transition-move plugin](https://obsproject.com/forum/resources/move-transition.913/)
 - [Elmedia Video Player](https://www.elmedia-video-player.com/) (mirror iPhone to Mac)
 - [GSKAIWEN Studio LED Kit](https://amzn.to/3eXJ3Xy) / [Alexis iO2 USB audio](https://www.alesis.com/products/legacy/io2) / Samson microphone / [Lavalier Lapel mic](https://amzn.to/3MWMl9U)
-- Twitch / Twitter Spaces / Discord event
+- Twitch / X Spaces / Discord event
 - OBS / 1 stream audio / 2 vocal mic / 3 aux mic / 4 laptop mic / 5 desktop audio / 6 other audio

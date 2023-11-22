@@ -1,0 +1,112 @@
+---
+layout: page
+title: Participants
+---
+<h1 class="my-4">Participants</h1>
+
+<iframe class="float-lg-end ms-3 mb-3" width="300" height="150" src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<p class="lead">
+  🚨 <a href="https://twitter.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg">DM Will</a>
+  or click <kbd>EDIT</kbd> below to update how you are shown on this website and so we know where to send your token drops.
+</p>
+
+<p class="lead">
+  ℹ️ You can follow people below all at once with <a href="https://twitter.com/fulldecent/lists">our lists on X</a>.
+</p>  
+
+<table class="table">
+  <tr>
+    <th>Participant</th>
+    <th>Name</th>
+    <th>Ethereum</th>
+    <th>GitHub</th>
+    <th>Photo</th>
+    <th>Last participated</th>
+    <th>Edit</th>
+  </tr>
+{% for participant in site.data.participants -%}
+  <tr id="{{ participant[0] }}">
+    <td class="position-relative">
+      <a href="http://twitter.com/{{ participant[1].x }}" class="stretched-link icon-link" target="_blank">
+        <i class="bi-twitter-x"></i>
+        {{ participant[1].x }}
+      </a>
+    </td>
+    <td class="position-relative">
+      {{ participant[1].name | default: "???" }}
+    </td>
+    <td class="position-relative">
+      {% assign ethereum = participant[1].ethereum | default: "???" %}
+      {% if ethereum == "???" %}
+      ???
+      {% else %}
+      <a href="ethereum:{{ participant[1].ethereum }}" class="stretched-link icon-link">
+        <i class="bi-wallet"></i>
+        {% assign suffix = participant[1].ethereum | slice: -4, 4 %}
+        {% if suffix == ".eth" %}
+        {{ participant[1].ethereum }}
+        {% else %}
+        <code>{{ participant[1].ethereum }}</code>
+        {% endif %}
+      </a>
+      {% endif %}
+    </td>
+    <td class="position-relative">
+      {% assign github = participant[1].github | default: "???" %}
+      {% if github == "???" %}
+      ???
+      {% else %}
+      <a href="https://github.com/{{ participant[1].github }}" class="stretched-link icon-link">
+        <i class="bi-github"></i>
+        {{ participant[1].github }}
+      {% endif %}
+    </td>
+      <td class="position-relative">
+      {% for file in site.static_files %}
+        {% if file.path contains participant[0] %}
+          <p>
+            <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem" alt="Photo of {{ participant[0] }}">
+          </p>
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </td>
+    <td class="position-relative">
+      {% assign episodes = site.episodes | where: "posted", true | reverse %}
+      {% for episode in episodes -%}
+        {% assign foundBadge = episode.badges | where: "participant", participant[0] -%}
+        {% if foundBadge.size > 0 -%}
+          <a href="{{ episode.url }}" target="_blank" class="stretched-link">
+            {{ episode.itunes-episode }} / {{ episode.title | escape }}
+          </a>
+        
+          {% break %}
+        {% endif -%}
+      {% endfor -%}
+    </td>
+    <td class="position-relative">
+      <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank" class="stretched-link btn btn-primary btn-sm">
+        Edit
+      </a>
+    </td>
+  </tr>
+{% endfor -%}
+</table>
+
+<h2 class="mt-5">Missing photos</h2>
+<p>Please <a href="https://github.com/community-service/hour.gg/tree/main/assets/participants">add photos</a> for these participants to fix broken image links.</p>
+
+<ul>
+  {% for participant in site.data.participants -%}
+    {% assign exists = false %}
+    {% for file in site.static_files %}
+      {% if file.path contains participant[0] %}
+        {% assign exists = true %}
+      {% endif %}
+    {% endfor %}
+    {% if exists == false %}
+      <li><a href="https://twitter.com/{{ participant[1].x }}" target="_blank">{{ participant[1].x }}</a></li>
+    {% endif %}
+  {% endfor -%}
+</ul>

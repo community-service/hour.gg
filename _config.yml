@@ -10,6 +10,7 @@ defaults:
     values:
       layout: episode
       excerpt_separator: <!--end of quick notes-->
+      permalink: /:collection/:name
 
 # https://jekyllrb.com/docs/configuration/liquid/
 liquid:

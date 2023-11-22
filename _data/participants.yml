@@ -28,18 +28,18 @@
 fulldecent:
   x: fulldecent
   name: William Entriken # https://twitter.com/fulldecent
-  github: # https://twitter.com/fulldecent > https://phor.net > https://github.com/fulldecent
-  ethereum: fulldecent.eth # https://twitter.com/fulldecent > https://phor.net
+  github: fulldecent # https://twitter.com/fulldecent > https://phor.net > https://github.com/fulldecent
+  ethereum: "fulldecent.eth" # https://twitter.com/fulldecent > https://phor.net
 dtedesco1:
   x: dtedesco1
   name: Daniel Tedesco # https://twitter.com/dtedesco1
   github: # https://twitter.com/dtedesco1 > https://dtedes.co > https://github.com/dtedesco1
-  ethereum: 0x072408eA37972B83720693D158a85D98A8316340
+  ethereum: "0x072408eA37972B83720693D158a85D98A8316340"
 "037":
   x: "037"
   name: AKM # https://x.com/037 > https://spuz.me/about/ > https://www.linkedin.com/in/uname
   github: "649" # https://x.com/037 > https://spuz.me/about/ > https://github.com/649
-  ethereum: 0xB3b021519e57d5ad33C4b7FE6eaB9495e3e9Bd64 # https://github.com/649 > https://qmosi.com/akm
+  ethereum: "0xB3b021519e57d5ad33C4b7FE6eaB9495e3e9Bd64" # https://github.com/649 > https://qmosi.com/akm
 "0xrobrecht":
   x: "0xrobrecht"
   name: ???
@@ -58,7 +58,7 @@ anereseth:
 axellemoortgat:
   x: axellemoortgat
   name: Axelle Moortgat
-  ethereum: 0x8E1787F750b94716c2c54dfD9f1a08C842B5742a
+  ethereum: "0x8E1787F750b94716c2c54dfD9f1a08C842B5742a"
 bestrabbiever:
   x: BestRabbiEver
   name: ???
@@ -84,7 +84,7 @@ dov_______:
   x: dov_______
   name: Benjamin Scheinberg
   github: theSchein
-  ethereum: 0xb7d8E0F586f0838dCc6BDaa25d608472cc419B60
+  ethereum: "0xb7d8E0F586f0838dCc6BDaa25d608472cc419B60"
 duribeb:
   x: duribeb
   name: ???
@@ -130,7 +130,7 @@ missvikii:
 mlitman:
   x: mlitman
   name: Michael Litman # @fulldecent vouches to have received this in a DM from them 2023-11-21
-  ethereum: mlitman.eth # @fulldecent vouches to have received this in a DM from them 2023-11-21
+  ethereum: "mlitman.eth" # @fulldecent vouches to have received this in a DM from them 2023-11-21
 nunya_crypto:
   x: nunya_crypto
   name: ???
@@ -141,13 +141,14 @@ ethereumremix:
   x: Remix
   name: Remix Project # https://twitter.com/EthereumRemix
   github: # https://twitter.com/EthereumRemix > https://remix-project.org > https://github.com/ethereum/remix-project/
-  ethereum: remix-project.eth # https://twitter.com/EthereumRemix > https://github.com/ethereum/remix-project/
+  ethereum: "remix-project.eth" # https://twitter.com/EthereumRemix > https://github.com/ethereum/remix-project/
 retromort:
   x: retromort
   name: ???
 rito_rhymes:
   x: Rito_Rhymes
-  name: ???
+  name: Ritorhymes
+  ethereum: "Ritorhymes.eth" # from DM with @fulldecent 2023-11-22
 rocsolmiami:
   x: rocsolmiami
   name: ???
@@ -155,14 +156,14 @@ ryestew:
   x: ryestew
   name: Rob Stupay # https//twitter.com/ryestew
   github: # https://twitter.com/ryestew > https://github.com/ryestew
-  ethereum: ryestew.eth # https://twitter.com/ryestew > https://github.com/ryestew
+  ethereum: "ryestew.eth" # https://twitter.com/ryestew > https://github.com/ryestew
 sbu_honeyradio:
   x: SBU_HoneyRadio
   name: ???
 scarletdeth:
   x: scarletdeth
   name: Alice Eidson
-  ethereum: 0x1203ef354cd5c228d5de2e7633ed6685ffcec1b1
+  ethereum: "0x1203ef354cd5c228d5de2e7633ed6685ffcec1b1"
 stackierobins0n:
   x: StackieRobins0n
   name: ???
@@ -195,7 +196,8 @@ urbanwarriornft:
   name: ???
 vjdeliria:
   x: VjDeliria
-  name: ???
+  name: Vj Deliria
+  ethereum: "Vjdeliria.eth" # from DM with @fulldecent 2023-11-22
 web3news_media:
   x: web3news_media
   name: ???
@@ -229,7 +231,7 @@ terminaldao:
 cliffvandercave:
   x: cliffvandercave
   name: Cliff Vandercave
-  ethereum: 0x145EB0c7F29E0d9481473623eF3c2182A58EDE01
+  ethereum: "0x145EB0c7F29E0d9481473623eF3c2182A58EDE01"
 natyshi_:
   x: natyshi_
   name: ???
@@ -317,12 +319,12 @@ lana_lux:
 lazererik:
   x: lazererik #TinyVikingsNFT
   name: Lars #SagaverseApp
-  ethereum: 0x6bf8FF99B6F469bA684A510Ae7DA4D636258557d #
+  ethereum: "0x6bf8FF99B6F469bA684A510Ae7DA4D636258557d"
 lil_astr_0:
   x: lil_astr_0
   name: Ge
   github: https://github.com/Astr0-G
-  ethereum: 0xa4D411536cbC9c70AdCC966b3dBd755372Fd6CFE
+  ethereum: "0xa4D411536cbC9c70AdCC966b3dBd755372Fd6CFE"
 lil_kat002:
   x: lil_kat002
   name: ???
