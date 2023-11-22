@@ -94,9 +94,6 @@ duribeb:
 ellievoxel:
   x: EllieVoxel
   name: ???
-ethereumremix:
-  x: EthereumRemix
-  name: ???
 exstalis:
   x: exstalis
   name: ???
@@ -145,7 +142,7 @@ nunya_crypto:
 qbuttonphd:
   x: qbuttonphd
   name: ???
-remix:
+ethereumremix:
   x: Remix
   name: Remix Project # https://twitter.com/EthereumRemix
   github: # https://twitter.com/EthereumRemix > https://remix-project.org > https://github.com/ethereum/remix-project/
