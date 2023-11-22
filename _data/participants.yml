@@ -412,9 +412,11 @@ zomlings:
 v3ct0rfi:
   x: v3ct0rfi
   name: ???
-"0x7jay":
+"0x7jay": # from DM with @fulldecent 2023-11-22
   x: "0x7jay"
-  name: ???
+  name: Jay Chen
+  github: "0x7Jay"
+  ethereum: "0x7JayC.eth"
 murder_ders:
   x: murder_ders
   name: ???
