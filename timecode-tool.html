@@ -205,7 +205,8 @@ title: Timecode tool
       document.getElementById('yaml').textContent = yamlFormat;
 
       // ffmpeg format:
-      let ffmpegFormat = 'INPUT="Untitled.mov"\nOUTPUT="${INPUT%.*}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n';
+      const filenameBase = this.files[0].name.split('.')[0];
+      let ffmpegFormat = `INPUT="${filenameBase}.mov"\nOUTPUT="${filenameBase}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n`;
       ffmpegFormat += ';FFMETADATA1\n\n';
       for (let i = 0; i < chapters.length; i++) {
         let endSeconds = (i + 1 < chapters.length) ? chapters[i + 1].seconds : (parseInt(chapters[i].seconds, 10) + 1).toString();
