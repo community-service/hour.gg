@@ -20,11 +20,19 @@ title: Badges
         {% assign episodesThisYear = group.items -%}
         <h3 class="mt-5">{{ year }}</h3>
         <table class="table">
-          <tr><th>Participant</th><th>First achieved</th></tr>
+          <tr><th>Participant</th><th>First achieved</th><th>Ethereum</th></tr>
           {% for participant in site.data.participants -%}
             {% for episode in episodesThisYear -%}
               {% assign foundBadge = episode.badges | where: "participant", participant[0] | where: "type", badge[0] -%}
               {% if foundBadge.size > 0 -%}
+                {% assign participantData = "" -%}
+                {% for participantDataSearching in site.data.participants -%}
+                  {% if participantDataSearching[0] == participant[0] -%}
+                    {% assign participantData = participantDataSearching -%}
+                    {% break -%}
+                  {% endif -%}
+                {% endfor -%}
+                  
                 <tr>
                   <td class="position-relative">
                     <a href="https://twitter.com/{{ participant[0] }}" class="stretched-link">
@@ -32,6 +40,11 @@ title: Badges
                     </a>
                   </td>
                   <td>{{ episode.date | date: "%Y-%m-%d" }}</td>
+                  <td>
+                    {% if participantData[1].ethereum == "???" -%}
+                    {% else -%}
+                      {{ participantData[1].ethereum }}
+                    {% endif -%}
                 </tr>
                 {% break %}
               {% endif -%}
