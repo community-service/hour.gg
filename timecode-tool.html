@@ -1,225 +1,220 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Timecode tool</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body data-bs-theme="dark" class="container-lg my-3">
-    <h1>Timecode tool</h1>
-    <p>Use DaVince Resolve > Edit Page > Media Pool > Timeline > Timelines (right click) > Export > Markers EDL.</p>
+---
+layout: page
+title: Timecode tool
+---
+<h1>Timecode tool</h1>
+<p>Use DaVince Resolve > Edit Page > Media Pool > Timeline > Timelines (right click) > Export > Markers EDL.</p>
 
-    <div class="row mb-4">
-      <label for="file" class="col col-lg-2 col-form-label">Upload EDL</label>
-      <div class="col col-lg-10">
-        <input type="file" id="file" name="file" class="form-control" accept=".edl" />
-      </div>
-    </div>
+<div class="row mb-4">
+  <label for="file" class="col col-lg-2 col-form-label">Upload EDL</label>
+  <div class="col col-lg-10">
+    <input type="file" id="file" name="file" class="form-control" accept=".edl" />
+  </div>
+</div>
 
-    <div class="row mb-4">
-      <label for="youtube" class="col col-lg-2 col-form-label">
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('youtube').select(); document.execCommand('copy');">Copy</button><br>
-        YouTube timecodes
-      </label>
-      <div class="col col-lg-10">
-        <textarea id="youtube" class="form-control" rows="5"></textarea>
-      </div>
-    </div>
+<div class="row mb-4">
+  <label for="youtube" class="col col-lg-2 col-form-label">
+    <button type="button" class="btn btn-primary"
+      onclick="document.getElementById('youtube').select(); document.execCommand('copy');">Copy</button><br>
+    YouTube timecodes
+  </label>
+  <div class="col col-lg-10">
+    <textarea id="youtube" class="form-control" rows="5"></textarea>
+  </div>
+</div>
 
-    <div class="row mb-4">
-      <label for="yaml" class="col col-lg-2 col-form-label">
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('yaml').select(); document.execCommand('copy');">Copy</button><br>
-        YAML timecodes
-      </label>
-      <div class="col col-lg-10">
-        <textarea id="yaml" class="form-control" rows="5"></textarea>
-      </div>
-    </div>
+<div class="row mb-4">
+  <label for="yaml" class="col col-lg-2 col-form-label">
+    <button type="button" class="btn btn-primary"
+      onclick="document.getElementById('yaml').select(); document.execCommand('copy');">Copy</button><br>
+    YAML timecodes
+  </label>
+  <div class="col col-lg-10">
+    <textarea id="yaml" class="form-control" rows="5"></textarea>
+  </div>
+</div>
 
-    <div class="row mb-4">
-      <label for="ffmpeg" class="col col-lg-2 col-form-label">
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('ffmpeg').select(); document.execCommand('copy');">Copy</button><br>
-        ffmpeg program for podcast audio with chapter markers
-      </label>
-      <div class="col col-lg-10">
-        <textarea id="ffmpeg" class="form-control" rows="5"></textarea>
-      </div>
-    </div>
+<div class="row mb-4">
+  <label for="ffmpeg" class="col col-lg-2 col-form-label">
+    <button type="button" class="btn btn-primary"
+      onclick="document.getElementById('ffmpeg').select(); document.execCommand('copy');">Copy</button><br>
+    ffmpeg program for podcast audio with chapter markers
+  </label>
+  <div class="col col-lg-10">
+    <textarea id="ffmpeg" class="form-control" rows="5"></textarea>
+  </div>
+</div>
 
-    <script>
-/*
-# Input file format:####################################################################################################
-TITLE: Timeline 2
-FCM: NON-DROP FRAME
-
-001  001      V     C        01:00:36:00 01:00:36:01 01:00:36:00 01:00:36:01  
- |C:ResolveColorBlue |M:Break in to DApps |D:1
-
-002  001      V     C        01:01:48:27 01:01:48:28 01:01:48:27 01:01:48:28  
- |C:ResolveColorBlue |M:Pulled over by cop |D:1
-
-003  001      V     C        01:04:21:03 01:04:21:04 01:04:21:03 01:04:21:04  
- |C:ResolveColorBlue |M:Proper logins |D:1
-
-004  001      V     C        01:12:37:11 01:12:37:12 01:12:37:11 01:12:37:12  
- |C:ResolveColorBlue |M:Stick Drippy Crystals |D:1
-
-005  001      V     C        01:16:02:29 01:16:03:00 01:16:02:29 01:16:03:00  
- |C:ResolveColorBlue |M:Stoner SEC |D:1
-
-006  001      V     C        01:22:44:04 01:22:44:05 01:22:44:04 01:22:44:05  
- |C:ResolveColorBlue |M:One weird trick |D:1
-# YouTube format:#######################################################################################################
-00:00 Intro
-00:36 Break in to DApps
-01:48 Pulled over by cop
-04:21 Proper logins
-12:37 Stick Drippy Crystals
-16:02 Stoner SEC
-22:44 One weird trick
-# YAML format:##########################################################################################################
-timeline:
+<script>
+  /*
+  # Input file format:####################################################################################################
+  TITLE: Timeline 2
+  FCM: NON-DROP FRAME
+  
+  001  001      V     C        01:00:36:00 01:00:36:01 01:00:36:00 01:00:36:01  
+  |C:ResolveColorBlue |M:Break in to DApps |D:1
+  
+  002  001      V     C        01:01:48:27 01:01:48:28 01:01:48:27 01:01:48:28  
+  |C:ResolveColorBlue |M:Pulled over by cop |D:1
+  
+  003  001      V     C        01:04:21:03 01:04:21:04 01:04:21:03 01:04:21:04  
+  |C:ResolveColorBlue |M:Proper logins |D:1
+  
+  004  001      V     C        01:12:37:11 01:12:37:12 01:12:37:11 01:12:37:12  
+  |C:ResolveColorBlue |M:Stick Drippy Crystals |D:1
+  
+  005  001      V     C        01:16:02:29 01:16:03:00 01:16:02:29 01:16:03:00  
+  |C:ResolveColorBlue |M:Stoner SEC |D:1
+  
+  006  001      V     C        01:22:44:04 01:22:44:05 01:22:44:04 01:22:44:05  
+  |C:ResolveColorBlue |M:One weird trick |D:1
+  # YouTube format:#######################################################################################################
+  00:00 Intro
+  00:36 Break in to DApps
+  01:48 Pulled over by cop
+  04:21 Proper logins
+  12:37 Stick Drippy Crystals
+  16:02 Stoner SEC
+  22:44 One weird trick
+  # YAML format:##########################################################################################################
+  timeline:
   - seconds: 0
-    title: Intro
+  title: Intro
   - seconds: 36
-    title: Break in to DApps
+  title: Break in to DApps
   - seconds: 108
-    title: Pulled over by cop
+  title: Pulled over by cop
   - seconds: 261
-    title: Proper logins
+  title: Proper logins
   - seconds: 757
-    title: Stick Drippy Crystals
+  title: Stick Drippy Crystals
   - seconds: 962
-    title: Stoner SEC
+  title: Stoner SEC
   - seconds: 1364
-    title: One weird trick
-# ffmpeg format:########################################################################################################
-echo > /tmp/ffmetadata.txt <<EOF
-INPUT=Untitled.mov
-OUTPUT=Untitled.m4a
-;FFMETADATA1
+  title: One weird trick
+  # ffmpeg format:########################################################################################################
+  echo > /tmp/ffmetadata.txt <<EOF
+  INPUT=Untitled.mov
+  OUTPUT=Untitled.m4a
+  ;FFMETADATA1
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=0
+  END=36
+  title=Intro
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=36
+  END=108
+  title=Break in to DApps
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=108
+  END=261
+  title=Pulled over by cop
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=261
+  END=757
+  title=Proper logins
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=757
+  END=962
+  title=Stick Drippy Crystals
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=962
+  END=1364
+  title=Stoner SEC
+  
+  [CHAPTER]
+  TIMEBASE=1/1
+  START=1364
+  END=1365
+  title=One weird trick
+  ffmpeg -i $INPUT -i /tmp/ffmetadata.txt -map_metadata 1 -codec copy $OUTPUT
+  EOF
+  */
 
-[CHAPTER]
-TIMEBASE=1/1
-START=0
-END=36
-title=Intro
-
-[CHAPTER]
-TIMEBASE=1/1
-START=36
-END=108
-title=Break in to DApps
-
-[CHAPTER]
-TIMEBASE=1/1
-START=108
-END=261
-title=Pulled over by cop
-
-[CHAPTER]
-TIMEBASE=1/1
-START=261
-END=757
-title=Proper logins
-
-[CHAPTER]
-TIMEBASE=1/1
-START=757
-END=962
-title=Stick Drippy Crystals
-
-[CHAPTER]
-TIMEBASE=1/1
-START=962
-END=1364
-title=Stoner SEC
-
-[CHAPTER]
-TIMEBASE=1/1
-START=1364
-END=1365
-title=One weird trick
-ffmpeg -i $INPUT -i /tmp/ffmetadata.txt -map_metadata 1 -codec copy $OUTPUT
-EOF
-*/
-
-function formatTime(seconds) {
+  function formatTime(seconds) {
     let mins = Math.floor(seconds / 60);
     let secs = seconds % 60;
     return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-}
+  }
 
-document.getElementById('file').addEventListener('change', function() {
+  document.getElementById('file').addEventListener('change', function () {
     const fileReader = new FileReader();
-    fileReader.onload = function() {
-        const lines = fileReader.result.split('\n');
-        let chapters = [];
-        
-        for (let i = 0; i < lines.length - 1; i++) {
-            const timeMatch = lines[i].match(/^\d{3}  \d{3}      V     C        (\d{2}):(\d{2}):(\d{2}):(\d{2})/);
-            const metaMatch = lines[i + 1].match(/^\W*\|C:.*?\|M:(.*?) \|D:1\W*/);
-            if (timeMatch && metaMatch) {
-                const hours = parseInt(timeMatch[1], 10);
-                const minutes = parseInt(timeMatch[2], 10);
-                const seconds = parseInt(timeMatch[3], 10);
-                const frame = parseInt(timeMatch[4], 10);
-                const totalSeconds = hours * 60 * 60 + minutes * 60 + seconds + frame / 24;
-                chapters.push({
-                    seconds: totalSeconds.toFixed(0),
-                    title: metaMatch[1]
-                });
-                i++; // Skip the next line since we've processed it
-            }
+    fileReader.onload = function () {
+      const lines = fileReader.result.split('\n');
+      let chapters = [];
+
+      for (let i = 0; i < lines.length - 1; i++) {
+        const timeMatch = lines[i].match(/^\d{3}  \d{3}      V     C        (\d{2}):(\d{2}):(\d{2}):(\d{2})/);
+        const metaMatch = lines[i + 1].match(/^\W*\|C:.*?\|M:(.*?) \|D:1\W*/);
+        if (timeMatch && metaMatch) {
+          const hours = parseInt(timeMatch[1], 10);
+          const minutes = parseInt(timeMatch[2], 10);
+          const seconds = parseInt(timeMatch[3], 10);
+          const frame = parseInt(timeMatch[4], 10);
+          const totalSeconds = hours * 60 * 60 + minutes * 60 + seconds + frame / 24;
+          chapters.push({
+            seconds: totalSeconds.toFixed(0),
+            title: metaMatch[1]
+          });
+          i++; // Skip the next line since we've processed it
         }
+      }
 
-        // Check if all chapters have hour value of 1 (why does DaVinci Resolve do this!?)
-        const allChaptersStartAtOneHour = chapters.every(chapter => parseInt(chapter.seconds, 10) >= 3600);
+      // Check if all chapters have hour value of 1 (why does DaVinci Resolve do this!?)
+      const allChaptersStartAtOneHour = chapters.every(chapter => parseInt(chapter.seconds, 10) >= 3600);
 
-        // Subtract one hour (3600 seconds) from each chapter if they all start from the 1-hour mark
-        if (allChaptersStartAtOneHour) {
-            for (let chapter of chapters) {
-                chapter.seconds = (parseInt(chapter.seconds, 10) - 3600).toString();
-            }
+      // Subtract one hour (3600 seconds) from each chapter if they all start from the 1-hour mark
+      if (allChaptersStartAtOneHour) {
+        for (let chapter of chapters) {
+          chapter.seconds = (parseInt(chapter.seconds, 10) - 3600).toString();
         }
+      }
 
-        // If there's no chapter at time zero, add an "Intro" chapter at the beginning
-        if (chapters.length === 0 || chapters[0].seconds !== 0) {
-            chapters.unshift({
-                seconds: 0,
-                title: "Intro"
-            });
-        }
-
-        // YouTube format:
-        let youtubeFormat = '';
-        chapters.forEach(chapter => {
-            youtubeFormat += `${formatTime(parseInt(chapter.seconds, 10))} ${chapter.title}\n`;
+      // If there's no chapter at time zero, add an "Intro" chapter at the beginning
+      if (chapters.length === 0 || chapters[0].seconds !== 0) {
+        chapters.unshift({
+          seconds: 0,
+          title: "Intro"
         });
-        document.getElementById('youtube').textContent = youtubeFormat;
+      }
 
-        // YAML format:
-        let yamlFormat = "timeline:\n";
-        chapters.forEach(chapter => {
-            yamlFormat += `  - seconds: ${chapter.seconds}\n    title: ${chapter.title}\n`;
-        });
-        document.getElementById('yaml').textContent = yamlFormat;
+      // YouTube format:
+      let youtubeFormat = '';
+      chapters.forEach(chapter => {
+        youtubeFormat += `${formatTime(parseInt(chapter.seconds, 10))} ${chapter.title}\n`;
+      });
+      document.getElementById('youtube').textContent = youtubeFormat;
 
-        // ffmpeg format:
-        let ffmpegFormat = 'INPUT="Untitled.mov"\nOUTPUT="${INPUT%.*}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n';
-        ffmpegFormat += ';FFMETADATA1\n\n';
-        for (let i = 0; i < chapters.length; i++) {
-            let endSeconds = (i + 1 < chapters.length) ? chapters[i + 1].seconds : (parseInt(chapters[i].seconds, 10) + 1).toString();
-            ffmpegFormat += `[CHAPTER]\nTIMEBASE=1/1\nSTART=${chapters[i].seconds}\nEND=${endSeconds}\ntitle=${chapters[i].title}\n\n`;
-        }
-        ffmpegFormat += 'EOF\nffmpeg -i "$INPUT" -vn -acodec aac -ac 2 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i /tmp/ffmetadata.txt -map_metadata 1 -codec copy "$OUTPUT"';
-        document.getElementById('ffmpeg').textContent = ffmpegFormat;
+      // YAML format:
+      let yamlFormat = "timeline:\n";
+      chapters.forEach(chapter => {
+        yamlFormat += `  - seconds: ${chapter.seconds}\n    title: ${chapter.title}\n`;
+      });
+      document.getElementById('yaml').textContent = yamlFormat;
+
+      // ffmpeg format:
+      let ffmpegFormat = 'INPUT="Untitled.mov"\nOUTPUT="${INPUT%.*}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n';
+      ffmpegFormat += ';FFMETADATA1\n\n';
+      for (let i = 0; i < chapters.length; i++) {
+        let endSeconds = (i + 1 < chapters.length) ? chapters[i + 1].seconds : (parseInt(chapters[i].seconds, 10) + 1).toString();
+        ffmpegFormat += `[CHAPTER]\nTIMEBASE=1/1\nSTART=${chapters[i].seconds}\nEND=${endSeconds}\ntitle=${chapters[i].title}\n\n`;
+      }
+      ffmpegFormat += 'EOF\nffmpeg -i "$INPUT" -vn -acodec aac -ac 2 -ar 44100 -b:a 160k -af loudnorm=I=-16:TP=-1:LRA=11:print_format=json -f matroska - | ffmpeg -i - -i /tmp/ffmetadata.txt -map_metadata 1 -codec copy "$OUTPUT"';
+      document.getElementById('ffmpeg').textContent = ffmpegFormat;
     };
 
     fileReader.readAsText(this.files[0]);
-});
-
-    </script>
-  </body>
-</html>
+  });
+</script>

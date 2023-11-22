@@ -1,139 +1,96 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page.title | escape }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg=" crossorigin="anonymous">
-    <style>
-      :root {
-        --bs-body-bg: #341334;
-        --bs-body-color: #f8fafc;
-        --bs-primary-rgb: 242, 47, 84;
-        --bs-link-color-rgb: 242, 47, 84;
-      }
-      .btn-primary {
-        --bs-btn-bg: #f22f54;
-        --bs-btn-border-color: #f22f54;
-        --bs-btn-hover-color: #fff;
-        --bs-btn-hover-bg: #ce3e59;
-        --bs-btn-hover-border-color: #ce3e59;
-        --bs-btn-focus-shadow-rgb: 0 0 0;
-        --bs-btn-active-color: #fff;
-        --bs-btn-active-bg: #a84b5c;
-        --bs-btn-active-border-color: #a84b5c;
-        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container py-4">
-
-      <nav aria-label="breadcrumb" class="text-primary">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">CSH</a></li>
-          <li class="breadcrumb-item"><a href="/episodes">Episodes</a></li>
-        </ol>
-      </nav>
-
-      <h1 class="fs-3">
+---
+layout: page
+breadcrumbs:
+  - label: CSH
+    url: /
+  - label: Episodes
+    url: /episodes
+---
+<h1 class="fs-3">
 {% if page.posted == false %}
-        <span class="badge rounded-pill bg-warning text-dark">Draft</span>
+  <span class="badge rounded-pill bg-warning text-dark">Draft</span>
 {% endif %}
-        {{ page.itunes-episode }} / {{ page.title | escape }}
-        {% if page.subtitle != "" %}
-        <br><small>{{ page.subtitle | escape }}</small>
-        {% endif %}
-      </h1>
-      <p class="lead">{{ page.description | escape }}</p>
+  {{ page.itunes-episode }} / {{ page.title | escape }}
+  {% if page.subtitle != "" %}
+  <br><small>{{ page.subtitle | escape }}</small>
+  {% endif %}
+</h1>
+<p class="lead">{{ page.description | escape }}</p>
 
 {% if page.posted == true %}
-      <!-- Show large audio player -->
-      <div class="d-flex align-items-center">
-        <audio controls>
-          <source src="{{ page.enclosure-url }}" type="{{ page.enclosure-type }}">
-          Your browser does not support the audio element.
-        </audio>
-        {% if page.discussion %}
-        <a href="{{ page.discussion }}" class="btn btn-primary ms-3" target="_blank" rel="noopener" title="Discussion">
-          <i class="bi bi-chat"></i>
-        </a>
-        {% endif %}
-        {% if page.youtube-full %}
-        <a href="{{ page.youtube-full }}" class="btn btn-primary ms-3" target="_blank" rel="noopener" title="Full episode video">
-          <i class="bi bi-youtube"></i>
-        </a>
-        {% endif %}
-        {% if page contains 'youtube-cuts' %}
-          {% for youtube-cut in page.youtube-cuts %}
-        <a href="{{ youtube-cut.url }}" class="btn btn-secondary ms-3" target="_blank" rel="noopener" title="{{ youtube-cut.name | escape }}">
-          <i class="bi bi-youtube"></i>
-        </a>
-          {% endfor %}
-        {% endif %}
-      </div>
+<!-- Show large audio player -->
+<div class="d-flex align-items-center">
+  <audio controls>
+    <source src="{{ page.enclosure-url }}" type="{{ page.enclosure-type }}">
+    Your browser does not support the audio element.
+  </audio>
+  {% if page.discussion %}
+  <a href="{{ page.discussion }}" class="btn btn-primary ms-3" target="_blank" rel="noopener" title="Discussion">
+    <i class="bi bi-chat"></i>
+  </a>
+  {% endif %}
+  {% if page.youtube-full %}
+  <a href="{{ page.youtube-full }}" class="btn btn-primary ms-3" target="_blank" rel="noopener" title="Full episode video">
+    <i class="bi bi-youtube"></i>
+  </a>
+  {% endif %}
+  {% if page contains 'youtube-cuts' %}
+    {% for youtube-cut in page.youtube-cuts %}
+  <a href="{{ youtube-cut.url }}" class="btn btn-secondary ms-3" target="_blank" rel="noopener" title="{{ youtube-cut.name | escape }}">
+    <i class="bi bi-youtube"></i>
+  </a>
+    {% endfor %}
+  {% endif %}
+</div>
 {% endif %}
-      <div class="row row-cols-1 row-cols-lg-2">
-        <div class="col">
-          <h2 id="timeline" class="mt-4">Timeline</h2>
-          <div class="timeline">
-            {% for item in page.timeline %}
-            {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
-            {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-            {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-            {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
-            {% if hoursHH == "00" %}
-              {% assign time = minutesMM | append: ":" | append: secondsSS %}
-            {% endif %}
-            <div>
-              <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
-              {% if page.youtube-full %}
-              <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
-              {% endif %}
-              <code>{{ time }}</code>
-              {{ item.title | escape }}
-            </div>
-            {% endfor %}
-          </div>    
-        </div>
-        <div class="col">
-          <h2>Badges</h2>
-          {% for badge in page.badges %}
-    
-          <div class="col hstack align-self-start gap-2 mb-3">
-            <img src="/assets/participants/{{ badge.participant }}.jpg" alt="{{ badge.participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
-            <div>
-              <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].x }}">@{{ site.data.participants[badge.participant].x }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
-              <p class="card-text">
-                {{ site.data.participants[badge.participant].name }}
-                <span class="badge text-bg-warning" title="{{ site.data.badges[badge.type].description }}">{{ site.data.badges[badge.type].name }}</span>
-              </p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div> <!-- .row -->
-      <hr>
+<div class="row row-cols-1 row-cols-lg-2">
+  <div class="col">
+    <h2 id="timeline" class="mt-4">Timeline</h2>
+    <div class="timeline">
+      {% for item in page.timeline %}
+      {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
+      {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
+      {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
+      {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
+      {% if hoursHH == "00" %}
+        {% assign time = minutesMM | append: ":" | append: secondsSS %}
+      {% endif %}
+      <div>
+        <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
+        {% if page.youtube-full %}
+        <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
+        {% endif %}
+        <code>{{ time }}</code>
+        {{ item.title | escape }}
+      </div>
+      {% endfor %}
+    </div>    
+  </div>
+  <div class="col">
+    <h2>Badges</h2>
+    {% for badge in page.badges %}
 
-      <h2>
-        Episode notes
-      </h2>
-      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: "%Y-%m-%d" }}-episode-{{ page.itunes-episode }}.md" class="icon-link mb-5">
-        <i class="bi bi-github"></i>
-        Edit these notes&hellip;
-      </a>
-
-      {{ content }}
+    <div class="col hstack align-self-start gap-2 mb-3">
+      <img src="/assets/participants/{{ badge.participant }}.jpg" alt="{{ badge.participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
+      <div>
+        <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].x }}">@{{ site.data.participants[badge.participant].x }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
+        <p class="card-text">
+          {{ site.data.participants[badge.participant].name }}
+          <span class="badge text-bg-warning" title="{{ site.data.badges[badge.type].description }}">{{ site.data.badges[badge.type].name }}</span>
+        </p>
+      </div>
     </div>
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-  <script>
-    // After document ready
-    document.addEventListener('DOMContentLoaded', () => {
-      // Enable tooltips on every element
-      const tooltipTriggerList = document.querySelectorAll('*');
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    });
-  </script>  
-</html>
+    {% endfor %}
+  </div>
+</div> <!-- .row -->
+<hr>
+
+<h2>
+  Episode notes
+</h2>
+<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: "%Y-%m-%d" }}-episode-{{ page.itunes-episode }}.md" class="icon-link mb-5">
+  <i class="bi bi-github"></i>
+  Edit these notes&hellip;
+</a>
+
+{{ content }}

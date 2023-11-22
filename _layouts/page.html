@@ -1,0 +1,65 @@
+---
+layout: none
+breadcrumbs:
+  - label: CSH
+    url: /
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ page.title | escape }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg=" crossorigin="anonymous">
+    <link rel="alternate" type="application/rss+xml" title="Community Service Hour" href="/podcast.xml">
+
+    <style>
+      :root {
+        --bs-body-bg: #341334;
+        --bs-body-color: #f8fafc;
+        --bs-primary-rgb: 242, 47, 84;
+        --bs-link-color-rgb: 242, 47, 84;
+      }
+      .btn-primary {
+        --bs-btn-bg: #f22f54;
+        --bs-btn-border-color: #f22f54;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #ce3e59;
+        --bs-btn-hover-border-color: #ce3e59;
+        --bs-btn-focus-shadow-rgb: 0 0 0;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #a84b5c;
+        --bs-btn-active-border-color: #a84b5c;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+      }
+    </style>
+  </head>
+<body class="container-xl py-4">
+  <nav aria-label="breadcrumb" class="text-primary">
+    <ol class="breadcrumb">
+    {% assign breadcrumbs = page.breadcrumbs | default: layout.breadcrumbs %}
+    {% for breadcrumb in breadcrumbs %}
+      {% if breadcrumb.url %}
+        <li class="breadcrumb-item"><a href="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a></li>
+      {% else %}
+        <li class="breadcrumb-item">{{ breadcrumb.label }}</li>
+      {% endif %}
+    {% endfor %}
+    </ol>
+  </nav>
+  <main>
+{{ content }}
+  </main>
+  <footer class="container-xl my-4 py-4">
+    <a class="lead link-primary" href="https://github.com/community-service/hour.gg">Edit this page &hellip;</a>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <script>
+    // After document ready
+    document.addEventListener('DOMContentLoaded', () => {
+      // Enable tooltips on every element
+      const tooltipTriggerList = document.querySelectorAll('*');
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>  
+</body>
+</html>
