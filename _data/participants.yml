@@ -145,6 +145,11 @@ nunya_crypto:
 qbuttonphd:
   x: qbuttonphd
   name: ???
+remix:
+  x: Remix
+  name: Remix Project # https://twitter.com/EthereumRemix
+  github: # https://twitter.com/EthereumRemix > https://remix-project.org > https://github.com/ethereum/remix-project/
+  ethereum: remix-project.eth # https://twitter.com/EthereumRemix > https://github.com/ethereum/remix-project/
 retromort:
   x: retromort
   name: ???
@@ -156,7 +161,9 @@ rocsolmiami:
   name: ???
 ryestew:
   x: ryestew
-  name: ???
+  name: Rob Stupay # https//twitter.com/ryestew
+  github: # https://twitter.com/ryestew > https://github.com/ryestew
+  ethereum: ryestew.eth # https://twitter.com/ryestew > https://github.com/ryestew
 sbu_honeyradio:
   x: SBU_HoneyRadio
   name: ???
