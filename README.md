@@ -10,19 +10,14 @@ Learn tech, pitch projects, [ask anything](https://twitter.com/intent/tweet?text
 
 ## Production process
 
-When a show is over, please edit the [episode file](_episodes) (anybody can pull request):
+When a show is over, please copy details from the [live show notes](https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#) into the [episode file](_episodes) (anybody can pull request):
 
-* `title` from the [show notes](https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#)
-* `description` from the show notes, up to 400 characters
-* `badges` from the show notes
-  * Use their X handle, lowercased, and if it is a number (e.g. `037`) put it in quotes (e.g. `"037"`)
-  * If new, add this person to [_data/participants.yml](_data/participants.yml) and add their profile photo to [assets/participants/](assets/participants/)
-* Add quick notes and links below the `---` front matter
-  * Add useful keywords and hyperlinks for items we discussed
-  * Add hyperlinks (X or homepage preferred) for people that we mention
+* `title`
+* `description`
+* `badges`
+* At the bottom, below `---`, add useful links and keywords for things we discussed
   * This part requires human research, ChatGPT does not know everybody's profile/homepage URL
-  * After the quick notes, add `<!--end of quick notes-->`
-  * Paste transcript or other automated notes after this
+* After `<!--end of quick notes-->` pasted the automated transcript
 
 After the video is edited, fill in:
 
@@ -35,16 +30,15 @@ After the video is edited, fill in:
 * `enclosure-length` and `itunes-duration`
 
   ```sh
-  EPISODE=2023-10-10-episode-97
+  EPISODE=$(basename "$(ls ~/Desktop/CSH*/*mov | sort -r | head -n 1)" .mov) # e.g. 2023-10-10-episode-97
   export SIZE=$(ssh media.phor.net 'stat -c %s **/media/csh/'$EPISODE.m4a)
-  # yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md # MESSES UP WHITESPACE
+  # yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md # broken, https://github.com/mikefarah/yq/issues/515
   sed -i '' "s/enclosure-length:.*/enclosure-length: $SIZE/" _episodes/$EPISODE.md
   
   export DURATION=$(ssh media.phor.net 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 **/media/csh/'$EPISODE.m4a '| cut -d. -f1')
   sed -i '' "s/itunes-duration:.*/itunes-duration: $DURATION/" _episodes/$EPISODE.md
   ```
 
-  
 
 * Upload the audio file, then set `posted: true`
 
