@@ -57,6 +57,7 @@ amiacs:
 anereseth:
   x: anereseth
   name: ???
+  ethereum: "aneres.eth" # from DM with @fulldecent 2023-11-22
 axellemoortgat:
   x: axellemoortgat
   name: Axelle Moortgat
