@@ -53,7 +53,8 @@ dtedesco1:
   name: ???
 amiacs:
   x: amiacs
-  name: ???
+  name: Amit Verma
+  ethereum: "0x0876927311B8F364074279755A7737071F765aF4" # from DM with @fulldecent 2023-11-23
 anereseth:
   x: anereseth
   name: ???

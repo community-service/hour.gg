@@ -99,14 +99,17 @@ title: Participants
 
 <ul>
   {% for participant in site.data.participants -%}
-    {% assign exists = false %}
-    {% for file in site.static_files %}
-      {% if file.path contains participant[0] %}
-        {% assign exists = true %}
-      {% endif %}
-    {% endfor %}
-    {% if exists == false %}
+    {% assign extension = false -%}
+    {% for file in site.static_files -%}
+      {% if file.path contains participant[0] -%}
+        {% assign extension = file.extname -%}
+        {% break -%}
+      {% endif -%}
+    {% endfor -%}
+    {% if extension == false -%}
       <li><a href="https://twitter.com/{{ participant[1].x }}" target="_blank">{{ participant[1].x }}</a></li>
-    {% endif %}
+    {% elsif extension != ".jpg" -%}
+      <li><code>convert {{ participant[0] }}{{ extension }} {{ participant[0] }}.jpg; rm {{ participant[0] }}{{ extension }}</code></li>
+    {% endif -%}
   {% endfor -%}
 </ul>
