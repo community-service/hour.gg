@@ -425,7 +425,9 @@ tommybytes:
   ethereum: "0x32DbdcFe81043c8F90d66D6aDe66A5C9739784d2" # from DM with @fulldecent 2023-11-27
 ulticrypto:
   x: ulticrypto
-  name: ???
+  name: Neil # https://twitter.com/ulticrypto > https://twitter.com/dyvexyz > www.dyve.xyz
+  github: ulticrypto # from pull request (don't think it's connected elsewhere)
+  ethereum: "0x14759b2e39Aab546d8b47342977e06aB5668290C" # https://twitter.com/UltiCrypto/status/1473365507755675655
 ynnitan:
   x: ynnitan
   name: ???
