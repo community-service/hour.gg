@@ -427,7 +427,7 @@ ulticrypto:
   x: ulticrypto
   name: Neil # https://twitter.com/ulticrypto > https://twitter.com/dyvexyz > www.dyve.xyz
   github: ulticrypto # from pull request (don't think it's connected elsewhere)
-  ethereum: 0x14759b2e39Aab546d8b47342977e06aB5668290C # https://twitter.com/UltiCrypto/status/1473365507755675655
+  ethereum: "0x14759b2e39Aab546d8b47342977e06aB5668290C" # https://twitter.com/UltiCrypto/status/1473365507755675655
 ynnitan:
   x: ynnitan
   name: ???
