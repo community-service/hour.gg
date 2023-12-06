@@ -13,11 +13,23 @@ Learn tech, pitch projects, [ask anything](https://twitter.com/intent/tweet?text
 When a show is over, please copy details from the [live show notes](https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#) into the [episode file](_episodes) (anybody can pull request):
 
 * `title`
-* `description`
+* `subtitle`
 * `badges`
 * At the bottom, below `---`, add useful links and keywords for things we discussed
   * This part requires human research, ChatGPT does not know everybody's profile/homepage URL
 * After `<!--end of quick notes-->` pasted the automated transcript
+
+Have the intern help to:
+
+* Write a description:
+  ```sh
+  export OPENAI_API_KEY="..."
+  EPISODE=101
+  INPUT=$(yq --front-matter=process '.=""' _episodes/*-episode-$EPISODE.md)
+  USER=$(cat tools/subtitle.prompt; echo $INPUT)
+  DESCRIPTION=$(openai api chat.completions.create --model gpt-4-1106-preview -g user "$USER")
+  yq --inplace --front-matter=process ".description=\"$DESCRIPTION\"" _episodes/*-episode-$EPISODE.md
+  ```
 
 After the video is edited, fill in:
 
