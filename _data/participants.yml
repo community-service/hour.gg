@@ -203,6 +203,7 @@ thealchemist_17:
 themiamiape:
   x: TheMiamiApe
   name: ???
+  ethereum: Themiamiape.eth # from DM with @fulldecent 2023-12-20
 thewhyman:
   x: thewhyman
   name: ???
@@ -441,7 +442,7 @@ v3ct0rfi:
   x: "0x7jay"
   name: Jay Chen
   github: "0x7Jay"
-  ethereum: "0x7JayC.eth"
+  ethereum: "0xjayc.eth" # from DM with @fulldecent 2023-12-20
 murder_ders:
   x: murder_ders
   name: ???
