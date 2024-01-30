@@ -58,10 +58,8 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   cd $EPISODE_MEDIA
   EPISODE=$(basename "$(ls *mov | sort -r | head -n 1)" .mov)
   
-  ### PASTE IN THE FFMPEG TIMECODE TOOL HERE
+  ### PASTE IN THE FFMPEG TIMECODE TOOL HERE FROM HOUR.GG/timecode-tool
   ```
-
-- [ ] Use the timecode tool to save the timecodes into the episode file
 
 - [ ] Upload to media hosting
 
@@ -103,6 +101,8 @@ Use this description template:
 PASTE TIMELINE HERE
 
 Join our live weekly call // https://hour.gg // with your cohosts William Entriken and Daniel Tedesco
+
+OBVIOUSLY THIS IS A PARODY of joke financial advice. We and everybody else cannot predict the future. 
 
 PASTE KEYWORDS/HASHTAGS HERE
 
