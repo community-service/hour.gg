@@ -100,7 +100,7 @@ Use this description template:
 ```
 PASTE TIMELINE HERE
 
-Join our live weekly call // https://hour.gg // with your cohosts William Entriken and Daniel Tedesco
+Join our live weekly call // https://hour.gg
 
 OBVIOUSLY THIS IS A PARODY of joke financial advice. We and everybody else cannot predict the future. 
 
