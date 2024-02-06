@@ -36,87 +36,80 @@ layout: none
         color: #c61838 !important;
         -webkit-text-decoration-color: #c61838 !important;
         text-decoration-color: #c61838 !important;
-      }      
+      }
+      .font-primary {
+        font-family: "Rockwell", "Georgia", "Times New Roman", "Times", serif;
+      }
     </style>
   </head>
 <body>
-  <header class="container-xl py-4">
-    <div class="row row-cols-1 row-cols-lg-2 gap-5 justify-content-center">
-      <svg xmlns="http://www.w3.org/2000/svg" style="max-width: 300px; filter: drop-shadow(0 0 1rem #f22f54);" viewBox="0 0 161.8 100" class="col">
-        <path d="M28.17 19.109c-45.824-39.923 172.844-5.067 127.813 18.454-45.03 23.522-30.728 17.525.786 50.89C188.283 121.82-39.228 64.332 7.397 59.694c46.625-4.638 66.599-.661 20.774-40.584Z" style="fill:#f22f54"/>
-        <text xml:space="preserve" x="94.682" y="31.862" style="font-weight:700;font-size:17px;font-family:Rockwell;fill:var(--bs-body-color);text-align:center;text-anchor:middle;">
-          <tspan x="120" y="31.862">COMMUNITY</tspan>
-          <tspan x="120" y="53.911">SERVICE</tspan>
-          <tspan x="120" y="75.959">HOUR</tspan>
-        </text>
-      </svg>
-      <div class="col align-self-center">
-        <h5>Next show: <span id="next-show" class="fw-bold">Loading&hellip;</span></h5>
-        <p>
-          <div class="dropdown d-inline-block">
-            <span id="next-show-time" class="fst-italic">Loading&hellip;</span>
-            <button class="btn btn-primary dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Add to calendar
-            </button>
-            <ul class="dropdown-menu bg-dark">
-              <li><a class="dropdown-item" href="https://calendar.google.com/calendar/ical/liurhb5cqvar2i6n6ekeanap44%40group.calendar.google.com/public/basic.ics">ICS</a></li>
-              <li><a class="dropdown-item" href="https://calendar.google.com/event?action=TEMPLATE&tmeid=NHA4ZXBrZWJkczlsamdmMzJpYmc2MnVqNWxfMjAyMjA2MjFUMjIwMDAwWiBsaXVyaGI1Y3F2YXIyaTZuNmVrZWFuYXA0NEBn&tmsrc=liurhb5cqvar2i6n6ekeanap44%40group.calendar.google.com&scp=ALL">Google Calendar</a></li>
-              <li><a class="dropdown-item" href="https://discord.com/invite/6nTGNdjQ3B">Discord (click "events")</a></li>
-            </ul>
-          </div>        
-        </p>
-        <div class="hstack gap-2">
-          <a href="https://twitter.com/fulldecent" class="btn btn-primary rounded-pill">Join <i class="bi bi-twitter-x"></i></a>
-          <a href="https://www.twitch.tv/fulldecent" class="btn btn-primary rounded-pill">Join <i class="bi bi-twitch"></i></a>
-          <a href="https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#" class="btn btn-primary rounded-pill">Show notes <i class="bi bi-file-earmark-text"></i></a>
-        </div>
-      </div>
-    </div>  
-  </header>
-
-  <nav class="navbar navbar-expand-sm bg-primary navbar-dark fs-4 my-4">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container-xl">
-      <ul class="navbar-nav mb-0">
-        <li class="nav-item">          
-          <a class="nav-link" href="#about-us">
-            <span>About us</span>
-            <!-- Randomly show 5 participants -->
-            {% assign all_participants = "" | split: "" -%}
-            {% for participant in site.data.participants -%}
-              {% assign all_participants = all_participants | push: participant[0] -%}
-            {% endfor -%}
-            {% assign participants = all_participants | sample: 5 -%}
-            {% for participant in participants -%}
-            <img src="/assets/participants/{{ participant }}.jpg" class="rounded-circle" style="width: 2rem; height: 2rem; margin-right: -0.5rem;" alt="Photo of {{ participant }}">
-            {% endfor -%}
-            <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
-              {{- site.data.participants.size | minus: 5 -}}
-            </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#projects">Projects
-            <span class="badge text-bg-warning rounded-pill">16</span> 
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#how-to-csh">How to CSH?</a>
-        </li>
-      </ul>
+
+      <a class="navbar-brand" href="/">
+        <img src="/assets/logo.png" alt="Bootstrap" height="40">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ASK A QUESTION</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/messages/compose?recipient_id=47729549&text=Hello%20I'd%20like%20to%20be%20interviewed%20on%20Community%20Service%20Hour.%20Here's%20some%20details%20about%20my%20project&hellip;">GET INTERVIEWED</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              PODCAST
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217"><i class="bi bi-apple"></i> Apple podcasts</a></li>
+              <li><a class="dropdown-item" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ"><i class="bi bi-spotify"></i> Spotify podcasts</a></li>
+              <li><a class="dropdown-item" href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"><i class="bi bi-youtube"></i> YouTube channel</a></li>
+              <li><a class="dropdown-item" href="https://www.twitch.tv/fulldecent"><i class="bi bi-twitch"></i> Twitch channel</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a href="https://github.com/users/fulldecent/projects/" class="btn btn-primary">INVEST</a>
+      </div>
     </div>
   </nav>
 
-  <section class="container-xl py-4">
-    <p class="lead">Build products, open source, <a href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ask anything</a>.</p>
-  </section>
+  <header class="container-xl py-4">
+    <img src="/assets/banner.png" class="img-fluid" alt="Community Service Hour">
 
+    <div class="col align-self-center">
+      <h5>Next show: <span id="next-show" class="fw-bold">Loading&hellip;</span></h5>
+      <p>
+        <div class="dropdown d-inline-block">
+          <span id="next-show-time" class="fst-italic">Loading&hellip;</span>
+          <button class="btn btn-primary dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Add to calendar
+          </button>
+          <ul class="dropdown-menu bg-dark">
+            <li><a class="dropdown-item" href="https://calendar.google.com/calendar/ical/liurhb5cqvar2i6n6ekeanap44%40group.calendar.google.com/public/basic.ics">ICS</a></li>
+            <li><a class="dropdown-item" href="https://calendar.google.com/event?action=TEMPLATE&tmeid=NHA4ZXBrZWJkczlsamdmMzJpYmc2MnVqNWxfMjAyMjA2MjFUMjIwMDAwWiBsaXVyaGI1Y3F2YXIyaTZuNmVrZWFuYXA0NEBn&tmsrc=liurhb5cqvar2i6n6ekeanap44%40group.calendar.google.com&scp=ALL">Google Calendar</a></li>
+            <li><a class="dropdown-item" href="https://discord.com/invite/6nTGNdjQ3B">Discord (click "events")</a></li>
+          </ul>
+        </div>        
+      </p>
+      <div class="hstack gap-2">
+        <a href="https://twitter.com/fulldecent" class="btn btn-primary rounded-pill">Join <i class="bi bi-twitter-x"></i></a>
+        <a href="https://www.twitch.tv/fulldecent" class="btn btn-primary rounded-pill">Join <i class="bi bi-twitch"></i></a>
+        <a href="https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#" class="btn btn-primary rounded-pill">Show notes <i class="bi bi-file-earmark-text"></i></a>
+      </div>
+    </div>    
+  </header>
 
   <aside class="text-end">
     <img src="assets/divider.svg" style="max-height: 3rem;" alt="Divider">
   </aside>
 
-  <section class="container-xl py-4">
-    <div class="hstack my-4">
+  <section class="container-xl my-4 py-4">
+    <div class="alert bg-primary" role="alert">
       <form action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net" method="post">
         <div class="input-group">
           <input type="email" name="EMAIL" class="form-control" placeholder="Email address" required>
@@ -124,13 +117,18 @@ layout: none
         </div>
       </form>
     </div>
+  </section>
+
+  <section class="container-xl py-4">
 
     <h1 class="my-4">
-      <a class="link-primary" href="/episodes">Episodes</a>
+      <a class="link-primary" href="/episodes">Episodes &amp; notes</a>
+      <!--
       <a class="btn btn-sm rounded-pill btn-primary" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple Podcasts</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://open.spotify.com/show/4WHTVyOHKtCAOgV8jB1KE2">Spotify</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN">YouTube</a>
       <a class="btn btn-sm rounded-pill btn-primary" href="https://www.tiktok.com/@fulldecent">TikTok</a>
+      -->
     </h1>
 
     {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse | slice: 0, 10 %}
@@ -149,7 +147,7 @@ layout: none
               <!-- Participants from this specific episode -->
               {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
               {% for participant_id in some_participant_ids %}
-              <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
+              <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle participant-default-image" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
               {% endfor %}
               <!-- + how many not shown... -->
               {% assign remaining = episode.badges.size | minus: 3 %}
@@ -178,28 +176,36 @@ layout: none
   </section>
 
   <section class="container-xl mt-4">
-    <h1 id="about-us">About us</h1>
-    <p class="lead">Your host on the weekly call is William Entriken with special cohosts.</p>
-    <p class="lead">Participants in <em>Community Service Hour</em> are recognized for joining in our weekly call and presenting projects. They direct the future of our program. And they receive token drops.</p>
+    <h1 id="about-us">
+      <a href="participants">Participants</a>
+      <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">
+        {{- site.data.participants.size -}}
+      </span>
+    </h1>
+    <p class="lead">Your host is William Entriken with special cohosts.</p>
+    <p class="lead">We recognize participants in <em>Community Service Hour</em> for joining our weekly call and presenting projects. They direct the future of our program. And they receive token drops.</p>
     <p class="lead">
-      ℹ️ You can follow people below all at once with <a href="https://twitter.com/fulldecent/lists">our lists on X</a>.
+      ℹ️ Follow everyone at once with our <a href="https://twitter.com/fulldecent/lists">our lists on X</a>.
     </p>
     
-    <!-- TODO: only Participants from the past 10 weeks are shown below -->.
+    <!-- TODO: only Participants from the past 10 weeks are shown below -->
 
     <!--<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">-->
     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4">
       <!-- Show all participants (TODO: only show those with activity in the past 10 weeks) -->
       {% assign all_participants2 = "" | split: "" -%}
       {% for participant in site.data.participants -%}
-        {% assign all_participants2 = all_participants2 | push: participant[0] -%}
+        {% assign all_participants2 = all_participants2 | push: participant[0] | sample: 25 -%}
       {% endfor -%}
       {% for participant in all_participants2 -%}
       <div class="col hstack align-self-start gap-2 mb-3">
-        <img src="/assets/participants/{{ participant }}.jpg" alt="{{ participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
+        <img src="/assets/participants/{{ participant }}.jpg" alt="{{ participant }}" class="rounded-circle participant-default-image" style="width: 3rem; height: 3rem;">
         <div>
           <h5 class="card-title"><a class="link-primary" href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{ site.data.participants[participant].x }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
-          <p class="card-text">{{ site.data.participants[participant].name }}</p>
+
+          {% if site.data.participants[participant].name != "???" %}
+            <p class="card-text">{{ site.data.participants[participant].name }}</p>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
@@ -207,26 +213,19 @@ layout: none
 
     <p class="mt-5">
       <a class="link-primary" href="participants">All participants&hellip;</a>
-      <a class="link-primary" href="badges">Badge tallys&hellip;</a>
     </p>
-  </section>
-
-  <section class="container-xl my-4 py-4">
-    <h1 class="my-4" id="projects">
-      Projects
-    </h1>
-    <p class="lead">See some of the open projects we have discussed are on our <a class="link-primary" href="https://github.com/users/fulldecent/projects/2/views/1">GitHub project board</a>. But also feel free to choose your own path.</p>
   </section>
 
   <section class="container-xl my-4 py-4">
     <h1 class="my-4" id="how-to-csh">
       How to CSH?
     </h1>
-    <p class="lead">Build products, open source, <a href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ask anything</a>.</p>
-    <p>Currently there is a focus on blockchain, NFTs and neural networks.</p>
-    <p>You're welcome do join us. All it takes is one hour a week to further your own interests &amp; career in technology, plus a few extra minutes to show yourself off. The basic way to start is to by joining our weekly phone call (X Spaces + Twitch streaming), see links <a class="link-primary" href="#top">at top</a>.</p>
-    <p>Next, if you've never contributed to an open source project before&hellip; that is the best place to start. Because you will directly connect with people, you are welcome everywhere and everything you do goes straight into your portfolio. A good way to start is to create a profile on GitHub (fill it out ENTIRELY), find any project you are interested (for example <a class="link-primary" href="">this web page you are reading is open source</a>), edit to fix a typo there and then send your contribution however to the project maintainer. On GitHub this is called "save", "fork" and "pull request", you get all those by clicking the green buttons after you save your change.</p>
-    <p>From your first typo-fix, you have already passed 80% of the world in building your portfolio in technology. Yes really. Put it on your resume. Yes really. Then imagine what other project you will take on next. You're welcome to share with us on the call, and can expect lots of encouragement.</p>
+    <p class="lead">Release early, release often. We build open source and share our experiences with the world.</p>
+    <p class="lead">We are a community of people who are passionate about art, software, neural networks, changing society by example, launching products.</p>
+    <p class="lead">Join each week live to discuss with like-minded people. All it takes in one hour a week to further your career, plus a few extra minutes to show yourself off.</p>
+    <hr>
+    <p class="lead">If you've never contributed to an open source project before&hellip; that is the best place to start. Because you will directly connect with people, you are welcome everywhere and everything you do goes straight into your portfolio. A good way to start is to create a profile on GitHub (fill it out ENTIRELY), find any project you are interested (for example <a class="link-primary" href="">this web page you are reading is open source</a>), edit to fix a typo there and then send your contribution however to the project maintainer. On GitHub this is called "save", "fork" and "pull request", you get all those by clicking the green buttons after you save your change.</p>
+    <p class="lead">From your first typo-fix, you have already passed 80% of the world in building your portfolio in technology. Yes really. Put it on your resume. Yes really. Then imagine what other project you will take on next. You're welcome to share with us on the call, and can expect lots of encouragement.</p>
   </section>
 
   <aside class="text-start">
@@ -235,6 +234,7 @@ layout: none
 
   <footer class="container-xl my-4 py-4">
     <a class="lead link-primary icon-link" href="https://github.com/community-service/hour.gg"><i class="bi bi-github"></i> Edit this page &hellip;</a>
+    <a class="lead link-primary icon-link" href="https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#"><i class="bi bi-file-earmark"></i> Show notes</a>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script>
@@ -270,17 +270,20 @@ layout: none
               const hours = Math.floor(diff / (1000 * 60 * 60));
               const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
               const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-              document.getElementById('next-show-time').innerHTML = `Starts in ${hours}h ${minutes}m ${seconds}s`;
+              document.getElementById('next-show-time').innerHTML = `Join live in ${hours}h ${minutes}m ${seconds}s`;
             }, 1000);
-            document.getElementById('next-show-time').innerHTML = `Starts in &hellip;`;
+            document.getElementById('next-show-time').innerHTML = `Join live in &hellip;`;
             return;
           }
 
           // Otherwise, show next episode
-          document.getElementById('next-show-time').innerHTML = "Starts Tuesday 6pm, New York time";
+          document.getElementById('next-show-time').innerHTML = "Join live Tuesday 6pm, New York time";
           return;
         }
       });
+
+      document.querySelectorAll('.participant-default-image')
+      .forEach(img => img.onerror = () => img.src = '/assets/empty-participant.jpg');
   </script>
 </body>
 </html>
