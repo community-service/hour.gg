@@ -44,12 +44,51 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
 
+  /*
   function drawHexagon(ctx, x, y, radius) {
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
       ctx.lineTo(x + radius * Math.cos(i * 2 * Math.PI / 6), y + radius * Math.sin(i * 2 * Math.PI / 6));
     }
     ctx.closePath();
+  }
+  */
+
+  function drawHexagon(ctx, x, y, radius) {
+    const sideLength = radius * Math.cos(Math.PI / 6); // Calculate side length based on radius
+    const cornerRadius = sideLength * 0.1; // Adjust corner radius for appearance
+
+    // Calculate start point (center-right of hexagon)
+    let startX = x + radius * Math.cos(0);
+    let startY = y + radius * Math.sin(0);
+
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+
+    for (let i = 0; i < 6; i++) {
+      // Calculate end point of current edge
+      let endX = x + radius * Math.cos(i * 2 * Math.PI / 6);
+      let endY = y + radius * Math.sin(i * 2 * Math.PI / 6);
+
+      // Calculate the control points for rounded corners
+      let cp1X = endX + cornerRadius * Math.cos(i * 2 * Math.PI / 6 - Math.PI / 6);
+      let cp1Y = endY + cornerRadius * Math.sin(i * 2 * Math.PI / 6 - Math.PI / 6);
+
+      let nextI = (i + 1) % 6;
+      let nextEndX = x + radius * Math.cos(nextI * 2 * Math.PI / 6);
+      let nextEndY = y + radius * Math.sin(nextI * 2 * Math.PI / 6);
+
+      let cp2X = nextEndX + cornerRadius * Math.cos(i * 2 * Math.PI / 6 + Math.PI / 6);
+      let cp2Y = nextEndY + cornerRadius * Math.sin(i * 2 * Math.PI / 6 + Math.PI / 6);
+
+      // Draw the edges with rounded corners
+      ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, nextEndX, nextEndY);
+    }
+
+    ctx.closePath();
+    // Optional: Apply styles
+    ctx.stroke(); // Draw the outline of the hexagon
+    // ctx.fill(); // Optionally, fill the hexagon
   }
 
   function updateOutputArea(dataURL) {
