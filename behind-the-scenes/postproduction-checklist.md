@@ -56,7 +56,7 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   
   # Get like 2023-10-10-episode-97
   cd $EPISODE_MEDIA
-  EPISODE=$(basename "$(ls *mov | sort -r | head -n 1)" .mov)
+  EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
   
   ### PASTE IN THE FFMPEG TIMECODE TOOL HERE FROM HOUR.GG/timecode-tool
   ```
