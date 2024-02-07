@@ -1,0 +1,64 @@
+---
+layout: page
+title: Hexagonify
+---
+
+<h1>😎😎 Select your profile photo to make an NFT-style hexagon image ⬣⬣</h1>
+<input type="file" id="file-input" accept="image/*">
+<div class="output" id="output"></div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  const fileInput = document.getElementById('file-input');
+  
+  fileInput.addEventListener('change', function(e) {
+    if (this.files && this.files[0]) {
+      processFile(this.files[0]);
+    }
+  });
+
+  function processFile(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+      const img = new Image();
+      img.src = reader.result;
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const maxSize = Math.min(img.width, img.height);
+        canvas.width = canvas.height = maxSize;
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(img, (img.width - maxSize) / 2, (img.height - maxSize) / 2, maxSize, maxSize, 0, 0, maxSize, maxSize);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.globalCompositeOperation = 'source-over';
+        drawHexagon(ctx, maxSize / 2, maxSize / 2, maxSize / 2);
+        ctx.clip();
+        ctx.drawImage(img, (img.width - maxSize) / 2, (img.height - maxSize) / 2, maxSize, maxSize, 0, 0, maxSize, maxSize);
+
+        updateOutputArea(canvas.toDataURL('image/png'));
+      };
+    };
+  }
+
+  function drawHexagon(ctx, x, y, radius) {
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      ctx.lineTo(x + radius * Math.cos(i * 2 * Math.PI / 6), y + radius * Math.sin(i * 2 * Math.PI / 6));
+    }
+    ctx.closePath();
+  }
+
+  function updateOutputArea(dataURL) {
+    const outputImg = document.createElement('img');
+    outputImg.src = dataURL;
+    const output = document.getElementById('output');
+    output.innerHTML = ''; // Clear previous output
+    output.appendChild(outputImg);
+  }
+});
+
+</script>
