@@ -94,7 +94,7 @@ title: Timecode tool
   title: One weird trick
   # ffmpeg format:########################################################################################################
   echo > /tmp/ffmetadata.txt <<EOF
-  INPUT=Untitled.mov
+  INPUT=Untitled.mp4
   OUTPUT=Untitled.m4a
   ;FFMETADATA1
   
@@ -206,7 +206,7 @@ title: Timecode tool
       document.getElementById('yaml').textContent = yamlFormat;
 
       // ffmpeg format:
-      let ffmpegFormat = `INPUT="${fileNameBase}.mov"\nOUTPUT="${fileNameBase}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n`;
+      let ffmpegFormat = `INPUT="${fileNameBase}.mp4"\nOUTPUT="${fileNameBase}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n`;
       ffmpegFormat += ';FFMETADATA1\n\n';
       for (let i = 0; i < chapters.length; i++) {
         let endSeconds = (i + 1 < chapters.length) ? chapters[i + 1].seconds : (parseInt(chapters[i].seconds, 10) + 1).toString();

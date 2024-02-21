@@ -153,7 +153,7 @@ Easiest to reuse the chapter markers in the existing audio files. Then repull au
 for i in {3..97}
 do
   # Find the corresponding video file for the episode, whether it is .mov or .m4v
-  VIDEO_FILE=$(find . -type f \( -name "*-episode-$i.m4v" -o -name "*-episode-$i.mov" \) -print -quit)
+  VIDEO_FILE=$(find . -type f \( -name "*-episode-$i.m4v" -o -name "*-episode-$i.mp4" \) -print -quit)
 
   # Find the corresponding audio file for the episode
   AUDIO_FILE=$(find . -type f -name "*-episode-$i.m4a" -print -quit)

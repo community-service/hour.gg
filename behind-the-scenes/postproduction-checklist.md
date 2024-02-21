@@ -32,7 +32,7 @@ click v2 "https://www.tiktok.com/@fulldecent"
 
 ## Edit the video
 
-Cut the recorded video In DaVinci resolve. Export video to `YYYY-MM-DD-episode-###.mov` and timecode markers to `YYYY-MM-DD-episode-###.edl`. Then proceed.
+Cut the recorded video In DaVinci resolve. Export video to `YYYY-MM-DD-episode-###.mp4` and timecode markers to `YYYY-MM-DD-episode-###.edl`. Then proceed.
 
 ## Copy in show notes
 
@@ -56,11 +56,12 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   
   # Get like 2023-10-10-episode-97
   cd $EPISODE_MEDIA
-  EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
+  EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4
+  echo $EPISODE
   
   ### PASTE IN THE FFMPEG TIMECODE TOOL HERE FROM HOUR.GG/timecode-tool
   ```
-
+  
 - [ ] Upload to media hosting
 
   ```sh
