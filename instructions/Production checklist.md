@@ -12,12 +12,10 @@ layout: page
    - [ ] Pin [the bookmarked tweet](https://twitter.com/i/bookmarks/1580008360044281857) 
    - [ ] DM people
    - [ ] DM [the invite group](https://twitter.com/messages/1529222046370217990) (crashes X)
-3. Text someone if they don't show up
+   - [ ] Text cohost
 4. LAST QUESTION AT 18:40
 5. Write down all participants into the BADGES/TOKEN DROP list
 6. "Hit the pinned tweet to get invited to next week's episode"
-
-
 
 ## Action items from show
 
@@ -32,8 +30,6 @@ layout: page
 
 
 ---
-
-
 
 ## Post production
 

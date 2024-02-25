@@ -11,7 +11,7 @@ yt[YouTube]
 tw[Tweet]
 pm[Podcast m4a file]
 hggdraft[episode.md draft]
-hggpublished[hour.gg and podcast]
+hggpublished[hour.gg and podcast XML]
 
 v--Publish-->yt
 v--Cut-->v2
@@ -125,29 +125,39 @@ Post to:
 
 - [ ] Add the URL to the episode file
 
+## Draft upcoming episodes
 
-
----
-
----
-
-## Upcoming episodes
-
-Draft upcoming episodes like this (do all episodes through the next February to save time):
+Careful, this overwrites if you already have a file with some time/subtitle or other upcoming details set.
 
 ```sh
-# todo: use yq here
-NUMBER="62"
-EPISODE="2023-02-07-episode-$NUMBER"
-TIME="2023-02-07 18:00:00 -0500"
-URL="https://media.phor.net/csh/$EPISODE.m4a"
-UUID=$(uuidgen)
-cp _drafts/YYYY-MM-DD-episode-N.md _drafts/$EPISODE.md
-sed -i '' -e "s/guid: .*/guid: \"$UUID\"/" _drafts/$EPISODE.md
-sed -i '' -e "s/title: .*/title: \"Episode $NUMBER\"/" _drafts/$EPISODE.md
-sed -i '' -e "s|enclosure-url: .*|enclosure-url: \"$URL\"|" _drafts/$EPISODE.md
-sed -i '' -e "s/episode: .*/episode: $NUMBER/" _drafts/$EPISODE.md
+make_episode() {
+    export NUMBER=$1
+    export DATE=$2
+    export TIME=$3
+    BASENAME="$DATE-episode-$NUMBER"
+    EPISODE_FILE="_episodes/$BASENAME.md"
+    export URL="https://media.phor.net/csh/$BASENAME.m4a"
+    export UUID=$(uuidgen)
+    cp _drafts/YYYY-MM-DD-episode-N.md $EPISODE_FILE
+    yq -i --front-matter="process" '.guid = env(UUID)' $EPISODE_FILE
+    yq -i --front-matter="process" '.enclosure-url = env(URL)' $EPISODE_FILE
+    yq -i --front-matter="process" '.itunes-episode = env(NUMBER)' $EPISODE_FILE
+    yq -i --front-matter="process" '.time = strenv(DATE) + " " + strenv(TIME)' $EPISODE_FILE
+}
+
+# Use New York time zone for time offset
+make_episode 115 '2024-03-05' '18:00:00 -0500'
+make_episode 116 '2024-03-12' '18:00:00 -0400'
+make_episode 117 '2024-03-19' '18:00:00 -0400'
 ```
+
+
+
+
+
+---
+
+---
 
 ## Do transcript
 
