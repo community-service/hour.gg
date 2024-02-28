@@ -56,7 +56,7 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   
   # Get like 2023-10-10-episode-97
   cd $EPISODE_MEDIA
-  EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4
+  EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
   echo $EPISODE
   
   ### PASTE IN THE FFMPEG TIMECODE TOOL HERE FROM HOUR.GG/timecode-tool
@@ -80,9 +80,19 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   export DURATION=$(ssh media.phor.net 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 **/media/csh/'$EPISODE.m4a '| cut -d. -f1')
   yq -i --front-matter="process" '.itunes-duration = env(DURATION)' _episodes/$EPISODE.md
   ```
+  
+- [ ] Save the VTT transcript
 
-## Description
+  ```sh
+  whisper_path="$HOME/Developer/whisper.cpp"
+  model_path="${whisper_path}/models/ggml-base.en.bin"
+  
+  cd $EPISODE_MEDIA
+  ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
+  ```
 
+- [ ] ...
+  
 - [ ] Write a description (draft from the intern):
 
   ```sh
@@ -154,29 +164,6 @@ make_episode 117 '2024-03-19' '18:00:00 -0400'
 
 
 
-
----
-
----
-
-## Do transcript
-
-```sh
-#!/bin/zsh
-
-# Define the path to the whisper.cpp directory and model
-whisper_path="$HOME/Developer/whisper.cpp"
-model_path="${whisper_path}/models/ggml-base.en.bin"
-
-# Loop through all .m4a files in the current directory
-for episode_file in *.m4a; do
-    # Extract the base name without the extension for the episode
-    episode="${episode_file%.m4a}"
-
-    # Process the episode file with ffmpeg and pass the output to whisper
-    ffmpeg -i "${episode_file}" -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-txt --model "${model_path}" --output-file "${episode}" -
-done
-```
 
 
 ```
