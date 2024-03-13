@@ -91,8 +91,6 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
   ```
 
-- [ ] ...
-  
 - [ ] Write a description (draft from the intern):
 
   ```sh
