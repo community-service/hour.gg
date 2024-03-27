@@ -91,15 +91,12 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
   ```
 
-- [ ] ...
-  
 - [ ] Write a description (draft from the intern):
 
   ```sh
   export OPENAI_API_KEY="..."
   cd $WEBSITE
-  INPUT=$(yq --front-matter=process '.=""' _episodes/$EPISODE.md)
-  USER=$(cat tools/subtitle.prompt; echo $INPUT)
+  USER=$(cat tools/subtitle.prompt $EPISODE_MEDIA/$EPISODE.vtt)
   export DESCRIPTION=$(openai api chat.completions.create --model gpt-4-1106-preview -g user "$USER")
   yq --inplace --front-matter=process ".description = env(DESCRIPTION)" _episodes/$EPISODE.md
   ```
