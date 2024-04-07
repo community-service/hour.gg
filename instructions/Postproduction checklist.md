@@ -96,7 +96,7 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
   ```sh
   export OPENAI_API_KEY="..."
   cd $WEBSITE
-  USER=$(cat tools/subtitle.prompt $EPISODE_MEDIA/$EPISODE.vtt)
+  USER=$(cat tools/description.prompt $EPISODE_MEDIA/$EPISODE.vtt)
   export DESCRIPTION=$(openai api chat.completions.create --model gpt-4-1106-preview -g user "$USER")
   yq --inplace --front-matter=process ".description = env(DESCRIPTION)" _episodes/$EPISODE.md
   ```
