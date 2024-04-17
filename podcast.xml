@@ -38,6 +38,7 @@
       <itunes:explicit>{{ episode.itunes-explicit | escape }}</itunes:explicit>
       <itunes:episode>{{ episode.itunes-episode | escape }}</itunes:episode>
       <itunes:episodeType>{{ episode.itunes-episodeType | escape }}</itunes:episodeType>
+      <link>{{ episode.url | absolute_url }}</link>
       <description>
         <![CDATA[
 {% if episode.description -%}
