@@ -65,7 +65,7 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
 - [ ] Upload to media hosting
 
   ```sh
-  REMOTE_HOSTING_PATH=lv-shared03.dapanel.net:public_html/media/csh/
+  REMOTE_HOSTING_PATH='lv-shared03.dapanel.net:public_html/media/csh/'
   scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
   ```
 
@@ -134,7 +134,7 @@ Post to:
 
 ## Draft upcoming episodes
 
-Careful, this overwrites if you already have a file with some time/subtitle or other upcoming details set.
+:warning: This overwrites existing episode files.
 
 ```sh
 make_episode() {
