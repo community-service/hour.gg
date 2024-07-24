@@ -34,7 +34,13 @@ click v2 "https://www.tiktok.com/@fulldecent"
 
 Cut the recorded video In DaVinci resolve. Export video to `YYYY-MM-DD-episode-###.mp4` and timecode markers to `YYYY-MM-DD-episode-###.edl`. Then proceed.
 
-## Copy in show notes
+## Edit episode file
+
+Open it
+
+```sh
+code ~/Sites/hour.gg
+```
 
 Copy details from the [live show notes](https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#) into the [episode file](_episodes) (anybody can pull request to do this step):
 
