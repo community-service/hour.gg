@@ -53,59 +53,59 @@ Copy details from the [live show notes](https://docs.google.com/document/d/1ta_6
 
 ## Mixdown & publish the podcast audio
 
-Follow all the specific podcasting [technical requirements](podcast-specifications.md) with these steps below.
+Follow all the specific podcasting [technical requirements](podcast-specifications.md) using these steps below.
 
-- [ ] Use https://hour.gg/timecode-tool with the episode EDL to get the ffmpeg mixdown code. 
-  ```sh
-  EPISODE_MEDIA=~/Desktop/CSH*
-  WEBSITE=~/Sites/hour.gg
-  
-  # Get like 2023-10-10-episode-97
-  cd $EPISODE_MEDIA
-  EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
-  echo $EPISODE
-  
-  ### PASTE IN THE FFMPEG TIMECODE TOOL HERE FROM HOUR.GG/timecode-tool
-  ```
-  
-- [ ] Upload to media hosting
+```sh
+EPISODE_MEDIA=~/Documents/COMMUNITY\ SERVICE/Episode\ production
+WEBSITE=~/Sites/hour.gg
 
-  ```sh
-  REMOTE_HOSTING_PATH='lv-shared03.dapanel.net:public_html/media/csh/'
-  scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
-  ```
+# Get like 2024-07-23-episode-127
+cd $EPISODE_MEDIA
+EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
+echo $EPISODE
+```
 
-- [ ] Save file info to the podcast feed
+Use https://hour.gg/timecode-tool with the episode EDL to get and run the `ffmpeg` mixdown code. 
 
-  ```sh
-  cd $WEBSITE
-  
-  export SIZE=$(ssh media.phor.net 'stat -c %s **/media/csh/'$EPISODE.m4a)
-  yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md
-  
-  export DURATION=$(ssh media.phor.net 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 **/media/csh/'$EPISODE.m4a '| cut -d. -f1')
-  yq -i --front-matter="process" '.itunes-duration = env(DURATION)' _episodes/$EPISODE.md
-  ```
-  
-- [ ] Save the VTT transcript
+And continue along.
 
-  ```sh
-  whisper_path="$HOME/Developer/whisper.cpp"
-  model_path="${whisper_path}/models/ggml-base.en.bin"
-  
-  cd $EPISODE_MEDIA
-  ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
-  ```
+```sh
+# Get info
+cd $EPISODE_MEDIA
+export SIZE=$(stat -f %z $EPISODE.m4a)
+export DURATION=$(ffprobe -v 0 -show_entries format=duration -of csv=p=0 $EPISODE.m4a | cut -d. -f1)
 
-- [ ] Write a description (draft from the intern):
+# Upload audio media file to hosting
+REMOTE_HOSTING_PATH='lv-shared03.dapanel.net:public_html/media/csh/'
+scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
 
-  ```sh
-  export OPENAI_API_KEY="..."
-  cd $WEBSITE
-  USER=$(cat tools/description.prompt $EPISODE_MEDIA/$EPISODE.vtt)
-  export DESCRIPTION=$(openai api chat.completions.create --model gpt-4-1106-preview -g user "$USER")
-  yq --inplace --front-matter=process ".description = env(DESCRIPTION)" _episodes/$EPISODE.md
-  ```
+# Link podcast feed to that media
+cd $WEBSITE
+yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md
+yq -i --front-matter="process" '.itunes-duration = env(DURATION)' _episodes/$EPISODE.md
+```
+
+Do VTT transcript.
+
+```sh
+# Do the transcript
+
+whisper_path="$HOME/Developer/whisper.cpp"
+model_path="${whisper_path}/models/ggml-base.en.bin"
+
+cd $EPISODE_MEDIA
+ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
+```
+
+Write a description (draft from the intern):
+
+```sh
+export OPENAI_API_KEY="..."
+cd $WEBSITE
+USER=$(cat tools/description.prompt $EPISODE_MEDIA/$EPISODE.vtt)
+export DESCRIPTION=$(openai api chat.completions.create --model gpt-4o -g user "$USER")
+yq --inplace --front-matter=process ".description = env(DESCRIPTION)" _episodes/$EPISODE.md
+```
 
 ## Post long-form videos
 
@@ -163,29 +163,3 @@ make_episode 115 '2024-03-05' '18:00:00 -0500'
 make_episode 116 '2024-03-12' '18:00:00 -0400'
 make_episode 117 '2024-03-19' '18:00:00 -0400'
 ```
-
-
-
-
-
-
-```
-FOLDER=~/Sites/hour.gg/_episodes
-
-the next step on improving this is to provide an example input and manually created output of exactly what we want and then include that in the command run!
-
-do this as a tbone, make tbones bigger
-
-for episode_file in *.txt; do
-    EPISODE="${episode_file%.txt}" # Strips the .txt extension and assigns to EPISODE
-    CONTENT=$(cat "$episode_file")
-    
-    # Call the OpenAI API and append the output to the markdown file in the desired folder
-    openai api chat.completions.create \
-        --model gpt-4-1106-preview \
-        -g user "$CONTENT" \
-        -g system 'Transform the following raw transcript into a well-structured markdown document. Ensure that you include headings for different speakers, bullet points for key topics discussed, and italicize any emphasized words. Also, please correct any obvious grammatical mistakes and format the content to be clear and professional.' \
-        --stream | tee -a "$FOLDER/$EPISODE.md"
-done
-```
-
