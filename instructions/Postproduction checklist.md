@@ -113,8 +113,6 @@ export YOUTUBE_HASHTAGS=$(openai api chat.completions.create --model gpt-4o -g u
 yq --inplace --front-matter=process ".youtube-hashtags = strenv(YOUTUBE_HASHTAGS)" _episodes/$EPISODE.md
 ```
 
-Set the `posted=true` and git commit and push!
-
 ## Post long-form videos
 
 Use this description template:
@@ -145,6 +143,8 @@ Post to:
 ## Post to X
 
 - [ ] Add the URL to the episode file
+
+Set the `posted=true` and git commit and push!
 
 ## Draft upcoming episodes
 
