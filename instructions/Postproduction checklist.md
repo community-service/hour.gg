@@ -32,7 +32,10 @@ click v2 "https://www.tiktok.com/@fulldecent"
 
 ## Edit the video
 
-Cut the recorded video In DaVinci resolve. Export video to `YYYY-MM-DD-episode-###.mp4` and timecode markers to `YYYY-MM-DD-episode-###.edl`. Then proceed.
+Cut the recorded video In DaVinci Resolve.
+
+- [ ] Export video to `YYYY-MM-DD-episode-###.mp4` .
+- [ ] Export timecode markers to `YYYY-MM-DD-episode-###.edl`.
 
 ## Edit episode file
 
@@ -56,7 +59,7 @@ Copy details from the [live show notes](https://docs.google.com/document/d/1ta_6
 Follow all the specific podcasting [technical requirements](podcast-specifications.md) using these steps below.
 
 ```sh
-EPISODE_MEDIA=~/Documents/COMMUNITY\ SERVICE/Episode\ production
+EPISODE_MEDIA=~/Documents/COMMUNITY\ SERVICE/Episode\ production/Produced
 WEBSITE=~/Sites/hour.gg
 
 # Get like 2024-07-23-episode-127
@@ -102,10 +105,15 @@ Write a description (draft from the intern):
 ```sh
 export OPENAI_API_KEY="..."
 cd $WEBSITE
-USER=$(cat tools/description.prompt $EPISODE_MEDIA/$EPISODE.vtt)
-export DESCRIPTION=$(openai api chat.completions.create --model gpt-4o -g user "$USER")
-yq --inplace --front-matter=process ".description = env(DESCRIPTION)" _episodes/$EPISODE.md
+
+export DESCRIPTION=$(openai api chat.completions.create --model gpt-4o -g user "$(cat tools/description.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
+yq --inplace --front-matter=process ".description = strenv(DESCRIPTION)" _episodes/$EPISODE.md
+
+export YOUTUBE_HASHTAGS=$(openai api chat.completions.create --model gpt-4o -g user "$(cat tools/youtube-hashtags.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
+yq --inplace --front-matter=process ".youtube-hashtags = strenv(YOUTUBE_HASHTAGS)" _episodes/$EPISODE.md
 ```
+
+Set the `posted=true` and git commit and push!
 
 ## Post long-form videos
 
@@ -158,8 +166,7 @@ make_episode() {
     yq -i --front-matter="process" '.time = strenv(DATE) + " " + strenv(TIME)' $EPISODE_FILE
 }
 
-# Use New York time zone for time offset
-make_episode 115 '2024-03-05' '18:00:00 -0500'
-make_episode 116 '2024-03-12' '18:00:00 -0400'
-make_episode 117 '2024-03-19' '18:00:00 -0400'
+# Use New York time zone for time offset (-0400 in Summer EDT, -0500 in EST)
+make_episode 129 '2024-08-13' '18:00:00 -0400'
+make_episode 130 '2024-08-20' '18:00:00 -0400'
 ```
