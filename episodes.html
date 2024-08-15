@@ -17,12 +17,12 @@ title: Episodes
     </a>
     <span class="hstack d-inline-flex">
       <!-- Participants from this specific episode -->
-      {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
+      {% assign some_participant_ids = episode.participants | sample: 3 %}
       {% for participant_id in some_participant_ids %}
       <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
       {% endfor %}
       <!-- + how many not shown... -->
-      {% assign remaining = episode.badges.size | minus: 3 %}
+      {% assign remaining = episode.participants.size | minus: 3 %}
       {% if remaining > 0 %}
       <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
         {{- remaining -}}
@@ -78,12 +78,12 @@ title: Episodes
 </a>
   <span class="hstack d-inline-flex">
     <!-- Participants from this specific episode -->
-    {% assign some_participant_ids = episode.badges | sample: 3 | map: "participant" %}
+    {% assign some_participant_ids = episode.participants | sample: 3 %}
     {% for participant_id in some_participant_ids %}
     <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
     {% endfor %}
     <!-- + how many not shown... -->
-    {% assign remaining = episode.badges.size | minus: 3 %}
+    {% assign remaining = episode.participants.size | minus: 3 %}
     {% if remaining > 0 %}
     <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
       {{- remaining -}}

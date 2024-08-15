@@ -75,8 +75,7 @@ title: Participants
     <td class="position-relative">
       {% assign episodes = site.episodes | where: "posted", true | reverse %}
       {% for episode in episodes -%}
-        {% assign foundBadge = episode.badges | where: "participant", participant[0] -%}
-        {% if foundBadge.size > 0 -%}
+        {% if episode.participants contains participant[0] %}
           <a href="{{ episode.url }}" target="_blank" class="stretched-link">
             {{ episode.itunes-episode }} / {{ episode.title | escape }}
           </a>

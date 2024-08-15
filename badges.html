@@ -2,56 +2,54 @@
 layout: page
 title: Badges
 ---
-<h1 class="my-4">Badges (by year)</h1>
+<h1 class="my-4">Participants (by year)</h1>
 
-<!-- list each badge -->
-<!-- for each, list each year from 2022 to site publish date -->
-<!-- for each year, list each participant and the first episode they appeared in that year -->
-{% assign currentYear = site.time | date: "%Y" -%}
+<!-- Get the current year -->
+{% assign currentYear = site.time | date: "%Y" %}
+
+<!-- Group episodes by year -->
 {%- assign episodesByYear = site.episodes | where: "posted", true | group_by_exp: "item", "item.date | date: '%Y' | plus: 0" -%}
 
-{% for badge in site.data.badges -%}
-  <h2 class="mt-5">{{ badge[1].name }}</h2>
-  <p>{{ badge[1].description }} </p>
-  {% for year in (2022..currentYear) -%}
-    {% assign episodesThisYear = '' | split: '' -%}
-    {% for group in episodesByYear -%}
-      {% if group.name == year -%}
-        {% assign episodesThisYear = group.items -%}
-        <h3 class="mt-5">{{ year }}</h3>
-        <table class="table">
-          <tr><th>Participant</th><th>First achieved</th><th>Ethereum</th></tr>
-          {% for participant in site.data.participants -%}
-            {% for episode in episodesThisYear -%}
-              {% assign foundBadge = episode.badges | where: "participant", participant[0] | where: "type", badge[0] -%}
-              {% if foundBadge.size > 0 -%}
-                {% assign participantData = "" -%}
-                {% for participantDataSearching in site.data.participants -%}
-                  {% if participantDataSearching[0] == participant[0] -%}
-                    {% assign participantData = participantDataSearching -%}
-                    {% break -%}
-                  {% endif -%}
-                {% endfor -%}
-                  
-                <tr>
-                  <td class="position-relative">
-                    <a href="https://twitter.com/{{ participant[0] }}" class="stretched-link">
-                      {{ participant[0] }}
-                    </a>
-                  </td>
-                  <td>{{ episode.date | date: "%Y-%m-%d" }}</td>
-                  <td>
-                    {% if participantData[1].ethereum == "???" -%}
-                    {% else -%}
-                      {{ participantData[1].ethereum }}
-                    {% endif -%}
-                </tr>
-                {% break %}
-              {% endif -%}
-            {% endfor -%}
+<!-- Iterate through each year from 2022 to the current year -->
+{% for year in (2022..currentYear) %}
+  {% assign episodesThisYear = '' | split: '' %}
+  {% for group in episodesByYear %}
+    {% if group.name == year %}
+      {% assign episodesThisYear = group.items %}
+      <h3 class="mt-5">{{ year }}</h3>
+      <table class="table">
+        <tr><th>Participant</th><th>First achieved</th><th>Ethereum</th></tr>
+        
+        <!-- Iterate through each participant -->
+        {% for participant in site.data.participants %}
+          {% assign firstEpisodeDate = '' %}
+          
+          <!-- Find the first episode for this participant in the given year -->
+          {% for episode in episodesThisYear %}
+            {% if episode.participants contains participant[0] %}
+              {% assign firstEpisodeDate = episode.date | date: "%Y-%m-%d" %}
+              {% break %}
+            {% endif %}
           {% endfor %}
-        </table>
-      {% endif %}
-    {% endfor %}
+          
+          <!-- Only display participants who appeared in this year -->
+          {% if firstEpisodeDate != '' %}
+            <tr>
+              <td class="position-relative">
+                <a href="https://twitter.com/{{ participant[0] }}" class="stretched-link">
+                  {{ participant[0] }}
+                </a>
+              </td>
+              <td>{{ firstEpisodeDate }}</td>
+              <td>
+                {% if participant[1].ethereum != "???" %}
+                  {{ participant[1].ethereum }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+    {% endif %}
   {% endfor %}
 {% endfor %}

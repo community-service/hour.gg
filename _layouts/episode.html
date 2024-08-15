@@ -67,16 +67,17 @@ breadcrumbs:
     </div>    
   </div>
   <div class="col">
-    <h2>Badges</h2>
-    {% for badge in page.badges %}
-
+    <h2>Participants</h2>
+    {% for participant in page.participants %}
+    
     <div class="col hstack align-self-start gap-2 mb-3">
-      <img src="/assets/participants/{{ badge.participant }}.jpg" alt="{{ badge.participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
+      <img src="/assets/participants/{{ participant }}.jpg" alt="{{ participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
       <div>
-        <h5 class="card-title"><a href="https://twitter.com/{{ site.data.participants[badge.participant].x }}">@{{ site.data.participants[badge.participant].x }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
+        <h5 class="card-title">
+          <a href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{ site.data.participants[participant].x }}</a>
+        </h5>
         <p class="card-text">
-          {{ site.data.participants[badge.participant].name }}
-          <span class="badge text-bg-warning" title="{{ site.data.badges[badge.type].description }}">{{ site.data.badges[badge.type].name }}</span>
+          {{ site.data.participants[participant].name }}
         </p>
       </div>
     </div>
