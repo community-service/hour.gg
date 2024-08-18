@@ -1,0 +1,26 @@
+---
+layout: null
+permalink: /calendar.ics
+---
+BEGIN:VCALENDAR
+VERSION:2.0
+DESCRIPTION:Community Service Hour call
+PRODID:-//Community Service Hour//gg.hour//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+{%- assign episodes = site.episodes | where: "posted", "false" | sort: 'time' %}
+{% for episode in episodes -%}
+BEGIN:VEVENT
+UID:{{ episode.guid }}
+DTSTAMP:{{ episode.time | date: "%Y%m%dT%H%M%SZ" }}
+DTSTART:{{ episode.time | date: "%Y%m%dT%H%M%SZ" }}
+{%- assign unix_time = episode.time | date: "%s" | plus: 3600 %}
+DTEND:{{ unix_time | date: "%Y%m%dT%H%M%SZ" }}
+SUMMARY:Community Service Hour / {{ episode.itunes-episode }} / {{ episode.title | escape }}
+DESCRIPTION:Watch live at https://twitch.tv/fulldecent and speak on X Space at https://x.com/fulldecent // episode notes: {{ episode.description | escape }}
+URL:{{ episode.enclosure-url }}
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+{% endfor -%}
+END:VCALENDAR
