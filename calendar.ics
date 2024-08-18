@@ -5,6 +5,7 @@ permalink: /calendar.ics
 ---
 BEGIN:VCALENDAR
 VERSION:2.0
+X-WR-CALNAME:Community Service Hour call
 DESCRIPTION:Community Service Hour call
 PRODID:-//Community Service Hour//gg.hour//EN
 CALSCALE:GREGORIAN
