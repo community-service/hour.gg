@@ -11,7 +11,7 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 {%- assign episodes = site.episodes | where: "posted", "false" | sort: 'time' %}
 {%- for episode in episodes %}
-{% assign local_time = episode.start-time | date: "%s" -%}
+{% assign utc_time = episode.start-time | date: "%s" -%}
 BEGIN:VEVENT
 UID:{{ episode.guid }}
 DTSTAMP:{{ utc_time | date: "%Y%m%dT%H%M%SZ" }}
