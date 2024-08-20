@@ -1,3 +1,22 @@
+## Convert each episode .time to .start-time
+
+For https://github.com/fulldecent/blog.phor.net/issues/8
+
+The `.time` is now using like `^time: "2022-03-15 18:00:00 -0500"` and we want to use ISO-8601 format like `^start-time: "2022-03-15T18:00:00-05:00"`.
+
+```sh
+for episode in _episodes/*.md; do
+  sed -i '' 's/^time: "\(.*\) \([0-9]\{2\}\):\([0-9]\{2\}\):\([0-9]\{2\}\) \([+-][0-9]\{2\}\)\([0-9]\{2\}\)"/start-time: "\1T\2:\3:\4\5:\6"/' $episode
+done
+```
+
+```sh
+for episode in _episodes/*.md; do
+  sed -i '' 's/^time: "\(.*\) \([0-9]\{2\}\):\([0-9]\{2\}\):\([0-9]\{2\}\) \([+-][0-9]\{2\}\)\([0-9]\{2\}\)"/start-time: "\1T\2:\3:\4\5:\6"/' "$episode"
+done
+```
+
+
 ## 2023-11-14 make token drop tweets, find all participants
 
 ```sh

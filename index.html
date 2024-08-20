@@ -243,7 +243,7 @@ layout: none
       .then(response => response.json())
       .then(data => {
         for (const episode of data) {
-          const startTime = new Date(episode.time);
+          const startTime = new Date(episode.startTime); // YYYY-MM-DDTHH:MM:SS-XX:YY
           const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
           
           // If this episode ended, skip it

@@ -151,10 +151,17 @@ Set the `posted=true` and git commit and push!
 :warning: This overwrites existing episode files.
 
 ```sh
-make_episode() {
+make_episode() { # NUMBER DATE_TIME_OFFSET
     export NUMBER=$1
-    export DATE=$2
-    export TIME=$3
+    export DATE_TIME_OFFSET=$2
+
+    # Validate YYYY-MM-DDTHH:MM:SS-XX:XX format
+    if [[ ! $DATE_TIME_OFFSET =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}-[0-9]{2}:?[0-9]{2}$ ]]; then
+        echo "Invalid date-time format, use YYYY-MM-DDTHH:MM:SS-XX:XX"
+        return 1
+    fi
+
+    DATE=$(echo $DATE_TIME_OFFSET | cut -d'T' -f1)
     BASENAME="$DATE-episode-$NUMBER"
     EPISODE_FILE="_episodes/$BASENAME.md"
     export URL="https://media.phor.net/csh/$BASENAME.m4a"
@@ -163,10 +170,10 @@ make_episode() {
     yq -i --front-matter="process" '.guid = env(UUID)' $EPISODE_FILE
     yq -i --front-matter="process" '.enclosure-url = env(URL)' $EPISODE_FILE
     yq -i --front-matter="process" '.itunes-episode = env(NUMBER)' $EPISODE_FILE
-    yq -i --front-matter="process" '.time = strenv(DATE) + " " + strenv(TIME)' $EPISODE_FILE
+    yq -i --front-matter="process" '.start-time = env(DATE_TIME_OFFSET)' $EPISODE_FILE
 }
 
 # Use New York time zone for time offset (-0400 in Summer EDT, -0500 in EST)
-make_episode 129 '2024-08-13' '18:00:00 -0400'
-make_episode 130 '2024-08-20' '18:00:00 -0400'
+make_episode 130 '2024-08-20T18:00:00-04:00'
+make_episode 131 '2024-08-27T18:00:00-04:00'
 ```

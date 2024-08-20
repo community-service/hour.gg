@@ -5,7 +5,7 @@ title: UPDATE ME
 subtitle: UPDATE ME
 # The description can be up to 400 characters
 description: UPDATE ME 
-time: UPDATE ME
+start-time: YYYY-MM-DDTHH:MM:SS-XX:XX
 itunes-explicit: false
 itunes-episode: UPDATE ME
 itunes-episodeType: full

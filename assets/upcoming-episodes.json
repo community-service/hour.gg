@@ -4,7 +4,7 @@
 {%- assign episodes = site.episodes | where: "posted", "false" | sort: 'date' -%}
 {%- for episode in episodes %}
     {
-        "time": "{{ episode.time }}",
+        "startTime": "{{ episode.start-time }}",
         "title": "{{ episode.itunes-episode}} / {{ episode.title | escape }}"
     }{%- unless forloop.last -%},{%- endunless -%}
 {% endfor %}
