@@ -26,9 +26,8 @@ enclosure-type: "audio/x-m4a"
 itunes-duration: UPDATE ME
 
 # Use X username, lowercased, as the participant
-badges:
-  - type: stayed-to-end
-    participant: "fulldecent"
+participants:
+  - "fulldecent"
 ---
 
 <!--end of quick notes-->
