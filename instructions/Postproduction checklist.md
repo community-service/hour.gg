@@ -49,7 +49,7 @@ Copy details from the [live show notes](https://docs.google.com/document/d/1ta_6
 
 - [ ] `title`
 - [ ] `subtitle`
-- [ ] `badges`
+- [ ] `participants`
 - [ ] At the bottom, below `---`, add useful links and keywords for things we discussed
   - [ ] This part requires human research, ChatGPT does not know everybody's profile/homepage URL
 - [ ] After `<!--end of quick notes-->` paste the show notes from during the show
