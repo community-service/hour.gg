@@ -58,8 +58,7 @@ breadcrumbs:
     // After document ready
     document.addEventListener('DOMContentLoaded', () => {
       // Enable tooltips on every element
-      const tooltipTriggerList = document.querySelectorAll('*');
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+      document.querySelectorAll('[title]').forEach(el => new bootstrap.Tooltip(el));
     });
   </script>  
 </body>
