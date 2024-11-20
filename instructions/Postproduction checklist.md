@@ -176,4 +176,7 @@ make_episode() { # NUMBER DATE_TIME_OFFSET
 # Use New York time zone for time offset (-0400 in Summer EDT, -0500 in EST)
 make_episode 130 '2024-08-20T18:00:00-04:00'
 make_episode 131 '2024-08-27T18:00:00-04:00'
+make_episode 132 '2024-09-03T18:00:00-04:00'
+make_episode 133 '2024-09-17T18:00:00-04:00'
+make_episode 134 '2024-09-24T18:00:00-04:00'
 ```
