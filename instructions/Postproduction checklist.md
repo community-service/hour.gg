@@ -46,7 +46,7 @@ Open it
 code ~/Sites/hour.gg
 ```
 
-Copy details from the [live show notes](https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#) into the [episode file](_episodes) (anybody can pull request to do this step):
+Copy details from the [live show notes](https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG) into the [episode file](_episodes) (anybody can pull request to do this step):
 
 - [ ] `title`
 - [ ] `subtitle`
@@ -69,7 +69,7 @@ EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
 echo $EPISODE
 ```
 
-Use https://hour.gg/timecode-tool with the episode EDL to get and run the `ffmpeg` mixdown code. 
+Use <https://hour.gg/timecode-tool> with the episode EDL to get and run the `ffmpeg` mixdown code.
 
 And continue along.
 
@@ -138,7 +138,7 @@ Motion graphics by Gisela Leyva
 
 Post to:
 
-- [ ] https://youtube.com/upload
+- [ ] <https://youtube.com/upload>
   - [ ] Add the URL to the episode file
 
 ## Post to X

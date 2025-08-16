@@ -2,7 +2,7 @@
 
 *Open source every week.*
 
-This repository is the editable source for our website https://hour.gg and [our podcast XML file](https://hour.gg/podcast.xml) which syndicates to [Apple Podcasts](https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217) and [Spotify](https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ).
+This repository is the editable source for our website <https://hour.gg> and [our podcast XML file](https://hour.gg/podcast.xml) which syndicates to [Apple Podcasts](https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217) and [Spotify](https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ).
 
 This repo should also be useful to other projects that want to publish their podcast and episode notes on their own website.
 
@@ -18,7 +18,7 @@ Do you like how Community Service Hour is produced? Here is our tech stack:
 
 ## [Instructions](./instructions)
 
-* When a show is over, please copy details from the [live show notes](https://docs.google.com/document/d/1ta_6tSCGfC31iIfhz4bfC_oBKyNZGEdDsZkD-BRXY_Y/edit#) into the [episode file](_episodes) (anybody can pull request).
+- When a show is over, please copy details from the [live show notes](https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG) into the [episode file](_episodes) (anybody can pull request).
 
-* [Production checklist](./instructions/Production checklist.md)—print this and keep on hand for the show
-* [Postproduction checklist](./instructions/Postproduction checklist.md)—print this and keep on hand for the show
+- [Production checklist](./instructions/Production checklist.md)—print this and keep on hand for the show
+- [Postproduction checklist](./instructions/Postproduction checklist.md)—print this and keep on hand for the show
