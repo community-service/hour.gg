@@ -6,11 +6,11 @@ title: Episodes
 
 {% assign episodes = site.episodes | where: "posted", "false" | sort: 'date' | reverse %}
 {% for episode in episodes %}
-<div class="upcoming-or-draft" data-date="{{ episode.date | date: "%Y-%m-%d" }}">
+<div class="upcoming-or-draft" data-date="{{ episode.date | date: " %Y-%m-%d" }}">
   <h2 class="d-flex gap-1 align-items-center fs-4">
     <span class="badge rounded-pill bg-warning text-dark"></span>
     <a href="{{ episode.url | relative_url }}" class="link-primary">
-      {{ episode.itunes-episode}} / {{ episode.title | escape }}
+      {{ episode.title | escape }}
       {% if episode.subtitle != "" %}
       <br><small>{{ episode.subtitle | escape }}</small>
       {% endif %}
@@ -19,7 +19,8 @@ title: Episodes
       <!-- Participants from this specific episode -->
       {% assign some_participant_ids = episode.participants | sample: 3 %}
       {% for participant_id in some_participant_ids %}
-      <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
+      <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle"
+        style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
       {% endfor %}
       <!-- + how many not shown... -->
       {% assign remaining = episode.participants.size | minus: 3 %}
@@ -29,6 +30,7 @@ title: Episodes
       </span>
       {% endif %}
     </span>
+    Episode {{ episode.itunes-episode}}
   </h2>
   <div class="row mb-4">
     <div class="col-lg">
@@ -42,7 +44,7 @@ title: Episodes
         {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
         {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
         {% if hoursHH == "00" %}
-          {% assign time = minutesMM | append: ":" | append: secondsSS %}
+        {% assign time = minutesMM | append: ":" | append: secondsSS %}
         {% endif %}
         <li>
           <code>{{ time }}</code>
@@ -56,7 +58,8 @@ title: Episodes
       {{ episode.excerpt }}
 
       <!-- edit on GitHub, use this episode's file name -->
-      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: "%Y-%m-%d" }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
+      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
+        }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
         <i class="bi bi-github"></i>
         Edit these notes&hellip;
       </a>
@@ -71,16 +74,17 @@ title: Episodes
 {% for episode in episodes %}
 <h2 class="d-flex gap-1 align-items-center fs-4">
   <a href="{{ episode.url | relative_url }}" class="link-primary">
-    {{ episode.itunes-episode}} / {{ episode.title | escape }}
+    {{ episode.title | escape }}
     {% if episode.subtitle != "" %}
     <br><small>{{ episode.subtitle | escape }}</small>
     {% endif %}
-</a>
+  </a>
   <span class="hstack d-inline-flex">
     <!-- Participants from this specific episode -->
     {% assign some_participant_ids = episode.participants | sample: 3 %}
     {% for participant_id in some_participant_ids %}
-    <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle" style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
+    <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle"
+      style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
     {% endfor %}
     <!-- + how many not shown... -->
     {% assign remaining = episode.participants.size | minus: 3 %}
@@ -93,6 +97,7 @@ title: Episodes
 </h2>
 <div class="row mb-4">
   <div class="col-lg">
+    Episode {{ episode.itunes-episode}}
     <ul>
       <!-- timeline entries -->
       <!-- Set timeline = episode.timeline except 00:00 Intro -->
@@ -103,7 +108,7 @@ title: Episodes
       {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
       {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
       {% if hoursHH == "00" %}
-        {% assign time = minutesMM | append: ":" | append: secondsSS %}
+      {% assign time = minutesMM | append: ":" | append: secondsSS %}
       {% endif %}
       <li>
         <code>{{ time }}</code>
@@ -117,7 +122,8 @@ title: Episodes
     {{ episode.excerpt }}
 
     <!-- edit on GitHub, use this episode's file name -->
-    <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: "%Y-%m-%d" }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
+    <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
+      }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
       <i class="bi bi-github"></i>
       Edit these notes&hellip;
     </a>

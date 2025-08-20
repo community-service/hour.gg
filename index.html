@@ -157,7 +157,7 @@ layout: none
         <h2 class="fs-4">
           <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
             <div>
-              {{ episode.itunes-episode}} / {{ episode.title | escape }}
+              {{ episode.title | escape }}
               {% if episode.subtitle != "" %}
               <br><small>{{ episode.subtitle }}</small>
               {% endif %}
@@ -179,7 +179,7 @@ layout: none
             </span>
           </a>
         </h2>
-        <p>{{ episode.description | escape }}</p>
+        <p>{{ episode.itunes-episode}} / {{ episode.description | escape }}</p>
       </div>
       {% if episode.youtube-full %}
       {% assign youtube-id = episode.youtube-full | split: '/' | last %}

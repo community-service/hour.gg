@@ -34,9 +34,9 @@ click v2 "https://www.tiktok.com/@fulldecent"
 
 Cut the recorded video In DaVinci Resolve.
 
+- [ ] Export timecode markers to `YYYY-MM-DD-episode-###.edl`.
 - [ ] Export video to `YYYY-MM-DD-episode-###.mp4` .
   Use "YouTube 1080p" settings.
-- [ ] Export timecode markers to `YYYY-MM-DD-episode-###.edl`.
 
 ## Edit episode file
 
@@ -119,6 +119,8 @@ yq --inplace --front-matter=process ".youtube-hashtags = strenv(YOUTUBE_HASHTAGS
 Use this description template:
 
 ```
+Episode #9999
+
 PASTE TIMELINE HERE
 
 Join our live weekly call // https://hour.gg
