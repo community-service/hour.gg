@@ -10,6 +10,8 @@ This repo should also be useful to other projects that want to publish their pod
 
 Do you like how Community Service Hour is produced? Here is our tech stack:
 
+*This page includes an affiliate link. And hopefully I'll get paid if you click it. This does not increase the price you pay, you would get the same price with or without my link.*
+
 - [OBS](https://obsproject.com) / [obs-transition-move plugin](https://obsproject.com/forum/resources/move-transition.913/)
 - [Elmedia Video Player](https://www.elmedia-video-player.com/) (mirror iPhone to Mac)
 - [GSKAIWEN Studio LED Kit](https://amzn.to/3eXJ3Xy) / [Alexis iO2 USB audio](https://www.alesis.com/products/legacy/io2) / Samson microphone / [Lavalier Lapel mic](https://amzn.to/3MWMl9U)
