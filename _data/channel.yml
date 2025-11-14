@@ -2,7 +2,6 @@
 # We recognize Apple's specification for iTunes tags.
 # Defined at: https://help.apple.com/itc/podcasts_connect/#/itcb54353390
 
-
 # Required tags ################################################################
 
 title: "Community Service Hour"
@@ -24,9 +23,8 @@ itunes-owner-email: "csh-feed-owner@phor.net"
 # itunes-title:
 itunes-type: "episodic"
 copyright: Copyright William Entriken
-#itunes-new-feed-url: 
+#itunes-new-feed-url:
 #itunes-block:
 #itunes-complete:
 
 pub-date: "2023-01-01T00:00:00+00:00"
-language: "en-US"

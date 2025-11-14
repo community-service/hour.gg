@@ -80,7 +80,7 @@ export SIZE=$(stat -f %z $EPISODE.m4a)
 export DURATION=$(ffprobe -v 0 -show_entries format=duration -of csv=p=0 $EPISODE.m4a | cut -d. -f1)
 
 # Upload audio media file to hosting
-REMOTE_HOSTING_PATH='lv-shared03.dapanel.net:public_html/media/csh/'
+REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
 scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
 
 # Link podcast feed to that media
@@ -107,10 +107,10 @@ Write a description (draft from the intern):
 export OPENAI_API_KEY="..."
 cd $WEBSITE
 
-export DESCRIPTION=$(openai api chat.completions.create --model o3-mini -g user "$(cat tools/description.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
+export DESCRIPTION=$(openai api chat.completions.create --model gpt-5-mini -g user "$(cat tools/description.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
 yq --inplace --front-matter=process ".description = strenv(DESCRIPTION)" _episodes/$EPISODE.md
 
-export YOUTUBE_HASHTAGS=$(openai api chat.completions.create --model o3-mini -g user "$(cat tools/youtube-hashtags.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
+export YOUTUBE_HASHTAGS=$(openai api chat.completions.create --model gpt-5-mini -g user "$(cat tools/youtube-hashtags.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
 yq --inplace --front-matter=process ".youtube-hashtags = strenv(YOUTUBE_HASHTAGS)" _episodes/$EPISODE.md
 ```
 
