@@ -19,7 +19,7 @@ title: Episodes
       <!-- Participants from this specific episode -->
       {% assign some_participant_ids = episode.participants | sample: 3 %}
       {% for participant_id in some_participant_ids %}
-      <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle"
+      <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle"
         style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
       {% endfor %}
       <!-- + how many not shown... -->
@@ -83,7 +83,7 @@ title: Episodes
     <!-- Participants from this specific episode -->
     {% assign some_participant_ids = episode.participants | sample: 3 %}
     {% for participant_id in some_participant_ids %}
-    <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle"
+    <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle"
       style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
     {% endfor %}
     <!-- + how many not shown... -->

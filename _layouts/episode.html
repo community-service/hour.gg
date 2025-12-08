@@ -1,10 +1,10 @@
 ---
 layout: page
 breadcrumbs:
-  - label: CSH
-    url: /
-  - label: Episodes
-    url: /episodes
+- label: CSH
+url: /
+- label: Episodes
+url: /episodes
 ---
 <h1 class="fs-3">
   {% if page.posted == false %}
@@ -75,7 +75,7 @@ breadcrumbs:
     {% for participant in page.participants %}
 
     <div class="col hstack align-self-start gap-2 mb-3">
-      <img src="/assets/participants/{{ participant }}.jpg" alt="{{ participant }}" class="rounded-circle"
+      <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}" class="rounded-circle"
         style="width: 3rem; height: 3rem;">
       <div>
         <h5 class="card-title">

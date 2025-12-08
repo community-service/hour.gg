@@ -55,7 +55,7 @@ layout: none
     <div class="container-xl">
 
       <a class="navbar-brand" href="/">
-        <img src="/assets/logo.png" alt="Bootstrap" height="40">
+        <img src="/assets/logo.webp" alt="Bootstrap" height="40">
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -175,7 +175,7 @@ layout: none
               <!-- Participants from this specific episode -->
               {% assign some_participant_ids = episode.participants | sample: 3 %}
               {% for participant_id in some_participant_ids %}
-              <img src="/assets/participants/{{ participant_id }}.jpg" class="rounded-circle participant-default-image"
+              <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle participant-default-image"
                 style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
               {% endfor %}
               <!-- + how many not shown... -->
@@ -231,7 +231,7 @@ layout: none
       {% endfor -%}
       {% for participant in all_participants2 -%}
       <div class="col hstack align-self-start gap-2 mb-3">
-        <img src="/assets/participants/{{ participant }}.jpg" alt="{{ participant }}"
+        <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}"
           class="rounded-circle participant-default-image" style="width: 3rem; height: 3rem;">
         <div>
           <h5 class="card-title"><a class="link-primary"
@@ -333,7 +333,7 @@ layout: none
       });
 
     document.querySelectorAll('.participant-default-image')
-      .forEach(img => img.onerror = () => img.src = '/assets/empty-participant.jpg');
+      .forEach(img => img.onerror = () => img.src = '/assets/empty-participant.webp');
   </script>
 </body>
 

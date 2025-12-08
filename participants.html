@@ -4,16 +4,21 @@ title: Participants
 ---
 <h1 class="my-4">Participants</h1>
 
-<iframe class="float-lg-end ms-3 mb-3" width="300" height="150" src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="float-lg-end ms-3 mb-3" width="300" height="150"
+  src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player" frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen></iframe>
 
 <p class="lead">
-  🚨 <a href="https://twitter.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg">DM Will</a>
+  🚨 <a
+    href="https://twitter.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg">DM
+    Will</a>
   or click <kbd>EDIT</kbd> below to update how you are shown on this website.
 </p>
 
 <p class="lead">
   ℹ️ You can follow people below all at once with <a href="https://twitter.com/fulldecent/lists">our lists on X</a>.
-</p>  
+</p>
 
 <table class="table">
   <tr>
@@ -25,7 +30,7 @@ title: Participants
     <th>Last participated</th>
     <th>Edit</th>
   </tr>
-{% for participant in site.data.participants -%}
+  {% for participant in site.data.participants -%}
   <tr id="{{ participant[0] }}">
     <td class="position-relative">
       <a href="http://twitter.com/{{ participant[1].x }}" class="stretched-link icon-link" target="_blank">
@@ -60,56 +65,61 @@ title: Participants
       <a href="https://github.com/{{ participant[1].github }}" class="stretched-link icon-link">
         <i class="bi-github"></i>
         {{ participant[1].github }}
-      {% endif %}
-    </td>
-      <td class="position-relative">
-      {% for file in site.static_files %}
-        {% if file.path contains participant[0] %}
-          <p>
-            <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem" alt="Photo of {{ participant[0] }}">
-          </p>
-          {% break %}
         {% endif %}
+    </td>
+    <td class="position-relative">
+      {% for file in site.static_files %}
+      {% if file.path contains participant[0] %}
+      <p>
+        <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem"
+          alt="Photo of {{ participant[0] }}">
+      </p>
+      {% break %}
+      {% endif %}
       {% endfor %}
     </td>
     <td class="position-relative">
       {% assign episodes = site.episodes | where: "posted", true | reverse %}
       {% for episode in episodes -%}
-        {% if episode.participants contains participant[0] %}
-          <a href="{{ episode.url }}" target="_blank" class="stretched-link">
-            {{ episode.itunes-episode }} / {{ episode.title | escape }}
-          </a>
-        
-          {% break %}
-        {% endif -%}
+      {% if episode.participants contains participant[0] %}
+      <a href="{{ episode.url }}" target="_blank" class="stretched-link">
+        {{ episode.itunes-episode }} / {{ episode.title | escape }}
+      </a>
+
+      {% break %}
+      {% endif -%}
       {% endfor -%}
     </td>
     <td class="position-relative">
-      <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank" class="stretched-link btn btn-primary btn-sm">
+      <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank"
+        class="stretched-link btn btn-primary btn-sm">
         Edit
       </a>
     </td>
   </tr>
-{% endfor -%}
+  {% endfor -%}
 </table>
 
 <h2 class="mt-5">Missing photos</h2>
-<p>Please <a href="https://github.com/community-service/hour.gg/tree/main/assets/participants">add photos</a> for these participants to fix broken image links.</p>
+<p>Please <a href="https://github.com/community-service/hour.gg/tree/main/assets/participants">add photos</a> for these
+  participants to fix broken image links.</p>
 
 <ul>
   {% for participant in site.data.participants -%}
-    {% assign extension = false -%}
-    {% for file in site.static_files -%}
-      {% if file.path contains participant[0] -%}
-        {% assign extension = file.extname -%}
-        {% break -%}
-      {% endif -%}
-    {% endfor -%}
-    {% if extension == false -%}
-      <li><a href="https://twitter.com/{{ participant[1].x }}" target="_blank">{{ participant[1].x }}</a></li>
-    {% elsif extension != ".jpg" -%}
-      <li><code>convert {{ participant[0] }}{{ extension }} {{ participant[0] }}.jpg; rm {{ participant[0] }}{{ extension }}</code></li>
-    {% endif -%}
+  {% assign extension = false -%}
+  {% for file in site.static_files -%}
+  {% if file.path contains participant[0] -%}
+  {% assign extension = file.extname -%}
+  {% break -%}
+  {% endif -%}
+  {% endfor -%}
+  {% if extension == false -%}
+  <li><a href="https://twitter.com/{{ participant[1].x }}" target="_blank">{{ participant[1].x }}</a></li>
+  {% elsif extension != ".webp" -%}
+  <li>
+    <code>cwebp -q 80 -m 6 -mt -v -o {{ participant[0] }}.webp {{ participant[0] }}{{ extension }}; rm {{ participant[0] }}{{ extension }}</code>
+  </li>
+  {% endif -%}
   {% endfor -%}
 </ul>
 
