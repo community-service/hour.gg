@@ -36,7 +36,9 @@ Cut the recorded video In DaVinci Resolve.
 
 - [ ] Export timecode markers to `YYYY-MM-DD-episode-###.edl`.
 - [ ] Export video to `YYYY-MM-DD-episode-###.mp4` .
-  Use "YouTube 1080p" settings.
+  - [ ] Use "YouTube 1080p" settings.
+  - [ ] Normalize > Optimize to standard
+  
 
 ## Edit episode file
 
