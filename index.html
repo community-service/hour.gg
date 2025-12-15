@@ -6,6 +6,7 @@ layout: none
 
 <head>
   <title>Community Service Hour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
@@ -46,6 +47,24 @@ layout: none
 
     .font-primary {
       font-family: "Rockwell", "Georgia", "Times New Roman", "Times", serif;
+    }
+
+    @media (min-width: 731px) {
+      .episode-row {
+        margin-top: 10% !important;
+      }
+      .episodes-heading {
+        margin-bottom: -5% !important;
+      }
+    }
+
+    @media (max-width: 730px) {
+      .episode-row {
+        margin-top: 30% !important;
+      }
+      .episodes-heading {
+        margin-bottom: -15% !important;
+      }
     }
   </style>
 </head>
@@ -108,7 +127,7 @@ layout: none
   <header class="container-xl py-4">
     <div class="row g-4 align-items-center py-4 min-vh-50">
       <div class="col-12 col-lg-4">
-        <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-3">
+        <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-3 text-center text-lg-start">
           Publish software,<br>
           build your career
         </h1>
@@ -143,13 +162,13 @@ layout: none
     </div>
   </header>
 
-  <aside class="text-end">
-    <img src="assets/divider.svg" style="max-height: 3rem;" alt="Divider">
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
   </aside>
 
   <section class="container-xl py-4">
 
-    <h1 class="my-4">
+    <h1 class="my-4 episodes-heading">
       <a class="link-primary" href="/episodes">Episodes &amp; notes</a>
       <!--
       <a class="btn btn-sm rounded-pill btn-primary" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple Podcasts</a>
@@ -161,8 +180,8 @@ layout: none
 
     {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse | slice: 0, 10 %}
     {% for episode in episodes %}
-    <div class="row my-4">
-      <div class="col-12 col-lg-10 position-relative">
+    <div class="row my-4 episode-row">
+      <div class="col-12 position-relative">
         <h2 class="fs-4">
           <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
             <div>
@@ -192,10 +211,11 @@ layout: none
       </div>
       {% if episode.youtube-full %}
       {% assign youtube-id = episode.youtube-full | split: '/' | last %}
-      <div class="col-12 col-lg-2">
-        <iframe src="https://www.youtube-nocookie.com/embed/{{ youtube-id }}"
-          allow="accelerometer; autoplay; gyroscope; picture-in-picture" allowfullscreen class="rounded-5"
-          style="max-width: 100%;"></iframe>
+      <div class="col-12">
+        <div class="ratio ratio-16x9" style="max-width: 500px;">
+          <iframe src="https://www.youtube-nocookie.com/embed/{{ youtube-id }}"
+            allow="accelerometer; autoplay; gyroscope; picture-in-picture" allowfullscreen class="rounded-5"></iframe>
+        </div>
       </div>
       {% endif %}
     </div>
@@ -274,8 +294,8 @@ layout: none
       You're welcome to share with us on the call, and can expect lots of encouragement.</p>
   </section>
 
-  <aside class="text-start">
-    <img src="assets/divider.svg" style="max-height: 3rem;" alt="Divider">
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
   </aside>
 
   <footer class="container-xl my-4 py-4">
