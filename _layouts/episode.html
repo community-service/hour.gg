@@ -1,11 +1,25 @@
 ---
 layout: page
 breadcrumbs:
-- label: CSH
-url: /
-- label: Episodes
-url: /episodes
+  - label: CSH
+    url: /
+  - label: Episodes
+    url: /episodes
 ---
+<style>
+  /* Prevent page margin breaks from long urls */
+  .markdown-body a,
+  main a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+/* Longer episodes need longer timelines */
+  audio {
+    width: 90%;
+    max-width: 400px;
+  }
+</style>
+
 <h1 class="fs-3">
   {% if page.posted == false %}
   <span class="badge rounded-pill bg-warning text-dark">Draft</span>
@@ -18,33 +32,38 @@ url: /episodes
 <p class="lead">{{ page.itunes-episode }} / {{ page.description | escape }}</p>
 
 {% if page.posted == true %}
-<!-- Show large audio player -->
-<div class="d-flex align-items-center">
+<div class="d-flex flex-wrap align-items-center gap-3">
   <audio controls>
     <source src="{{ page.enclosure-url }}" type="{{ page.enclosure-type }}">
     Your browser does not support the audio element.
   </audio>
-  {% if page.discussion %}
-  <a href="{{ page.discussion }}" class="btn btn-primary ms-3" target="_blank" rel="noopener" title="Discussion">
-    <i class="bi bi-chat"></i>
-  </a>
-  {% endif %}
-  {% if page.youtube-full %}
-  <a href="{{ page.youtube-full }}" class="btn btn-primary ms-3" target="_blank" rel="noopener"
-    title="Full episode video">
-    <i class="bi bi-youtube"></i>
-  </a>
-  {% endif %}
-  {% if page contains 'youtube-cuts' %}
-  {% for youtube-cut in page.youtube-cuts %}
-  <a href="{{ youtube-cut.url }}" class="btn btn-secondary ms-3" target="_blank" rel="noopener"
-    title="{{ youtube-cut.name | escape }}">
-    <i class="bi bi-youtube"></i>
-  </a>
-  {% endfor %}
+
+  {% if page.discussion or page.youtube-full or page.youtube-cuts %}
+  <div class="d-flex flex-wrap gap-2">
+    {% if page.discussion %}
+    <a href="{{ page.discussion }}" class="btn btn-primary" target="_blank" rel="noopener" title="Discussion">
+      <i class="bi bi-chat"></i>
+    </a>
+    {% endif %}
+
+    {% if page.youtube-full %}
+    <a href="{{ page.youtube-full }}" class="btn btn-primary" target="_blank" rel="noopener" title="Full episode video">
+      <i class="bi bi-youtube"></i>
+    </a>
+    {% endif %}
+
+    {% if page.youtube-cuts %}
+    {% for youtube-cut in page.youtube-cuts %}
+    <a href="{{ youtube-cut.url }}" class="btn btn-secondary" target="_blank" rel="noopener" title="{{ youtube-cut.name | escape }}">
+      <i class="bi bi-youtube"></i>
+    </a>
+    {% endfor %}
+    {% endif %}
+  </div>
   {% endif %}
 </div>
 {% endif %}
+
 <div class="row row-cols-1 row-cols-lg-2">
   <div class="col">
     <h2 id="timeline" class="mt-4">Timeline</h2>
@@ -58,11 +77,9 @@ url: /episodes
       {% assign time = minutesMM | append: ":" | append: secondsSS %}
       {% endif %}
       <div>
-        <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio"
-          data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
+        <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
         {% if page.youtube-full %}
-        <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener"
-          title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
+        <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
         {% endif %}
         <code>{{ time }}</code>
         {{ item.title | escape }}
@@ -70,17 +87,15 @@ url: /episodes
       {% endfor %}
     </div>
   </div>
-  <div class="col">
+
+  <div class="col mt-5 mt-lg-0">
     <h2>Participants</h2>
     {% for participant in page.participants %}
-
     <div class="col hstack align-self-start gap-2 mb-3">
-      <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}" class="rounded-circle"
-        style="width: 3rem; height: 3rem;">
+      <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
       <div>
         <h5 class="card-title">
-          <a href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{
-            site.data.participants[participant].x }}</a>
+          <a href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{ site.data.participants[participant].x }}</a>
         </h5>
         <p class="card-text">
           {{ site.data.participants[participant].name }}
@@ -89,14 +104,11 @@ url: /episodes
     </div>
     {% endfor %}
   </div>
-</div> <!-- .row -->
+</div>
 <hr>
 
-<h2>
-  Episode notes
-</h2>
-<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: " %Y-%m-%d" }}-episode-{{
-  page.itunes-episode }}.md" class="icon-link mb-5">
+<h2>Episode notes</h2>
+<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: "%Y-%m-%d" }}-episode-{{ page.itunes-episode }}.md" class="icon-link mb-5">
   <i class="bi bi-github"></i>
   Edit these notes&hellip;
 </a>
