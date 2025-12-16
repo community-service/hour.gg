@@ -69,6 +69,23 @@ layout: none
       }
     }
 
+    /* Hero layout */
+    .hero-logo {
+      max-height: 14rem;
+      object-fit: contain;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+
+    .hero-newsletter-wrap {
+      margin-top: 5%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
     /* Custom scrollbar styling */
     ::-webkit-scrollbar {
       width: 12px;
@@ -123,40 +140,49 @@ layout: none
   {% include main-nav.html %}
 
   <header class="container-xl py-4">
-    <div class="row g-4 align-items-center py-4 min-vh-50">
-      <div class="col-12 col-lg-4">
-        <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-3 text-center text-lg-start">
-          Publish software,<br>
-          build your career
-        </h1>
+    <div class="row g-4 justify-content-center align-items-center py-4 min-vh-50">
+      <!-- H1 + Image: side-by-side by default, stack with H1 on top when tight -->
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+        <div class="text-center">
+          <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-0">
+            Publish software,<br>
+            build your career
+          </h1>
+        </div>
       </div>
-      <div class="col-12 col-lg-4 text-center text-lg-end">
-        <img src="/assets/logo-icon-large.webp" class="img-fluid w-100 mt-3 mt-lg-0"
-          style="max-height: 14rem; object-fit: contain;" alt="Community Service Hour logo">
+
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+        <img src="/assets/logo-icon-large.webp" class="img-fluid hero-logo mt-3 mt-lg-0"
+          alt="Community Service Hour logo">
       </div>
-      <div class="col-12 col-lg-4">
-        <div class="card bg-dark text-light border border-secondary shadow-sm h-100">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Monthly email</h5>
-            <p class="card-text small text-light mb-3">Updates on open source launches, live show recaps, and
-              build-in-public lessons.</p>
-            <form
-              action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
-              method="post">
-              <div class="input-group">
-                <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
-                  placeholder="Email address" required>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
-              </div>
-            </form>
-            <ul class="small mt-3 mb-0 text-light ps-3">
-              <li>Ship faster with our templates</li>
-              <li>Highlights from weekly calls</li>
-              <li>Missions to earn badges</li>
-            </ul>
+
+      <!-- Newsletter: ALWAYS underneath, max-width 500px, centered -->
+      <div class="col-12">
+        <div class="hero-newsletter-wrap">
+          <div class="card bg-dark text-light border border-secondary shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Monthly email</h5>
+              <p class="card-text small text-light mb-3">Updates on open source launches, live show recaps, and
+                build-in-public lessons.</p>
+              <form
+                action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
+                method="post">
+                <div class="input-group">
+                  <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
+                    placeholder="Email address" required>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
+                </div>
+              </form>
+              <ul class="small mt-3 mb-0 text-light ps-3">
+                <li>Ship faster with our templates</li>
+                <li>Highlights from weekly calls</li>
+                <li>Missions to earn badges</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </header>
 
