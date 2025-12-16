@@ -21,7 +21,6 @@ breadcrumbs:
         --bs-link-color-rgb: 242, 47, 84;
       }
 
-      /* Fix Bootstrap tooltip contrast for our custom dark body background */
       .tooltip {
         --bs-tooltip-bg: rgba(0, 0, 0, 0.92);
         --bs-tooltip-color: var(--bs-body-color);
@@ -39,6 +38,28 @@ breadcrumbs:
         --bs-btn-active-border-color: #a84b5c;
         --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
       }
+
+      /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #341334; 
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: grey; 
+    border-radius: 20px;
+    border: 3px solid #341334;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #f2f2f2; 
+  }
+
     </style>
   </head>
 <body class="container-xl py-4">
