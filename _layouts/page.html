@@ -6,12 +6,11 @@ breadcrumbs:
 <!doctype html>
 <html lang="en">
   <head>
-    <title>{{ page.title | escape }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include og.html %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg=" crossorigin="anonymous">
     <link rel="alternate" type="application/rss+xml" title="Community Service Hour" href="/podcast.xml">
-    <link rel="canonical" href="{{ page.url | absolute_url }}">
 
     <style>
       :root {
