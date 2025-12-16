@@ -14,56 +14,58 @@
 
     <!-- Collapsible content (overlays page; does NOT change spacer height) -->
     <div class="collapse navbar-collapse csh-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav csh-links">
-        <!-- New links first -->
-        <li class="nav-item">
-          <a class="nav-link" href="/episodes">EPISODES</a>
-        </li>
-        <li class="nav-item csh-pair-sep">
-          <a class="nav-link" href="/participants">PARTICIPANTS</a>
-        </li>
+      <div class="csh-collapse-inner">
+        <ul class="navbar-nav csh-links">
+          <!-- New links first -->
+          <li class="nav-item">
+            <a class="nav-link" href="/episodes">EPISODES</a>
+          </li>
+          <li class="nav-item csh-pair-sep">
+            <a class="nav-link" href="/participants">PARTICIPANTS</a>
+          </li>
 
-        <!-- Existing links -->
-        <li class="nav-item">
-          <a class="nav-link"
-            href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ASK
-            A QUESTION</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-            href="https://twitter.com/messages/compose?recipient_id=47729549&text=Hello%20I'd%20like%20to%20be%20interviewed%20on%20Community%20Service%20Hour.%20Here's%20some%20details%20about%20my%20project&hellip;">GET
-            INTERVIEWED</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            PODCAST
-          </a>
-          <ul class="dropdown-menu csh-dropdown">
-            <li><a class="dropdown-item"
-                href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217"><i
-                  class="bi bi-apple"></i> Apple podcasts</a></li>
-            <li><a class="dropdown-item" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ"><i
-                  class="bi bi-spotify"></i> Spotify podcasts</a></li>
-            <li><a class="dropdown-item"
-                href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"><i
-                  class="bi bi-youtube"></i> YouTube channel</a></li>
-            <li><a class="dropdown-item" href="https://www.twitch.tv/fulldecent"><i class="bi bi-twitch"></i> Twitch
-                channel</a></li>
-          </ul>
-        </li>
-      </ul>
+          <!-- Existing links -->
+          <li class="nav-item">
+            <a class="nav-link"
+              href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ASK
+              A QUESTION</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              href="https://twitter.com/messages/compose?recipient_id=47729549&text=Hello%20I'd%20like%20to%20be%20interviewed%20on%20Community%20Service%20Hour.%20Here's%20some%20details%20about%20my%20project&hellip;">GET
+              INTERVIEWED</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              PODCAST
+            </a>
+            <ul class="dropdown-menu csh-dropdown">
+              <li><a class="dropdown-item"
+                  href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217"><i
+                    class="bi bi-apple"></i> Apple podcasts</a></li>
+              <li><a class="dropdown-item" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ"><i
+                    class="bi bi-spotify"></i> Spotify podcasts</a></li>
+              <li><a class="dropdown-item"
+                  href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"><i
+                    class="bi bi-youtube"></i> YouTube channel</a></li>
+              <li><a class="dropdown-item" href="https://www.twitch.tv/fulldecent"><i class="bi bi-twitch"></i> Twitch
+                  channel</a></li>
+            </ul>
+          </li>
+        </ul>
 
-      <div class="csh-actions">
-        <div class="d-flex align-items-center gap-2 csh-social">
-          <a href="https://twitter.com/fulldecent" class="btn btn-outline-light" aria-label="Join live on X">
-            <i class="bi bi-twitter-x"></i>
-          </a>
-          <a href="https://www.twitch.tv/fulldecent" class="btn btn-outline-light" aria-label="Join live on Twitch">
-            <i class="bi bi-twitch"></i>
-          </a>
+        <div class="csh-actions">
+          <div class="d-flex align-items-center gap-2 csh-social">
+            <a href="https://twitter.com/fulldecent" class="btn btn-outline-light" aria-label="Join live on X">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a href="https://www.twitch.tv/fulldecent" class="btn btn-outline-light" aria-label="Join live on Twitch">
+              <i class="bi bi-twitch"></i>
+            </a>
+          </div>
+
+          <a href="https://github.com/users/fulldecent/projects/" class="btn btn-primary csh-invest-btn">INVEST TIME</a>
         </div>
-
-        <a href="https://github.com/users/fulldecent/projects/" class="btn btn-primary csh-invest-btn">INVEST TIME</a>
       </div>
     </div>
   </div>
@@ -118,6 +120,10 @@
   .csh-collapse {
     width: 100%;
     background: #000;
+  }
+
+  /* Put padding on an inner wrapper so Bootstrap's height animation can fully clip it. */
+  .csh-collapse-inner {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
   }
@@ -138,7 +144,7 @@
 
   /* Mobile: inset the OPENED menu content from the edges */
   @media (max-width: 1299.98px) {
-    .csh-collapse {
+    .csh-collapse-inner {
       padding-left: 1rem;
       padding-right: 1rem;
     }
@@ -184,6 +190,12 @@
       align-items: center;
       width: auto;
       background: transparent;
+      padding: 0;
+    }
+
+    #site-navbar .csh-collapse-inner {
+      display: flex;
+      align-items: center;
       padding: 0;
     }
 
