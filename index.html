@@ -53,6 +53,7 @@ layout: none
       .episode-row {
         margin-top: 10% !important;
       }
+
       .episodes-heading {
         margin-bottom: -5% !important;
       }
@@ -62,6 +63,7 @@ layout: none
       .episode-row {
         margin-top: 30% !important;
       }
+
       .episodes-heading {
         margin-bottom: -15% !important;
       }
@@ -118,59 +120,7 @@ layout: none
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-    <div class="container-xl">
-
-      <a class="navbar-brand" href="/">
-        <img src="/assets/logo.webp" alt="Bootstrap" height="40">
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link"
-              href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ASK
-              A QUESTION</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"
-              href="https://twitter.com/messages/compose?recipient_id=47729549&text=Hello%20I'd%20like%20to%20be%20interviewed%20on%20Community%20Service%20Hour.%20Here's%20some%20details%20about%20my%20project&hellip;">GET
-              INTERVIEWED</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              PODCAST
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item"
-                  href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217"><i
-                    class="bi bi-apple"></i> Apple podcasts</a></li>
-              <li><a class="dropdown-item" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ"><i
-                    class="bi bi-spotify"></i> Spotify podcasts</a></li>
-              <li><a class="dropdown-item"
-                  href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"><i
-                    class="bi bi-youtube"></i> YouTube channel</a></li>
-              <li><a class="dropdown-item" href="https://www.twitch.tv/fulldecent"><i class="bi bi-twitch"></i> Twitch
-                  channel</a></li>
-            </ul>
-          </li>
-        </ul>
-        <div class="d-flex align-items-center gap-2 me-2">
-          <a href="https://twitter.com/fulldecent" class="btn btn-outline-light" aria-label="Join live on X">
-            <i class="bi bi-twitter-x"></i>
-          </a>
-          <a href="https://www.twitch.tv/fulldecent" class="btn btn-outline-light" aria-label="Join live on Twitch">
-            <i class="bi bi-twitch"></i>
-          </a>
-        </div>
-        <a href="https://github.com/users/fulldecent/projects/" class="btn btn-primary">INVEST TIME</a>
-      </div>
-    </div>
-  </nav>
+  {% include main-nav.html %}
 
   <header class="container-xl py-4">
     <div class="row g-4 align-items-center py-4 min-vh-50">
@@ -181,8 +131,8 @@ layout: none
         </h1>
       </div>
       <div class="col-12 col-lg-4 text-center text-lg-end">
-        <img src="/assets/logo-icon-large.webp" class="img-fluid w-100" style="max-height: 14rem; object-fit: contain;"
-          alt="Community Service Hour logo">
+        <img src="/assets/logo-icon-large.webp" class="img-fluid w-100 mt-3 mt-lg-0"
+          style="max-height: 14rem; object-fit: contain;" alt="Community Service Hour logo">
       </div>
       <div class="col-12 col-lg-4">
         <div class="card bg-dark text-light border border-secondary shadow-sm h-100">
@@ -352,9 +302,11 @@ layout: none
     <a class="lead link-primary icon-link" href="https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG"><i
         class="bi bi-file-earmark"></i> Show notes</a>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
+
   <script>
     // Load next show from assets/upcoming-episodes.json
     fetch('/assets/upcoming-episodes.json')

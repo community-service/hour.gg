@@ -75,10 +75,10 @@ breadcrumbs:
 
       footer.footer-links a:hover,
       footer.footer-links a:focus {
-      color: grey !important;
-      -webkit-text-decoration-color: grey !important;
-      text-decoration-color: grey !important;
-    }
+        color: grey !important;
+        -webkit-text-decoration-color: grey !important;
+        text-decoration-color: grey !important;
+      }
 
       footer.footer-links a i,
       footer.footer-links a svg {
@@ -92,33 +92,44 @@ breadcrumbs:
       }
     </style>
   </head>
-<body class="container-xl py-4">
-  <nav aria-label="breadcrumb" class="text-primary">
-    <ol class="breadcrumb">
-    {% assign breadcrumbs = page.breadcrumbs | default: layout.breadcrumbs %}
-    {% for breadcrumb in breadcrumbs %}
-      {% if breadcrumb.url %}
-        <li class="breadcrumb-item"><a href="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a></li>
-      {% else %}
-        <li class="breadcrumb-item">{{ breadcrumb.label }}</li>
-      {% endif %}
-    {% endfor %}
-    </ol>
-  </nav>
-  <main>
-{{ content }}
-  </main>
-  <aside>
-    <img src="/assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
-  </aside>
-  <footer class="container-xl my-4 py-4 footer-links">
-    <a class="lead link-primary icon-link" href="https://github.com/community-service/hour.gg"><i class="bi bi-github"></i> Edit this page &hellip;</a>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('[title]').forEach(el => new bootstrap.Tooltip(el));
-    });
-  </script>
-</body>
+
+  <body>
+    {% include main-nav.html %}
+
+    <div class="container-xl py-4">
+      <nav aria-label="breadcrumb" class="text-primary">
+        <ol class="breadcrumb">
+          {% assign breadcrumbs = page.breadcrumbs | default: layout.breadcrumbs %}
+          {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+              <li class="breadcrumb-item"><a href="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a></li>
+            {% else %}
+              <li class="breadcrumb-item">{{ breadcrumb.label }}</li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+
+      <main>
+        {{ content }}
+      </main>
+
+      <aside>
+        <img src="/assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+      </aside>
+
+      <footer class="my-4 py-4 footer-links">
+        <a class="lead link-primary icon-link" href="https://github.com/community-service/hour.gg">
+          <i class="bi bi-github"></i> Edit this page &hellip;
+        </a>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[title]').forEach(el => new bootstrap.Tooltip(el));
+      });
+    </script>
+  </body>
 </html>
