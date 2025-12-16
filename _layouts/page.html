@@ -90,6 +90,13 @@ breadcrumbs:
       main {
         margin-bottom: 2rem;
       }
+      /* Keep long anchor text from creating horizontal scroll */
+      .markdown-body a,
+      main a {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        white-space: normal;
+      }
     </style>
   </head>
 
