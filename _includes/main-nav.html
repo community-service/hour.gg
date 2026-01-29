@@ -143,7 +143,7 @@
   }
 
   /* Mobile: inset the OPENED menu content from the edges */
-  @media (max-width: 1299.98px) {
+  @media (max-width: 949.98px) {
     .csh-collapse-inner {
       padding-left: 1rem;
       padding-right: 1rem;
@@ -164,8 +164,8 @@
     }
   }
 
-  /* Desktop (>=1300px): centered structure; dropdown should OVERLAY, not expand the navbar height */
-  @media (min-width: 1300px) {
+  /* Desktop (>=950px): centered structure; dropdown should OVERLAY, not expand the navbar height */
+  @media (min-width: 950px) {
     .navbar-expand-custom .navbar-toggler {
       display: none;
     }
@@ -249,12 +249,12 @@
 <script>
   (function () {
     function syncNavbarSpacer() {
-      var barRow = document.querySelector('.csh-bar-row');
+      var navbar = document.getElementById('site-navbar');
       var spacer = document.getElementById('navbar-spacer');
-      if (!barRow || !spacer) return;
+      if (!navbar || !spacer) return;
 
-      // Reserve ONLY the top bar height so expanded menu overlays the page (doesn't push it down)
-      spacer.style.height = barRow.offsetHeight + 'px';
+      // Reserve the full navbar height (accounts for content wrapping at intermediate widths)
+      spacer.style.height = navbar.offsetHeight + 'px';
     }
 
     function setupClickOutsideToClose() {
@@ -263,7 +263,7 @@
       if (!nav || !collapseEl) return;
 
       function isMobileMode() {
-        return window.matchMedia('(max-width: 1299.98px)').matches;
+        return window.matchMedia('(max-width: 949.98px)').matches;
       }
 
       function closeIfOpen() {
