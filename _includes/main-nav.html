@@ -162,6 +162,22 @@
       position: static;
       float: none;
     }
+
+    /* Smooth expand/collapse animation for mobile dropdown */
+    #site-navbar .csh-dropdown {
+      display: block !important;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      border: none;
+      transition: max-height 0.25s ease-out, padding 0.25s ease-out;
+    }
+
+    #site-navbar .csh-dropdown.show {
+      max-height: 200px;
+      padding: 0.5rem 0;
+    }
   }
 
   /* Desktop (>=950px): centered structure; dropdown should OVERLAY, not expand the navbar height */
@@ -294,11 +310,25 @@
       });
     }
 
+    function setupDropdownAutoClose() {
+      var collapseEl = document.getElementById('navbarSupportedContent');
+      if (!collapseEl) return;
+
+      // When main menu starts closing, immediately close the dropdown too
+      collapseEl.addEventListener('hide.bs.collapse', function () {
+        var dropdown = collapseEl.querySelector('.csh-dropdown');
+        if (dropdown) dropdown.classList.remove('show');
+        var toggle = collapseEl.querySelector('.dropdown-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+
     syncNavbarSpacer();
     requestAnimationFrame(syncNavbarSpacer);
     window.addEventListener('load', function () {
       syncNavbarSpacer();
       setupClickOutsideToClose();
+      setupDropdownAutoClose();
     });
     window.addEventListener('resize', syncNavbarSpacer);
   })();
