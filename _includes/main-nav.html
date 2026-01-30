@@ -268,10 +268,17 @@
       var navbar = document.getElementById('site-navbar');
       var spacer = document.getElementById('navbar-spacer');
       var barRow = navbar ? navbar.querySelector('.csh-bar-row') : null;
-      if (!barRow || !spacer) return;
+      if (!navbar || !spacer) return;
 
-      // Reserve ONLY the bar row height (not expanded menu)
-      spacer.style.height = barRow.offsetHeight + 'px';
+      var isMobile = window.matchMedia('(max-width: 949.98px)').matches;
+
+      if (isMobile && barRow) {
+        // Mobile: only measure bar row (avoid expanded menu height)
+        spacer.style.height = barRow.offsetHeight + 'px';
+      } else {
+        // Desktop/tablet: measure full navbar (includes wrapped menu items)
+        spacer.style.height = navbar.offsetHeight + 'px';
+      }
     }
 
     function setupClickOutsideToClose() {
