@@ -1,0 +1,21 @@
+{%- include meta-vars.html -%}
+
+<title>{{ meta_full_title | escape }}</title>
+<meta name="description" content="{{ meta_description | escape }}">
+<link rel="canonical" href="{{ meta_canonical }}">
+
+<meta property="og:site_name" content="{{ meta_site_title | escape }}">
+<meta property="og:title" content="{{ meta_full_title | escape }}">
+<meta property="og:description" content="{{ meta_description | escape }}">
+<meta property="og:type" content="{{ meta_og_type }}">
+<meta property="og:url" content="{{ meta_canonical }}">
+<meta property="og:image" content="{{ meta_image_abs }}">
+<meta property="og:image:alt" content="{{ meta_site_title | escape }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ meta_full_title | escape }}">
+<meta name="twitter:description" content="{{ meta_description | escape }}">
+<meta name="twitter:image" content="{{ meta_image_abs }}">
+{%- if site.twitter_username and site.twitter_username != "" -%}
+<meta name="twitter:site" content="@{{ site.twitter_username }}">
+{%- endif -%}

@@ -1,55 +1,93 @@
 ---
 layout: page
 title: Badges
+description: "Badge tallies and first-achieved dates for participants, grouped by year."
 ---
+<style>
+  .badges-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 992px) {
+    .badges-table-wrap {
+      overflow-x: visible;
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    .badges-table-wrap {
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+  }
+
+  .badges-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: var(--bs-body-bg);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .badges-table th,
+  .badges-table td {
+    white-space: nowrap;
+  }
+</style>
+
 <h1 class="my-4">Participants (by year)</h1>
 
-<!-- Get the current year -->
 {% assign currentYear = site.time | date: "%Y" %}
 
-<!-- Group episodes by year -->
 {%- assign episodesByYear = site.episodes | where: "posted", true | group_by_exp: "item", "item.date | date: '%Y' | plus: 0" -%}
 
-<!-- Iterate through each year from 2022 to the current year -->
 {% for year in (2022..currentYear) %}
   {% assign episodesThisYear = '' | split: '' %}
   {% for group in episodesByYear %}
     {% if group.name == year %}
       {% assign episodesThisYear = group.items %}
       <h3 class="mt-5">{{ year }}</h3>
-      <table class="table">
-        <tr><th>Participant</th><th>First achieved</th><th>Ethereum</th></tr>
-        
-        <!-- Iterate through each participant -->
-        {% for participant in site.data.participants %}
-          {% assign firstEpisodeDate = '' %}
-          
-          <!-- Find the first episode for this participant in the given year -->
-          {% for episode in episodesThisYear %}
-            {% if episode.participants contains participant[0] %}
-              {% assign firstEpisodeDate = episode.date | date: "%Y-%m-%d" %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          
-          <!-- Only display participants who appeared in this year -->
-          {% if firstEpisodeDate != '' %}
+
+      <div class="badges-table-wrap">
+        <table class="table badges-table">
+          <thead>
             <tr>
-              <td class="position-relative">
-                <a href="https://twitter.com/{{ participant[0] }}" class="stretched-link">
-                  {{ participant[0] }}
-                </a>
-              </td>
-              <td>{{ firstEpisodeDate }}</td>
-              <td>
-                {% if participant[1].ethereum != "???" %}
-                  {{ participant[1].ethereum }}
-                {% endif %}
-              </td>
+              <th>Participant</th>
+              <th>First achieved</th>
+              <th>Ethereum</th>
             </tr>
-          {% endif %}
-        {% endfor %}
-      </table>
+          </thead>
+          <tbody>
+            {% for participant in site.data.participants %}
+              {% assign firstEpisodeDate = '' %}
+
+              {% for episode in episodesThisYear %}
+                {% if episode.participants contains participant[0] %}
+                  {% assign firstEpisodeDate = episode.date | date: "%Y-%m-%d" %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+
+              {% if firstEpisodeDate != '' %}
+                <tr>
+                  <td class="position-relative">
+                    <a href="https://twitter.com/{{ participant[0] }}" class="stretched-link">
+                      {{ participant[0] }}
+                    </a>
+                  </td>
+                  <td>{{ firstEpisodeDate }}</td>
+                  <td>
+                    {% if participant[1].ethereum != "???" %}
+                      {{ participant[1].ethereum }}
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% endif %}
   {% endfor %}
 {% endfor %}

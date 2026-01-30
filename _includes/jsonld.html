@@ -1,0 +1,185 @@
+{%- include meta-vars.html -%}
+
+{%- assign site_url = site.url | default: "" -%}
+{%- assign website_id = site_url | append: "/#website" -%}
+{%- assign org_id = site_url | append: "/#organization" -%}
+{%- assign podcast_id = site_url | append: "/#podcast" -%}
+{%- assign william_id = site_url | append: "/#william-entriken" -%}
+
+{%- assign page_id = meta_canonical | append: "#webpage" -%}
+{%- assign page_type = "WebPage" -%}
+{%- assign is_episodes_index = false -%}
+{%- if page.title == "Episodes" or page.url == "/episodes" or page.url == "/episodes.html" -%}
+  {%- assign page_type = "CollectionPage" -%}
+  {%- assign is_episodes_index = true -%}
+{%- endif -%}
+
+{%- capture nav_html -%}{% include main-nav.html %}{%- endcapture -%}
+{%- assign nav_parts = nav_html | split: 'href="' -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ org_id | jsonify }},
+      "name": {{ meta_site_title | jsonify }},
+      "url": {{ site_url | jsonify }},
+      "founder": { "@id": {{ william_id | jsonify }} },
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ "/assets/logo.webp" | absolute_url | jsonify }}
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": {{ william_id | jsonify }},
+      "name": {{ "William Entriken" | jsonify }},
+      "url": {{ "https://williamentriken.net/" | jsonify }},
+      "sameAs": [
+        {{ "https://williamentriken.net/" | jsonify }},
+        {{ "https://phor.net/" | jsonify }},
+        {{ "https://en.wikipedia.org/wiki/William_Entriken" | jsonify }},
+        {{ "https://x.com/fulldecent" | jsonify }},
+        {{ "https://www.youtube.com/@fulldecent" | jsonify }},
+        {{ "https://www.twitch.tv/fulldecent" | jsonify }},
+        {{ "https://www.linkedin.com/in/fulldecent/" | jsonify }},
+        {{ "https://github.com/fulldecent" | jsonify }}
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ website_id | jsonify }},
+      "url": {{ site_url | jsonify }},
+      "name": {{ meta_site_title | jsonify }},
+      "description": {{ meta_site_description | jsonify }},
+      "publisher": { "@id": {{ org_id | jsonify }} }
+    },
+    {
+      "@type": "PodcastSeries",
+      "@id": {{ podcast_id | jsonify }},
+      "name": {{ meta_site_title | jsonify }},
+      "url": {{ site_url | jsonify }},
+      "description": {{ meta_site_description | jsonify }},
+      "publisher": { "@id": {{ org_id | jsonify }} },
+      "creator": { "@id": {{ william_id | jsonify }} }
+    },
+    {
+      "@type": {{ page_type | jsonify }},
+      "@id": {{ page_id | jsonify }},
+      "url": {{ meta_canonical | jsonify }},
+      "name": {{ meta_page_title | jsonify }},
+      "description": {{ meta_description | jsonify }},
+      "isPartOf": { "@id": {{ website_id | jsonify }} },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": {{ meta_image_abs | jsonify }}
+      }
+      {%- if is_episodes_index -%}
+      ,
+      "mainEntity": { "@id": {{ meta_canonical | append: "#itemlist" | jsonify }} }
+      {%- endif -%}
+    }
+    {%- if page.collection == "episodes" -%}
+    ,
+    {
+      "@type": "PodcastEpisode",
+      "@id": {{ meta_canonical | append: "#podcast-episode" | jsonify }},
+      "url": {{ meta_canonical | jsonify }},
+      "name": {{ page.title | default: meta_page_title | jsonify }},
+      "description": {{ page.description | default: meta_description | jsonify }},
+      "episodeNumber": {{ page.itunes-episode | jsonify }},
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      "duration": {{ "PT" | append: page.itunes-duration | append: "S" | jsonify }},
+      "partOfSeries": { "@id": {{ podcast_id | jsonify }} },
+      "publisher": { "@id": {{ org_id | jsonify }} },
+      "associatedMedia": {
+        "@type": "MediaObject",
+        "contentUrl": {{ page.enclosure-url | jsonify }},
+        "encodingFormat": {{ page.enclosure-type | jsonify }}
+      },
+      "image": {{ meta_image_abs | jsonify }}
+    }
+    {%- endif -%}
+    {%- if is_episodes_index -%}
+    ,
+    {
+      "@type": "ItemList",
+      "@id": {{ meta_canonical | append: "#itemlist" | jsonify }},
+      "name": {{ "Episodes" | jsonify }},
+      "itemListOrder": "https://schema.org/ItemListOrderDescending",
+      "itemListElement": [
+        {%- assign listed_episodes = site.episodes | where: "posted", true | sort: "date" | reverse | slice: 0, 10 -%}
+        {%- for episode in listed_episodes -%}
+        {%- unless forloop.first -%},{%- endunless -%}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "item": {
+            "@type": "PodcastEpisode",
+            "@id": {{ episode.url | absolute_url | append: "#podcast-episode" | jsonify }},
+            "url": {{ episode.url | absolute_url | jsonify }},
+            "name": {{ episode.title | jsonify }},
+            "partOfSeries": { "@id": {{ podcast_id | jsonify }} }
+          }
+        }
+        {%- endfor -%}
+      ]
+    }
+    {%- endif -%}
+    {%- assign seen_nav = "|" -%}
+    {%- for part in nav_parts offset: 1 -%}
+      {%- assign href = part | split: '"' | first | strip -%}
+      {%- assign valid = true -%}
+      {%- if href == "" or href == "#" -%}
+        {%- assign valid = false -%}
+      {%- endif -%}
+
+      {%- assign href_abs = href -%}
+      {%- assign href_first = href | slice: 0, 1 -%}
+      {%- if valid and href_first == "/" -%}
+        {%- assign href_abs = href | absolute_url -%}
+      {%- endif -%}
+
+      {%- assign seen_key = "|" | append: href_abs | append: "|" -%}
+      {%- if valid and seen_nav contains seen_key -%}
+        {%- assign valid = false -%}
+      {%- endif -%}
+
+      {%- if valid -%}
+        {%- assign seen_nav = seen_nav | append: href_abs | append: "|" -%}
+
+        {%- assign attr_chunk = part | split: ">" | first -%}
+        {%- assign inner_chunks = part | split: ">" | slice: 1, 999 -%}
+        {%- assign inner_html = inner_chunks | join: ">" -%}
+        {%- assign link_name = inner_html | split: "</a>" | first | strip_html | strip_newlines | replace: "  ", " " | strip -%}
+
+        {%- if link_name == "" -%}
+          {%- assign aria_parts = attr_chunk | split: 'aria-label="' -%}
+          {%- if aria_parts.size > 1 -%}
+            {%- assign link_name = aria_parts[1] | split: '"' | first | strip -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if link_name == "" -%}
+          {%- if href == "/" -%}
+            {%- assign link_name = "Home" -%}
+          {%- else -%}
+            {%- assign link_name = href -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        ,
+        {
+          "@type": "SiteNavigationElement",
+          "@id": {{ site_url | append: "/#nav-" | append: forloop.index | jsonify }},
+          "name": {{ link_name | jsonify }},
+          "url": {{ href_abs | jsonify }},
+          "isPartOf": { "@id": {{ website_id | jsonify }} }
+        }
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>

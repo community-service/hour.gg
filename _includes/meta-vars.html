@@ -1,0 +1,31 @@
+{%- assign meta_site_title = site.title | default: "Community Service Hour" -%}
+{%- assign meta_site_description = site.description | default: "Open source every week." -%}
+
+{%- assign meta_body_html = content | default: page.content -%}
+
+{%- assign meta_raw_title = page.og_title | default: page.title -%}
+{%- if meta_raw_title == nil or meta_raw_title == "" -%}
+  {%- assign meta_h1_parts = meta_body_html | split: "<h1" -%}
+  {%- if meta_h1_parts.size > 1 -%}
+    {%- assign meta_h1_after = meta_h1_parts[1] | split: ">" -%}
+    {%- assign meta_raw_title = meta_h1_after[1] | split: "</h1>" | first | strip_html | strip_newlines | strip -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign meta_page_title = meta_raw_title | default: meta_site_title -%}
+{%- if meta_page_title != meta_site_title -%}
+  {%- assign meta_full_title = meta_page_title | append: " | " | append: meta_site_title -%}
+{%- else -%}
+  {%- assign meta_full_title = meta_site_title -%}
+{%- endif -%}
+
+{%- assign meta_raw_description = page.og_description | default: page.description | default: page.excerpt -%}
+{%- assign meta_description = meta_raw_description | default: meta_site_description | strip_html | strip_newlines | replace: "  ", " " | strip | truncate: 200 -%}
+
+{%- assign meta_image_abs = page.og_image | default: "/assets/og.webp" | absolute_url -%}
+{%- assign meta_canonical = page.url | absolute_url -%}
+
+{%- assign meta_og_type = page.og_type | default: "website" -%}
+{%- if page.collection == "episodes" -%}
+  {%- assign meta_og_type = "article" -%}
+{%- endif -%}
