@@ -251,10 +251,11 @@
     function syncNavbarSpacer() {
       var navbar = document.getElementById('site-navbar');
       var spacer = document.getElementById('navbar-spacer');
-      if (!navbar || !spacer) return;
+      var barRow = navbar ? navbar.querySelector('.csh-bar-row') : null;
+      if (!barRow || !spacer) return;
 
-      // Reserve the full navbar height (accounts for content wrapping at intermediate widths)
-      spacer.style.height = navbar.offsetHeight + 'px';
+      // Reserve ONLY the bar row height (not expanded menu)
+      spacer.style.height = barRow.offsetHeight + 'px';
     }
 
     function setupClickOutsideToClose() {
