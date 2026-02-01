@@ -5,6 +5,7 @@ collections:
 title: Community Service Hour
 description: Open source every week.
 url: https://hour.gg
+twitter_username: fulldecent
 
 defaults:
   -
