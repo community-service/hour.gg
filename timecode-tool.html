@@ -1,46 +1,47 @@
 ---
 layout: page
 title: Timecode tool
+description: "Convert DaVinci Resolve marker EDL files into YouTube timecodes, YAML chapter markers, and an ffmpeg metadata script."
 ---
 <h1>Timecode tool</h1>
-<p>Use DaVince Resolve > Edit Page > Media Pool > Timeline > Timelines (right click) > Export > Markers EDL.</p>
+<p>Use DaVince Resolve &gt; Edit Page &gt; Media Pool &gt; Timeline &gt; Timelines (right click) &gt; Export &gt; Markers EDL.</p>
 
-<div class="row mb-4">
-  <label for="file" class="col col-lg-2 col-form-label">Upload EDL</label>
-  <div class="col col-lg-10">
+<div class="row g-2 mb-4 align-items-start">
+  <label for="file" class="col-12 col-lg-2 col-form-label">Upload EDL</label>
+  <div class="col-12 col-lg-10">
     <input type="file" id="file" name="file" class="form-control" accept=".edl" />
   </div>
 </div>
 
-<div class="row mb-4">
-  <label for="youtube" class="col col-lg-2 col-form-label">
+<div class="row g-2 mb-4 align-items-start">
+  <label for="youtube" class="col-12 col-lg-2 col-form-label">
     <button type="button" class="btn btn-primary"
       onclick="document.getElementById('youtube').select(); document.execCommand('copy');">Copy</button><br>
     YouTube timecodes
   </label>
-  <div class="col col-lg-10">
+  <div class="col-12 col-lg-10">
     <textarea id="youtube" class="form-control" rows="5"></textarea>
   </div>
 </div>
 
-<div class="row mb-4">
-  <label for="yaml" class="col col-lg-2 col-form-label">
+<div class="row g-2 mb-4 align-items-start">
+  <label for="yaml" class="col-12 col-lg-2 col-form-label">
     <button type="button" class="btn btn-primary"
       onclick="document.getElementById('yaml').select(); document.execCommand('copy');">Copy</button><br>
     YAML timecodes
   </label>
-  <div class="col col-lg-10">
+  <div class="col-12 col-lg-10">
     <textarea id="yaml" class="form-control" rows="5"></textarea>
   </div>
 </div>
 
-<div class="row mb-4">
-  <label for="ffmpeg" class="col col-lg-2 col-form-label">
+<div class="row g-2 mb-4 align-items-start">
+  <label for="ffmpeg" class="col-12 col-lg-2 col-form-label">
     <button type="button" class="btn btn-primary"
       onclick="document.getElementById('ffmpeg').select(); document.execCommand('copy');">Copy</button><br>
     ffmpeg program for podcast audio with chapter markers
   </label>
-  <div class="col col-lg-10">
+  <div class="col-12 col-lg-10">
     <textarea id="ffmpeg" class="form-control" rows="5"></textarea>
   </div>
 </div>
@@ -169,21 +170,18 @@ title: Timecode tool
             seconds: totalSeconds.toFixed(0),
             title: metaMatch[1]
           });
-          i++; // Skip the next line since we've processed it
+          i++;
         }
       }
 
-      // Check if all chapters have hour value of 1 (why does DaVinci Resolve do this!?)
       const allChaptersStartAtOneHour = chapters.every(chapter => parseInt(chapter.seconds, 10) >= 3600);
 
-      // Subtract one hour (3600 seconds) from each chapter if they all start from the 1-hour mark
       if (allChaptersStartAtOneHour) {
         for (let chapter of chapters) {
           chapter.seconds = (parseInt(chapter.seconds, 10) - 3600).toString();
         }
       }
 
-      // If there's no chapter at time zero, add an "Intro" chapter at the beginning
       if (chapters.length === 0 || chapters[0].seconds !== 0) {
         chapters.unshift({
           seconds: 0,
@@ -191,21 +189,18 @@ title: Timecode tool
         });
       }
 
-      // YouTube format:
       let youtubeFormat = '';
       chapters.forEach(chapter => {
         youtubeFormat += `${formatTime(parseInt(chapter.seconds, 10))} ${chapter.title}\n`;
       });
       document.getElementById('youtube').textContent = youtubeFormat;
 
-      // YAML format:
       let yamlFormat = "timeline:\n";
       chapters.forEach(chapter => {
         yamlFormat += `  - seconds: ${chapter.seconds}\n    title: ${chapter.title}\n`;
       });
       document.getElementById('yaml').textContent = yamlFormat;
 
-      // ffmpeg format:
       let ffmpegFormat = `INPUT="${fileNameBase}.mp4"\nOUTPUT="${fileNameBase}.m4a"\ncat > /tmp/ffmetadata.txt <<EOF\n`;
       ffmpegFormat += ';FFMETADATA1\n\n';
       for (let i = 0; i < chapters.length; i++) {

@@ -1,11 +1,15 @@
 ---
 layout: none
+title: Community Service Hour
+description: Open source every week.
 ---
 <!doctype html>
 <html lang="en">
 
 <head>
-  <title>Community Service Hour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include og.html %}
+  {% include jsonld.html %}
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
@@ -47,109 +51,151 @@ layout: none
     .font-primary {
       font-family: "Rockwell", "Georgia", "Times New Roman", "Times", serif;
     }
+
+    @media (min-width: 731px) {
+      .episode-row {
+        margin-top: 10% !important;
+      }
+
+      .episodes-heading {
+        margin-bottom: -5% !important;
+      }
+    }
+
+    @media (max-width: 730px) {
+      .episode-row {
+        margin-top: 30% !important;
+      }
+
+      .episodes-heading {
+        margin-bottom: -15% !important;
+      }
+    }
+
+    /* Hero layout */
+    .hero-logo {
+      max-height: 14rem;
+      object-fit: contain;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+
+    .hero-newsletter-wrap {
+      margin-top: 5%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    /* Custom scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #5c0e1f;
+      border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #ffffff;
+      border-radius: 20px;
+      border: 3px solid #5c0e1f;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #f2f2f2;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #ffffff #5c0e1f;
+    }
+
+    footer.footer-links a {
+      color: #ffffff !important;
+    }
+
+    footer.footer-links a:visited {
+      color: #ffffff !important;
+    }
+
+    footer.footer-links a:hover,
+    footer.footer-links a:focus {
+      color: grey !important;
+      -webkit-text-decoration-color: grey !important;
+      text-decoration-color: grey !important;
+    }
+
+    footer.footer-links a i,
+    footer.footer-links a svg {
+      color: inherit !important;
+      fill: currentColor;
+      stroke: currentColor;
+    }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-    <div class="container-xl">
-
-      <a class="navbar-brand" href="/">
-        <img src="/assets/logo.webp" alt="Bootstrap" height="40">
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link"
-              href="https://twitter.com/intent/tweet?text=Hello%20@fulldecent%20I%20have%20a%20question%20for%20%23CommunityServiceHour">ASK
-              A QUESTION</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"
-              href="https://twitter.com/messages/compose?recipient_id=47729549&text=Hello%20I'd%20like%20to%20be%20interviewed%20on%20Community%20Service%20Hour.%20Here's%20some%20details%20about%20my%20project&hellip;">GET
-              INTERVIEWED</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              PODCAST
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item"
-                  href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217"><i
-                    class="bi bi-apple"></i> Apple podcasts</a></li>
-              <li><a class="dropdown-item" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ"><i
-                    class="bi bi-spotify"></i> Spotify podcasts</a></li>
-              <li><a class="dropdown-item"
-                  href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"><i
-                    class="bi bi-youtube"></i> YouTube channel</a></li>
-              <li><a class="dropdown-item" href="https://www.twitch.tv/fulldecent"><i class="bi bi-twitch"></i> Twitch
-                  channel</a></li>
-            </ul>
-          </li>
-        </ul>
-        <div class="d-flex align-items-center gap-2 me-2">
-          <a href="https://twitter.com/fulldecent" class="btn btn-outline-light" aria-label="Join live on X">
-            <i class="bi bi-twitter-x"></i>
-          </a>
-          <a href="https://www.twitch.tv/fulldecent" class="btn btn-outline-light" aria-label="Join live on Twitch">
-            <i class="bi bi-twitch"></i>
-          </a>
-        </div>
-        <a href="https://github.com/users/fulldecent/projects/" class="btn btn-primary">INVEST TIME</a>
-      </div>
-    </div>
-  </nav>
+  {% include main-nav.html %}
 
   <header class="container-xl py-4">
-    <div class="row g-4 align-items-center py-4 min-vh-50">
-      <div class="col-12 col-lg-4">
-        <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-3">
-          Publish software,<br>
-          build your career
-        </h1>
+    <div class="row g-4 justify-content-center align-items-center py-4 min-vh-50">
+      <!-- H1 + Image: side-by-side by default, stack with H1 on top when tight -->
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+        <div class="text-center">
+          <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-0">
+            Publish software,<br>
+            build your career
+          </h1>
+        </div>
       </div>
-      <div class="col-12 col-lg-4 text-center text-lg-end">
-        <img src="/assets/logo-icon-large.webp" class="img-fluid w-100" style="max-height: 14rem; object-fit: contain;"
+
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+        <img src="/assets/logo-icon-large.webp" class="img-fluid hero-logo mt-3 mt-lg-0"
           alt="Community Service Hour logo">
       </div>
-      <div class="col-12 col-lg-4">
-        <div class="card bg-dark text-light border border-secondary shadow-sm h-100">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Monthly email</h5>
-            <p class="card-text small text-light mb-3">Updates on open source launches, live show recaps, and
-              build-in-public lessons.</p>
-            <form
-              action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
-              method="post">
-              <div class="input-group">
-                <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
-                  placeholder="Email address" required>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
-              </div>
-            </form>
-            <ul class="small mt-3 mb-0 text-light ps-3">
-              <li>Ship faster with our templates</li>
-              <li>Highlights from weekly calls</li>
-              <li>Missions to earn badges</li>
-            </ul>
+
+      <!-- Newsletter: ALWAYS underneath, max-width 500px, centered -->
+      <div class="col-12">
+        <div class="hero-newsletter-wrap">
+          <div class="card bg-dark text-light border border-secondary shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Monthly email</h5>
+              <p class="card-text small text-light mb-3">Updates on open source launches, live show recaps, and
+                build-in-public lessons.</p>
+              <form
+                action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
+                method="post">
+                <div class="input-group">
+                  <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
+                    placeholder="Email address" required>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
+                </div>
+              </form>
+              <ul class="small mt-3 mb-0 text-light ps-3">
+                <li>Ship faster with our templates</li>
+                <li>Highlights from weekly calls</li>
+                <li>Missions to earn badges</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </header>
 
-  <aside class="text-end">
-    <img src="assets/divider.svg" style="max-height: 3rem;" alt="Divider">
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
   </aside>
 
   <section class="container-xl py-4">
 
-    <h1 class="my-4">
+    <h1 class="my-4 episodes-heading">
       <a class="link-primary" href="/episodes">Episodes &amp; notes</a>
       <!--
       <a class="btn btn-sm rounded-pill btn-primary" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple Podcasts</a>
@@ -161,8 +207,8 @@ layout: none
 
     {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse | slice: 0, 10 %}
     {% for episode in episodes %}
-    <div class="row my-4">
-      <div class="col-12 col-lg-10 position-relative">
+    <div class="row my-4 episode-row">
+      <div class="col-12 position-relative">
         <h2 class="fs-4">
           <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
             <div>
@@ -192,10 +238,11 @@ layout: none
       </div>
       {% if episode.youtube-full %}
       {% assign youtube-id = episode.youtube-full | split: '/' | last %}
-      <div class="col-12 col-lg-2">
-        <iframe src="https://www.youtube-nocookie.com/embed/{{ youtube-id }}"
-          allow="accelerometer; autoplay; gyroscope; picture-in-picture" allowfullscreen class="rounded-5"
-          style="max-width: 100%;"></iframe>
+      <div class="col-12">
+        <div class="ratio ratio-16x9" style="max-width: 500px;">
+          <iframe src="https://www.youtube-nocookie.com/embed/{{ youtube-id }}"
+            allow="accelerometer; autoplay; gyroscope; picture-in-picture" allowfullscreen class="rounded-5"></iframe>
+        </div>
       </div>
       {% endif %}
     </div>
@@ -274,19 +321,21 @@ layout: none
       You're welcome to share with us on the call, and can expect lots of encouragement.</p>
   </section>
 
-  <aside class="text-start">
-    <img src="assets/divider.svg" style="max-height: 3rem;" alt="Divider">
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
   </aside>
 
-  <footer class="container-xl my-4 py-4">
+  <footer class="container-xl my-4 py-4 footer-links">
     <a class="lead link-primary icon-link" href="https://github.com/community-service/hour.gg"><i
         class="bi bi-github"></i> Edit this page &hellip;</a>
     <a class="lead link-primary icon-link" href="https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG"><i
         class="bi bi-file-earmark"></i> Show notes</a>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
+
   <script>
     // Load next show from assets/upcoming-episodes.json
     fetch('/assets/upcoming-episodes.json')
