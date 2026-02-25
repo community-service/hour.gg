@@ -1,13 +1,14 @@
 ---
 layout: page
 title: Episodes
+description: "All Community Service Hour episodes and show notes, including upcoming drafts and published episodes."
 ---
 <h1 class="my-4">Upcoming episodes</h1>
 
 {% assign episodes = site.episodes | where: "posted", "false" | sort: 'date' | reverse %}
 {% for episode in episodes %}
 <div class="upcoming-or-draft" data-date="{{ episode.date | date: " %Y-%m-%d" }}">
-  <h2 class="d-flex gap-1 align-items-center fs-4">
+  <h2 class="d-flex flex-wrap gap-1 align-items-center fs-4">
     <span class="badge rounded-pill bg-warning text-dark"></span>
     <a href="{{ episode.url | relative_url }}" class="link-primary">
       {{ episode.title | escape }}
@@ -15,7 +16,7 @@ title: Episodes
       <br><small>{{ episode.subtitle | escape }}</small>
       {% endif %}
     </a>
-    <span class="hstack d-inline-flex">
+    <span class="hstack d-inline-flex flex-wrap">
       <!-- Participants from this specific episode -->
       {% assign some_participant_ids = episode.participants | sample: 3 %}
       {% for participant_id in some_participant_ids %}
@@ -72,14 +73,14 @@ title: Episodes
 
 {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse %}
 {% for episode in episodes %}
-<h2 class="d-flex gap-1 align-items-center fs-4">
+<h2 class="d-flex flex-wrap gap-1 align-items-center fs-4">
   <a href="{{ episode.url | relative_url }}" class="link-primary">
     {{ episode.title | escape }}
     {% if episode.subtitle != "" %}
     <br><small>{{ episode.subtitle | escape }}</small>
     {% endif %}
   </a>
-  <span class="hstack d-inline-flex">
+  <span class="hstack d-inline-flex flex-wrap">
     <!-- Participants from this specific episode -->
     {% assign some_participant_ids = episode.participants | sample: 3 %}
     {% for participant_id in some_participant_ids %}

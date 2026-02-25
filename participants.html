@@ -1,13 +1,96 @@
 ---
 layout: page
 title: Participants
+description: "Participant directory with links, photos, and the most recent episode each person appeared on."
 ---
+<style>
+  .participants-video {
+    width: 90%;
+    max-width: 500px;
+  }
+
+
+  .participants-video-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1rem;
+    justify-content: flex-start; 
+  }
+
+  @media (max-width: 549px) {
+    .participants-video-row {
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 550px) {
+    .participants-video-row .participants-video {
+      margin-left: 5%;
+    }
+  }
+
+  .participants-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 1201px) {
+    .participants-table-wrap {
+      overflow-x: visible;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .participants-table-wrap {
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+  }
+
+  .participants-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: var(--bs-body-bg);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .participants-table th,
+  .participants-table td {
+    white-space: nowrap;
+  }
+  .participants-table th:nth-child(1),
+  .participants-table td:nth-child(1) {
+    min-width: 150px;
+  }
+  .participants-table th:nth-child(3),
+  .participants-table td:nth-child(3) {
+    min-width: 250px;
+  }
+  .participants-table th:nth-child(4),
+  .participants-table td:nth-child(4) {
+    min-width: 150px;
+  }
+  .participants-table th:nth-child(7),
+  .participants-table td:nth-child(7) {
+    min-width: 75px;
+  }
+</style>
+
 <h1 class="my-4">Participants</h1>
 
-<iframe class="float-lg-end ms-3 mb-3" width="300" height="150"
-  src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player" frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen></iframe>
+<!-- Always directly under the H1 -->
+<div class="participants-video-row">
+  <div class="participants-video ratio ratio-16x9">
+    <iframe
+      src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
 
 <p class="lead">
   🚨 <a
@@ -20,85 +103,91 @@ title: Participants
   ℹ️ You can follow people below all at once with <a href="https://twitter.com/fulldecent/lists">our lists on X</a>.
 </p>
 
-<table class="table">
-  <tr>
-    <th>Participant</th>
-    <th>Name</th>
-    <th>Ethereum</th>
-    <th>GitHub</th>
-    <th>Photo</th>
-    <th>Last participated</th>
-    <th>Edit</th>
-  </tr>
-  {% for participant in site.data.participants -%}
-  <tr id="{{ participant[0] }}">
-    <td class="position-relative">
-      <a href="http://twitter.com/{{ participant[1].x }}" class="stretched-link icon-link" target="_blank">
-        <i class="bi-twitter-x"></i>
-        {{ participant[1].x }}
-      </a>
-    </td>
-    <td class="position-relative">
-      {{ participant[1].name | default: "???" }}
-    </td>
-    <td class="position-relative">
-      {% assign ethereum = participant[1].ethereum | default: "???" %}
-      {% if ethereum == "???" %}
-      ???
-      {% else %}
-      <a href="ethereum:{{ participant[1].ethereum }}" class="stretched-link icon-link">
-        <i class="bi-wallet"></i>
-        {% assign suffix = participant[1].ethereum | slice: -4, 4 %}
-        {% if suffix == ".eth" %}
-        {{ participant[1].ethereum }}
-        {% else %}
-        <code>{{ participant[1].ethereum }}</code>
-        {% endif %}
-      </a>
-      {% endif %}
-    </td>
-    <td class="position-relative">
-      {% assign github = participant[1].github | default: "???" %}
-      {% if github == "???" %}
-      ???
-      {% else %}
-      <a href="https://github.com/{{ participant[1].github }}" class="stretched-link icon-link">
-        <i class="bi-github"></i>
-        {{ participant[1].github }}
-        {% endif %}
-    </td>
-    <td class="position-relative">
-      {% for file in site.static_files %}
-      {% if file.path contains participant[0] %}
-      <p>
-        <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem"
-          alt="Photo of {{ participant[0] }}">
-      </p>
-      {% break %}
-      {% endif %}
-      {% endfor %}
-    </td>
-    <td class="position-relative">
-      {% assign episodes = site.episodes | where: "posted", true | reverse %}
-      {% for episode in episodes -%}
-      {% if episode.participants contains participant[0] %}
-      <a href="{{ episode.url }}" target="_blank" class="stretched-link">
-        {{ episode.itunes-episode }} / {{ episode.title | escape }}
-      </a>
-
-      {% break %}
-      {% endif -%}
+<div class="participants-table-wrap">
+  <table class="table participants-table">
+    <thead>
+      <tr>
+        <th>Participant</th>
+        <th>Name</th>
+        <th>Ethereum</th>
+        <th>GitHub</th>
+        <th>Photo</th>
+        <th>Last participated</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for participant in site.data.participants -%}
+      <tr id="{{ participant[0] }}">
+        <td class="position-relative">
+          <a href="http://twitter.com/{{ participant[1].x }}" class="stretched-link icon-link" target="_blank">
+            <i class="bi-twitter-x"></i>
+            {{ participant[1].x }}
+          </a>
+        </td>
+        <td class="position-relative">
+          {{ participant[1].name | default: "???" }}
+        </td>
+        <td class="position-relative">
+          {% assign ethereum = participant[1].ethereum | default: "???" %}
+          {% if ethereum == "???" %}
+          ???
+          {% else %}
+          <a href="ethereum:{{ participant[1].ethereum }}" class="stretched-link icon-link">
+            <i class="bi-wallet"></i>
+            {% assign suffix = participant[1].ethereum | slice: -4, 4 %}
+            {% if suffix == ".eth" %}
+            {{ participant[1].ethereum }}
+            {% else %}
+            <code>{{ participant[1].ethereum }}</code>
+            {% endif %}
+          </a>
+          {% endif %}
+        </td>
+        <td class="position-relative">
+          {% assign github = participant[1].github | default: "???" %}
+          {% if github == "???" %}
+          ???
+          {% else %}
+          <a href="https://github.com/{{ participant[1].github }}" class="stretched-link icon-link">
+            <i class="bi-github"></i>
+            {{ participant[1].github }}
+          </a>
+          {% endif %}
+        </td>
+        <td class="position-relative">
+          {% for file in site.static_files %}
+          {% if file.path contains participant[0] %}
+          <p>
+            <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem"
+              alt="Photo of {{ participant[0] }}">
+          </p>
+          {% break %}
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td class="position-relative">
+          {% assign episodes = site.episodes | where: "posted", true | reverse %}
+          {% for episode in episodes -%}
+          {% if episode.participants contains participant[0] %}
+          <a href="{{ episode.url }}" target="_blank" class="stretched-link">
+            {{ episode.itunes-episode }} / {{ episode.title | escape }}
+          </a>
+          {% break %}
+          {% endif -%}
+          {% endfor -%}
+        </td>
+        <td class="position-relative">
+          <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank"
+            class="stretched-link btn btn-primary btn-sm">
+            Edit
+          </a>
+        </td>
+      </tr>
       {% endfor -%}
-    </td>
-    <td class="position-relative">
-      <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank"
-        class="stretched-link btn btn-primary btn-sm">
-        Edit
-      </a>
-    </td>
-  </tr>
-  {% endfor -%}
-</table>
+    </tbody>
+  </table>
+</div>
 
 <h2 class="mt-5">Missing photos</h2>
 <p>Please <a href="https://github.com/community-service/hour.gg/tree/main/assets/participants">add photos</a> for these
