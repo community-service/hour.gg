@@ -38,31 +38,20 @@ Cut the recorded video In DaVinci Resolve.
 - [ ] Export video to `YYYY-MM-DD-episode-###.mp4` .
   - [ ] Use "YouTube 1080p" settings.
   - [ ] Normalize > Optimize to standard
-  
 
-## Edit episode file
+## Create the poster
 
-Open it
+Use Pixelmator Pro's YouTube poster templates.
 
-```sh
-code ~/Sites/hour.gg
-```
+- [ ] Save project to `YYYY-MM-DD-episode-###.pxd`.
+- [ ] Export image to `YYYY-MM-DD-episode-###.png`.
 
-Copy details from the [live show notes](https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG) into the [episode file](_episodes) (anybody can pull request to do this step):
-
-- [ ] `title`
-- [ ] `subtitle`
-- [ ] `participants`
-- [ ] At the bottom, below `---`, add useful links and keywords for things we discussed
-  - [ ] This part requires human research, ChatGPT does not know everybody's profile/homepage URL
-- [ ] After `<!--end of quick notes-->` paste the show notes from during the show
-
-## Mixdown & publish the podcast audio
+## Encode audio and text
 
 Follow all the specific podcasting [technical requirements](podcast-specifications.md) using these steps below.
 
 ```sh
-EPISODE_MEDIA=~/Documents/LEARNING\ AND\ WORKING/COMMUNITY\ SERVICE/Episode\ production/Produced
+EPISODE_MEDIA=/Volumes/FDExtra/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
 WEBSITE=~/Sites/hour.gg
 
 # Get like 2024-07-23-episode-127
@@ -73,29 +62,9 @@ echo $EPISODE
 
 Use <https://hour.gg/timecode-tool> with the episode EDL to get and run the `ffmpeg` mixdown code.
 
-And continue along.
+Encode VTT transcript
 
 ```sh
-# Get info
-cd $EPISODE_MEDIA
-export SIZE=$(stat -f %z $EPISODE.m4a)
-export DURATION=$(ffprobe -v 0 -show_entries format=duration -of csv=p=0 $EPISODE.m4a | cut -d. -f1)
-
-# Upload audio media file to hosting
-REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
-scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
-
-# Link podcast feed to that media
-cd $WEBSITE
-yq -i --front-matter="process" '.enclosure-length = env(SIZE)' _episodes/$EPISODE.md
-yq -i --front-matter="process" '.itunes-duration = env(DURATION)' _episodes/$EPISODE.md
-```
-
-Do VTT transcript.
-
-```sh
-# Do the transcript
-
 whisper_path="$HOME/Developer/whisper.cpp"
 model_path="${whisper_path}/models/ggml-base.en.bin"
 
@@ -103,17 +72,20 @@ cd $EPISODE_MEDIA
 ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
 ```
 
-Write a description (draft from the intern):
+## Upload media to static hosting
 
 ```sh
-export OPENAI_API_KEY="..."
-cd $WEBSITE
+REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
+scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
+scp $EPISODE_MEDIA/$EPISODE.png $REMOTE_HOSTING_PATH
+```
 
-export DESCRIPTION=$(openai api chat.completions.create --model gpt-5-mini -g user "$(cat tools/description.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
-yq --inplace --front-matter=process ".description = strenv(DESCRIPTION)" _episodes/$EPISODE.md
+## Draft episode file
 
-export YOUTUBE_HASHTAGS=$(openai api chat.completions.create --model gpt-5-mini -g user "$(cat tools/youtube-hashtags.prompt)" -g user "$(cat $EPISODE_MEDIA/$EPISODE.vtt)")
-yq --inplace --front-matter=process ".youtube-hashtags = strenv(YOUTUBE_HASHTAGS)" _episodes/$EPISODE.md
+In VS Code chat:
+
+```
+/draft-episode-file 
 ```
 
 ## Post long-form videos
@@ -128,6 +100,8 @@ PASTE TIMELINE HERE
 Join our live weekly call // https://hour.gg
 
 OBVIOUSLY THIS IS A PARODY of joke financial advice. We and everybody else cannot predict the future. 
+
+PASTE DESCRIPTION HERE
 
 PASTE KEYWORDS/HASHTAGS HERE
 
@@ -146,6 +120,10 @@ Post to:
   - [ ] Add the URL to the episode file
 
 ## Post to X
+
+```sh
+Now, considering the medium, give me a tweet thread, I would use to promote this video
+```
 
 - [ ] Add the URL to the episode file
 
@@ -185,3 +163,16 @@ make_episode 132 '2024-09-03T18:00:00-04:00'
 make_episode 133 '2024-09-17T18:00:00-04:00'
 make_episode 134 '2024-09-24T18:00:00-04:00'
 ```
+
+## Shorts
+
+```
+Now carefully study the transcripts and the markers and identify the most important snippets
+
+Go ahead and use FFMPEG to extract between three and five snippet videos and save them to my desktop
+
+You are strictly limited to 30 seconds maximum of airtime per output clip. And if you like, you are also welcome when you are creating the clips to concatenate multiple pieces of the origin video. This means that you can splice sentences, etc., so that you meet the time limit
+
+For each of those snippets, give me a good tweet to show them off on X
+```
+
