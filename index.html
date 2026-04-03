@@ -49,25 +49,7 @@ layout: none
       font-family: "Rockwell", "Georgia", "Times New Roman", "Times", serif;
     }
 
-    @media (min-width: 731px) {
-      .episode-row {
-        margin-top: 10% !important;
-      }
 
-      .episodes-heading {
-        margin-bottom: -5% !important;
-      }
-    }
-
-    @media (max-width: 730px) {
-      .episode-row {
-        margin-top: 30% !important;
-      }
-
-      .episodes-heading {
-        margin-bottom: -15% !important;
-      }
-    }
 
     /* Hero layout */
     .hero-logo {
@@ -76,14 +58,6 @@ layout: none
       width: 100%;
       max-width: 600px;
       height: auto;
-    }
-
-    .hero-newsletter-wrap {
-      margin-top: 5%;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
     }
 
     /* Custom scrollbar styling */
@@ -139,50 +113,32 @@ layout: none
 <body>
   {% include main-nav.html %}
 
-  <header class="container-xl py-4">
-    <div class="row g-4 justify-content-center align-items-center py-4 min-vh-50">
-      <!-- H1 + Image: side-by-side by default, stack with H1 on top when tight -->
-      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <div class="text-center">
-          <h1 class="display-5 fs-lg-1 font-monospace fw-bold lh-1 mb-0">
-            Publish software,<br>
-            build your career
-          </h1>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img src="/assets/logo-icon-large.webp" class="img-fluid hero-logo mt-3 mt-lg-0"
-          alt="Community Service Hour logo">
-      </div>
-
-      <!-- Newsletter: ALWAYS underneath, max-width 500px, centered -->
-      <div class="col-12">
-        <div class="hero-newsletter-wrap">
-          <div class="card bg-dark text-light border border-secondary shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title mb-3">Monthly email</h5>
-              <p class="card-text small text-light mb-3">Updates on open source launches, live show recaps, and
-                build-in-public lessons.</p>
-              <form
-                action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
-                method="post">
-                <div class="input-group">
-                  <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
-                    placeholder="Email address" required>
-                  <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
-                </div>
-              </form>
-              <ul class="small mt-3 mb-0 text-light ps-3">
-                <li>Ship faster with our templates</li>
-                <li>Highlights from weekly calls</li>
-                <li>Missions to earn badges</li>
-              </ul>
-            </div>
+  <!-- HERO SECTION -->
+  <header class="container-xl py-5">
+    <div class="row g-4 justify-content-center align-items-center py-4">
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center order-2 order-lg-1">
+        <div>
+          <h1 class="display-4 font-monospace fw-bold lh-1 mb-3">Community Service Hour</h1>
+          <p class="lead mb-2" style="max-width: 32em;">We already build the world's software. Let's do it together—in
+            the open, on our own terms.</p>
+          <p class="mb-4" style="max-width: 32em;">Every week we get on a live call and show what we're actually making:
+            open source, AI experiments, products, weird art. One hour a week. Everything you make stays yours. No
+            perfection required. Just real progress, in public, with people who show up.</p>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <a class="btn btn-primary btn-lg" href="/calendar.ics"><i class="bi bi-calendar-event"></i> Join the Next
+              Live Call</a>
+            <a class="btn btn-outline-light btn-lg" href="/episodes"><i class="bi bi-headphones"></i> Listen to Recent
+              Episodes</a>
           </div>
+          <p class="small text-light mb-0">
+            <span id="next-show"></span>
+            <span id="next-show-time"></span>
+          </p>
         </div>
       </div>
-
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center order-1 order-lg-2">
+        <img src="/assets/logo-icon-large.webp" class="img-fluid hero-logo" alt="Community Service Hour logo">
+      </div>
     </div>
   </header>
 
@@ -190,23 +146,124 @@ layout: none
     <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
   </aside>
 
-  <section class="container-xl py-4">
+  <!-- WHO IT'S FOR -->
+  <section class="container-xl py-5">
+    <h2 class="display-6 fw-bold mb-4">This is for you if&hellip;</h2>
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-rocket-takeoff me-2"></i>You're tired of building in silence</h5>
+            <p class="card-text">Projects quietly dying on "version 2.0 coming soon" is the default. But real artists
+              ship.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-eye me-2"></i>You want your work to accumulate into something
+              undeniable</h5>
+            <p class="card-text">Everything you build here is public and yours. Over time, small ships compound into a
+              portfolio that speaks for itself.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-people me-2"></i>You'd rather cooperate than grind alone</h5>
+            <p class="card-text">Feedback, small wins, mutual encouragement. We share what we learned and celebrate real
+              progress together.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-cpu me-2"></i>You're experimenting with something new</h5>
+            <p class="card-text">AI agents, neural nets, weird side projects, art—bring whatever you're actually
+              excited about.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-lightning me-2"></i>You think tech culture could be healthier</h5>
+            <p class="card-text">This call is a living example of what it looks like when builders actually support each
+              other instead of hiding.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <h1 class="my-4 episodes-heading">
-      <a class="link-primary" href="/episodes">Episodes &amp; notes</a>
-      <!--
-      <a class="btn btn-sm rounded-pill btn-primary" href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple Podcasts</a>
-      <a class="btn btn-sm rounded-pill btn-primary" href="https://open.spotify.com/show/4WHTVyOHKtCAOgV8jB1KE2">Spotify</a>
-      <a class="btn btn-sm rounded-pill btn-primary" href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN">YouTube</a>
-      <a class="btn btn-sm rounded-pill btn-primary" href="https://www.tiktok.com/@fulldecent">TikTok</a>
-      -->
-    </h1>
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+  </aside>
 
-    {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse | slice: 0, 10 %}
+  <!-- HOW IT WORKS -->
+  <section class="container-xl py-5" id="how-to-csh">
+    <h2 class="display-6 fw-bold mb-4">How it works</h2>
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="text-center mb-3">
+          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">1</span>
+        </div>
+        <h5 class="text-center">Just start</h5>
+        <p class="text-center">Fix a typo, open a pull request, push something small. The act of publishing is the act
+          of joining.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="text-center mb-3">
+          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">2</span>
+        </div>
+        <h5 class="text-center">Show up</h5>
+        <p class="text-center">One hour a week, live. Share what you made, hear what others made. That's the whole
+          commitment.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="text-center mb-3">
+          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">3</span>
+        </div>
+        <h5 class="text-center">Release early &amp; often</h5>
+        <p class="text-center">Don't wait until it's perfect. Real artists ship. Perfectionism is just another way to
+          stay hidden.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="text-center mb-3">
+          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">4</span>
+        </div>
+        <h5 class="text-center">Build something real</h5>
+        <p class="text-center">Over time, your public work becomes undeniable proof of what you can do—and who you did
+          it with.</p>
+      </div>
+    </div>
+    <div class="mt-4 p-4 rounded-3" style="background: rgba(255,255,255,0.05);">
+      <p class="lead mb-2">Never contributed to open source before? That's the best place to start.</p>
+      <p class="mb-0">Create a GitHub profile, find any project you care about (for example <a class="link-primary"
+          href="https://github.com/community-service/hour.gg">this web page is open source</a>), fix a typo, and send a
+        pull request. From your first contribution you are already doing more in public than most people in tech ever
+        will. Put it on your resume. Then come tell us about it on the call—you'll get nothing but encouragement.</p>
+    </div>
+  </section>
+
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+  </aside>
+
+  <!-- RECENT EPISODES -->
+  <section class="container-xl py-5">
+    <h2 class="display-6 fw-bold mb-4">
+      <a class="link-primary" href="/episodes">Recent episodes</a>
+    </h2>
+
+    {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse | slice: 0, 4 %}
     {% for episode in episodes %}
     <div class="row my-4 episode-row">
       <div class="col-12 position-relative">
-        <h2 class="fs-4">
+        <h3 class="fs-4">
           <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
             <div>
               {{ episode.title | escape }}
@@ -215,13 +272,11 @@ layout: none
               {% endif %}
             </div>
             <span class="hstack d-inline-flex ms-1">
-              <!-- Participants from this specific episode -->
               {% assign some_participant_ids = episode.participants | sample: 3 %}
               {% for participant_id in some_participant_ids %}
               <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle participant-default-image"
                 style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
               {% endfor %}
-              <!-- + how many not shown... -->
               {% assign remaining = episode.participants.size | minus: 3 %}
               {% if remaining > 0 %}
               <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
@@ -230,8 +285,8 @@ layout: none
               {% endif %}
             </span>
           </a>
-        </h2>
-        <p>{{ episode.itunes-episode}} / {{ episode.description | escape }}</p>
+        </h3>
+        <p>{{ episode.description | escape }}</p>
       </div>
       {% if episode.youtube-full %}
       {% assign youtube-id = episode.youtube-full | split: '/' | last %}
@@ -245,30 +300,32 @@ layout: none
     </div>
     {% endfor %}
 
-    <p class="mt-5">
+    <p class="mt-4">
       <a class="link-primary" href="episodes">All episodes&hellip;</a>
     </p>
   </section>
 
-  <section class="container-xl mt-4">
-    <h1 id="about-us">
-      <a href="participants">Participants</a>
-      <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">
-        {{- site.data.participants.size -}}
-      </span>
-    </h1>
-    <p class="lead">Your host is William Entriken with special cohosts.</p>
-    <p class="lead">We recognize participants in <em>Community Service Hour</em> for joining our weekly call and
-      presenting projects.</p>
-    <p class="lead">
-      ℹ️ Follow everyone at once with our <a href="https://twitter.com/fulldecent/lists">our lists on X</a>.
-    </p>
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+  </aside>
 
-    <!-- TODO: only Participants from the past 10 weeks are shown below -->
+  <!-- COMMUNITY HIGHLIGHTS -->
+  <section class="container-xl py-5">
+    <h2 class="display-6 fw-bold mb-4">The people</h2>
+    <div class="row g-4 mb-4 align-items-center">
+      <div class="col-auto">
+        <span class="display-3 fw-bold" style="color: rgb(var(--bs-primary-rgb));">
+          {{- site.data.participants.size -}}+
+        </span>
+      </div>
+      <div class="col">
+        <p class="lead mb-0">builders showing up and shipping together</p>
+        <p class="mb-0">Follow everyone at once with <a class="link-primary"
+            href="https://twitter.com/fulldecent/lists">our lists on X</a>.</p>
+      </div>
+    </div>
 
-    <!--<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">-->
     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4">
-      <!-- Show all participants (TODO: only show those with activity in the past 10 weeks) -->
       {% assign all_participants2 = "" | split: "" -%}
       {% for participant in site.data.participants -%}
       {% assign all_participants2 = all_participants2 | push: participant[0] | sample: 25 -%}
@@ -281,8 +338,7 @@ layout: none
           <h5 class="card-title"><a class="link-primary"
               href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{
               site.data.participants[participant].x
-              }}</a><!--<span class="badge text-bg-warning rounded-pill ms-2">+12</span>--></h5>
-
+              }}</a></h5>
           {% if site.data.participants[participant].name != "???" %}
           <p class="card-text">{{ site.data.participants[participant].name }}</p>
           {% endif %}
@@ -291,31 +347,51 @@ layout: none
       {% endfor %}
     </div>
 
-    <p class="mt-5">
+    <p class="mt-4">
       <a class="link-primary" href="participants">All participants&hellip;</a>
     </p>
   </section>
 
-  <section class="container-xl my-4 py-4">
-    <h1 class="my-4" id="how-to-csh">
-      How to CSH?
-    </h1>
-    <p class="lead">Release early, release often. We build open source and share our experiences with the world.</p>
-    <p class="lead">We are a community of people who are passionate about art, software, neural networks, changing
-      society by example, launching products.</p>
-    <p class="lead">Join each week live to discuss with like-minded people. All it takes in one hour a week to further
-      your career, plus a few extra minutes to show yourself off.</p>
-    <hr>
-    <p class="lead">If you've never contributed to an open source project before&hellip; that is the best place to
-      start. Because you will directly connect with people, you are welcome everywhere and everything you do goes
-      straight into your portfolio. A good way to start is to create a profile on GitHub (fill it out ENTIRELY), find
-      any project you are interested (for example <a class="link-primary" href="">this web page you are reading is open
-        source</a>), edit to fix a typo there and then send your contribution however to the project maintainer. On
-      GitHub this is called "save", "fork" and "pull request", you get all those by clicking the green buttons after you
-      save your change.</p>
-    <p class="lead">From your first typo-fix, you have already passed 80% of the world in building your portfolio in
-      technology. Yes really. Put it on your resume. Yes really. Then imagine what other project you will take on next.
-      You're welcome to share with us on the call, and can expect lots of encouragement.</p>
+  <aside>
+    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+  </aside>
+
+  <!-- NEWSLETTER + FINAL CTA -->
+  <section class="container-xl py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        <div class="text-center mb-4">
+          <h2 class="display-6 fw-bold">Stop building alone</h2>
+          <p class="lead">The call is free, the door is wide open, and the only requirement is that you're making
+            something. Come ship with us.</p>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+            <a class="btn btn-primary btn-lg" href="/calendar.ics"><i class="bi bi-calendar-event"></i> Join the Next
+              Live Call</a>
+          </div>
+        </div>
+        <div class="card bg-dark text-light border border-secondary shadow-sm mx-auto" style="max-width: 500px;">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Monthly email</h5>
+            <p class="card-text small text-light mb-3">Updates on open source launches, live show recaps, and
+              build-in-public lessons.</p>
+            <form
+              action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
+              method="post">
+              <div class="input-group">
+                <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
+                  placeholder="Email address" required>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
+              </div>
+            </form>
+            <ul class="small mt-3 mb-0 text-light ps-3">
+              <li>Ship faster with our templates</li>
+              <li>Highlights from weekly calls</li>
+              <li>Missions to earn badges</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <aside>
