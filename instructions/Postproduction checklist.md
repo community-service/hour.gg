@@ -51,7 +51,7 @@ Use Pixelmator Pro's YouTube poster templates.
 Follow all the specific podcasting [technical requirements](podcast-specifications.md) using these steps below.
 
 ```sh
-EPISODE_MEDIA=/Volumes/FDExtra/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
+EPISODE_MEDIA=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
 WEBSITE=~/Sites/hour.gg
 
 # Get like 2024-07-23-episode-127

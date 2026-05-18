@@ -1,10 +1,13 @@
 ---
-mode: agent
+agent: agent
 tools:
-  - codebase
-  - editFiles
-  - fetch
-  - runCommands
+  - search/codebase
+  - edit/editFiles
+  - web/fetch
+  - execute/getTerminalOutput
+  - execute/runInTerminal
+  - read/terminalLastCommand
+  - read/terminalSelection
   - search
 description: Draft a Community Service Hour episode file from the template, transcript, EDL markers, and supporting research.
 ---
