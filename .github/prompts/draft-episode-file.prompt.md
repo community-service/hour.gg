@@ -20,6 +20,7 @@ Start with the template at `_drafts/YYYY-MM-DD-episode-N.md` and produce the rea
 
 - The episode basename, like `YYYY-MM-DD-episode-N`.
 - The audio file at `$EPISODE_MEDIA/$EPISODE.m4a`.
+- The episode image file at `$EPISODE_MEDIA/$EPISODE.png` when available.
 - The transcript, usually `$EPISODE_MEDIA/$EPISODE.vtt`.
 - The EDL markers file, usually `$EPISODE_MEDIA/$EPISODE.edl`.
 - Any live show notes or existing notes already in the episode file.
@@ -27,7 +28,7 @@ Start with the template at `_drafts/YYYY-MM-DD-episode-N.md` and produce the rea
 Assume the usual media path from the postproduction checklist unless I say otherwise:
 
 ```sh
-EPISODE_MEDIA=/Volumes/FDExtra/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
+EPISODE_MEDIA=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
 WEBSITE=~/Sites/hour.gg
 ```
 
@@ -72,7 +73,7 @@ export DURATION=$(ffprobe -v 0 -show_entries format=duration -of csv=p=0 "$EPISO
 ```
 
 7. Fill as much front matter as can be supported by evidence from the transcript, EDL, existing repo files, and light web research.
-8. If `youtube-hashtags` is missing from the template, add it to the front matter.
+8. Set `itunes-image` to `https://media.phor.net/csh/$EPISODE.png` when that image exists.
 9. Do internet research for the products, companies, people, standards, articles, and tools that are materially discussed on the show. Prefer official pages first, then high-quality supporting references.
 10. Never invent URLs, names, participants, or claims. Leave a clear `TODO` only when necessary.
 
@@ -86,15 +87,6 @@ export DURATION=$(ffprobe -v 0 -show_entries format=duration -of csv=p=0 "$EPISO
 - Avoid wording like "the episode discusses".
 
 Write a description that is concrete, specific, and useful for podcast apps.
-
-## YouTube hashtag rules
-
-- Return only actual hashtags.
-- Use only the number of hashtags that makes sense for a YouTube description.
-- Keep them tightly tied to the real topics of the episode.
-- Avoid filler tags, vanity tags, and weak generic tags unless they are truly warranted.
-
-Store the result in the `youtube-hashtags` front matter field.
 
 ## Title and subtitle rules
 

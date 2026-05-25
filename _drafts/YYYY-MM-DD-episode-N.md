@@ -21,6 +21,7 @@ timeline:
 
 # File information
 enclosure-url: UPDATE ME
+itunes-image: UPDATE ME
 enclosure-length: UPDATE ME
 enclosure-type: "audio/x-m4a"
 itunes-duration: UPDATE ME

@@ -3,3 +3,6 @@ _site
 # Because GitHub Pages does not consider that file when building
 /Gemfile.lock
 /.bundle
+/_episodes/*.youtube-description.txt
+/_episodes/*.shorts.md
+/_episodes/*.x-thread.txt

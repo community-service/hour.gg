@@ -5,7 +5,7 @@ Here are the steps for each episode.
 ```mermaid
 graph LR
 s[Live show]
-v[Video cut]
+v[Full produced video]
 v2[TikTok]
 yt[YouTube]
 tw[Tweet]
@@ -30,21 +30,25 @@ click draft "https://github.com/community-service/hour.gg/tree/main/_drafts"
 click v2 "https://www.tiktok.com/@fulldecent"
 ```
 
-## Edit the video
+## Produce the video with DaVinci Resolve
 
-Cut the recorded video In DaVinci Resolve.
+Cut the video, add chapter markers and save the artifacts.
 
-- [ ] Export timecode markers to `YYYY-MM-DD-episode-###.edl`.
-- [ ] Export video to `YYYY-MM-DD-episode-###.mp4` .
-  - [ ] Use "YouTube 1080p" settings.
-  - [ ] Normalize > Optimize to standard
+- [ ] Save to `Season 20XX DaVinci timelines exports`
+  - [ ] `YYYY-MM-DD-episode-###.drt` export this from the Media screen
+- [ ] Save to `Produced full episodes`
+  - [ ] `YYYY-MM-DD-episode-###.edl` export timecode markers from Timeline in cut page
+  - [ ] `YYYY-MM-DD-episode-###.mp4` export from export page
+    - [ ] Use "YouTube 1080p" settings.
+    - [ ] Select Normalize > Optimize to standard
 
 ## Create the poster
 
 Use Pixelmator Pro's YouTube poster templates.
 
-- [ ] Save project to `YYYY-MM-DD-episode-###.pxd`.
-- [ ] Export image to `YYYY-MM-DD-episode-###.png`.
+- [ ] Save to `Produced full episodes`
+  - [ ] `YYYY-MM-DD-episode-###.pxd` save as
+  - [ ] `YYYY-MM-DD-episode-###.png` export
 
 ## Encode audio and text
 
@@ -66,7 +70,8 @@ Encode VTT transcript
 
 ```sh
 whisper_path="$HOME/Developer/whisper.cpp"
-model_path="${whisper_path}/models/ggml-base.en.bin"
+# model_path="${whisper_path}/models/ggml-base.en.bin"
+model_path="${whisper_path}/models/ggml-medium.en.bin"
 
 cd $EPISODE_MEDIA
 ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
@@ -82,54 +87,64 @@ scp $EPISODE_MEDIA/$EPISODE.png $REMOTE_HOSTING_PATH
 
 ## Draft episode file
 
-In VS Code chat:
+- [ ] Use VS Code chat agent
 
-```
-/draft-episode-file 
-```
+  ```plain
+  /draft-episode-file 
+  ```
+
+- [ ] Fix participants and get their X profile images if needed and then convert to WebP per instructions.
 
 ## Post long-form videos
 
-Use this description template:
+- [ ] Use VS Code chat agent
 
-```
-Episode #9999
+  ```plain
+  /draft-youtube-description
+  ```
 
-PASTE TIMELINE HERE
+- [ ] Post to <https://youtube.com/upload>
 
-Join our live weekly call // https://hour.gg
-
-OBVIOUSLY THIS IS A PARODY of joke financial advice. We and everybody else cannot predict the future. 
-
-PASTE DESCRIPTION HERE
-
-PASTE KEYWORDS/HASHTAGS HERE
-
-MEDIA CREDITS
-“Block Shape Diamond” by Tamiya @ Sketchfab, modified, CC BY 4.0.
-“Diamond” by DarkPixel Studios @ Sketchfab, modified, CC BY 4.0.
-“Sentence photo” by creativeart @ freepik, modified.
-“Scary Island” by Verified Picasso @ YouTube.
-“Tech texture vector” by starline @ freepik, modified.
-Motion graphics by Gisela Leyva
-```
-
-Post to:
-
-- [ ] <https://youtube.com/upload>
+  - [ ] Use draft description at `_episodes/$EPISODE.youtube-description.txt`
   - [ ] Add the URL to the episode file
+  - [ ] Attach the poster PNG
+
+## Shorts
+
+- [ ] Use VS Code chat agent
+
+  ```plain
+  /cut-shorts
+  ```
+
+- [ ] Post to <https://www.tiktok.com/tiktokstudio/upload?from=webapp&tab=video>
+
+In VS Code chat:
+
+```
+/cut-shorts
+```
+
+This extracts three to five clips (30 seconds max each) to the Desktop and creates `_episodes/$EPISODE.shorts-description.md` with descriptions and hashtags for each clip.
 
 ## Post to X
 
-```sh
-Now, considering the medium, give me a tweet thread, I would use to promote this video
-```
+- [ ] Use VS Code chat agent
 
-- [ ] Add the URL to the episode file
+  ```plain
+  /draft-x-thread
+  ```
+
+- [ ] Post to <https://x.com/compose/post>
+
+  - [ ] Use draft thread at `_episodes/$EPISODE.x-thread.txt`
+  - [ ] Add the post URL to the episode `discussion` field
 
 Set the `posted=true` and git commit and push!
 
 ## Draft upcoming episodes
+
+If you have a scheduled date for upcoming episodes, then publish those as well (with `posted: false`) so they will publish on our .ics calendar files.
 
 :warning: This overwrites existing episode files.
 
@@ -148,10 +163,12 @@ make_episode() { # NUMBER DATE_TIME_OFFSET
     BASENAME="$DATE-episode-$NUMBER"
     EPISODE_FILE="_episodes/$BASENAME.md"
     export URL="https://media.phor.net/csh/$BASENAME.m4a"
+    export IMAGE_URL="https://media.phor.net/csh/$BASENAME.png"
     export UUID=$(uuidgen)
     cp _drafts/YYYY-MM-DD-episode-N.md $EPISODE_FILE
     yq -i --front-matter="process" '.guid = env(UUID)' $EPISODE_FILE
     yq -i --front-matter="process" '.enclosure-url = env(URL)' $EPISODE_FILE
+    yq -i --front-matter="process" '.itunes-image = env(IMAGE_URL)' $EPISODE_FILE
     yq -i --front-matter="process" '.itunes-episode = env(NUMBER)' $EPISODE_FILE
     yq -i --front-matter="process" '.start-time = env(DATE_TIME_OFFSET)' $EPISODE_FILE
 }
@@ -163,16 +180,3 @@ make_episode 132 '2024-09-03T18:00:00-04:00'
 make_episode 133 '2024-09-17T18:00:00-04:00'
 make_episode 134 '2024-09-24T18:00:00-04:00'
 ```
-
-## Shorts
-
-```
-Now carefully study the transcripts and the markers and identify the most important snippets
-
-Go ahead and use FFMPEG to extract between three and five snippet videos and save them to my desktop
-
-You are strictly limited to 30 seconds maximum of airtime per output clip. And if you like, you are also welcome when you are creating the clips to concatenate multiple pieces of the origin video. This means that you can splice sentences, etc., so that you meet the time limit
-
-For each of those snippets, give me a good tweet to show them off on X
-```
-

@@ -27,6 +27,7 @@
     {%- for episode in episodes %}
     <item>
       <title>{{ episode.title | escape }}</title>
+      <itunes:image href="{{ episode.itunes-image | default: site.data.channel.itunes-image | escape }}" />
       <enclosure
         url="{{ episode.enclosure-url | escape }}"
         length="{{ episode.enclosure-length | escape }}"
