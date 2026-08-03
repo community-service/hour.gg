@@ -26,20 +26,3 @@ layout: page
 
 ---
 
-## Post production
-
-- [ ] Do DaVinci long video (~15 minutes)
-  - [ ] Normalize audio with ITU-R BS.1770-4 / -2.0 dBTP / -16 LKFS
-  - [ ] Export time EDL markers into episode notes above
-- [ ] Post long video to YT (description template), X, Rumble
-  - [ ] Use Pixelmator to make thumbnail page
-  - [ ] Post YT
-  - [ ] Post to Rumble
-- [ ] Use CapCut for shorts
-  - [ ] Post to YT
-  - [ ] Post to DC
-  - [ ] Post to TT
-  - [ ] Post to LI
-- [ ] Publish the podcast and website file
-- [ ] Find two people that recently asked a relevant question on internet and recommend them to a specific part of a past episode
-- [ ] Create/update next week's event titles on TW SPACES and DISCORD EVENTS and TWITCH CHANNEL NAME

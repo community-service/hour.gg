@@ -57,11 +57,9 @@ Follow all the specific podcasting [technical requirements](podcast-specificatio
 ```sh
 EPISODE_MEDIA=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
 WEBSITE=~/Sites/hour.gg
-
-# Get like 2024-07-23-episode-127
 cd $EPISODE_MEDIA
 EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
-echo $EPISODE
+echo $EPISODE # like 2024-07-23-episode-127
 ```
 
 Use <https://hour.gg/timecode-tool> with the episode EDL to get and run the `ffmpeg` mixdown code.
@@ -141,6 +139,11 @@ This extracts three to five clips (30 seconds max each) to the Desktop and creat
   - [ ] Add the post URL to the episode `discussion` field
 
 Set the `posted=true` and git commit and push!
+
+## Helpful
+
+- [ ] Find two people that recently asked a relevant question on internet and recommend them to a specific part of a past episode
+- [ ] Create/update next week's event titles on TW SPACES and DISCORD EVENTS and TWITCH CHANNEL NAME
 
 ## Draft upcoming episodes
 
