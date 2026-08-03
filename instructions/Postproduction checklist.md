@@ -79,8 +79,9 @@ ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --langu
 
 ```sh
 REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
-scp $EPISODE_MEDIA/$EPISODE.m4a $REMOTE_HOSTING_PATH
-scp $EPISODE_MEDIA/$EPISODE.png $REMOTE_HOSTING_PATH
+scp "$EPISODE_MEDIA/$EPISODE.m4a" "$REMOTE_HOSTING_PATH"
+scp "$EPISODE_MEDIA/$EPISODE.png" "$REMOTE_HOSTING_PATH"
+ssh apps.phor.net "chmod 644 public_html/media/csh/$EPISODE.m4a public_html/media/csh/$EPISODE.png"
 ```
 
 ## Draft episode file
