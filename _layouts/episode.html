@@ -139,9 +139,10 @@ breadcrumbs:
     }
 
     function formatTimecode(totalSeconds) {
-      const hours = Math.floor(totalSeconds / 3600);
-      const minutes = Math.floor(totalSeconds / 60) % 60;
-      const seconds = totalSeconds % 60;
+      const wholeSeconds = Math.floor(totalSeconds);
+      const hours = Math.floor(wholeSeconds / 3600);
+      const minutes = Math.floor(wholeSeconds / 60) % 60;
+      const seconds = wholeSeconds % 60;
       const hoursHH = String(hours).padStart(2, '0');
       const minutesMM = String(minutes).padStart(2, '0');
       const secondsSS = String(seconds).padStart(2, '0');
@@ -161,6 +162,8 @@ breadcrumbs:
       audio.currentTime = seconds;
     }
 
+    let pendingHashSeek = null;
+
     function seekFromHash() {
       const seconds = parseTimecode(window.location.hash);
       if (seconds === null) {
@@ -172,16 +175,23 @@ breadcrumbs:
         return;
       }
 
-      audio.addEventListener('loadedmetadata', function onLoadedMetadata() {
+      if (pendingHashSeek) {
+        audio.removeEventListener('loadedmetadata', pendingHashSeek);
+      }
+
+      pendingHashSeek = function onLoadedMetadata() {
+        pendingHashSeek = null;
         seekAudio(seconds);
-      }, { once: true });
+      };
+
+      audio.addEventListener('loadedmetadata', pendingHashSeek, { once: true });
     }
 
     document.querySelectorAll('.audiotime').forEach(function (link) {
       link.addEventListener('click', function (event) {
         event.preventDefault();
         const seconds = Number(link.dataset.seconds);
-        if (!Number.isFinite(seconds)) {
+        if (!Number.isFinite(seconds) || seconds < 0) {
           return;
         }
 
