@@ -48,7 +48,9 @@ description: "All Community Service Hour episodes and show notes, including upco
         {% assign time = minutesMM | append: ":" | append: secondsSS %}
         {% endif %}
         <li>
-          <code>{{ time }}</code>
+          <a href="{{ episode.url | relative_url }}#t={{ time }}" title="Jump to {{ time }} in audio">
+            <code>{{ time }}</code>
+          </a>
           {{ item.title | escape }}
         </li>
         {% endfor %}
@@ -112,7 +114,9 @@ description: "All Community Service Hour episodes and show notes, including upco
       {% assign time = minutesMM | append: ":" | append: secondsSS %}
       {% endif %}
       <li>
-        <code>{{ time }}</code>
+        <a href="{{ episode.url | relative_url }}#t={{ time }}" title="Jump to {{ time }} in audio">
+          <code>{{ time }}</code>
+        </a>
         {{ item.title | escape }}
       </li>
       {% endfor %}

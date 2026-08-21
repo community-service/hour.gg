@@ -71,7 +71,7 @@ breadcrumbs:
       {% assign time = minutesMM | append: ":" | append: secondsSS %}
       {% endif %}
       <div>
-        <a class="me-2 audiotime" href="#{{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
+        <a class="me-2 audiotime" href="#t={{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
         {% if page.youtube-full %}
         <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
         {% endif %}
@@ -108,3 +108,100 @@ breadcrumbs:
 </a>
 
 {{ content }}
+
+{% if page.posted == true %}
+<script>
+  (function () {
+    const audio = document.querySelector('audio');
+    if (!audio) {
+      return;
+    }
+
+    function parseTimecode(value) {
+      if (!value) {
+        return null;
+      }
+
+      const hash = decodeURIComponent(value).replace(/^#/, '');
+      const timecode = hash.startsWith('t=') ? hash.slice(2) : hash;
+
+      if (/^\d+$/.test(timecode)) {
+        return Number(timecode);
+      }
+
+      if (!/^\d{1,2}:\d{2}(:\d{2})?$/.test(timecode)) {
+        return null;
+      }
+
+      return timecode.split(':').reduce(function (seconds, part) {
+        return seconds * 60 + Number(part);
+      }, 0);
+    }
+
+    function formatTimecode(totalSeconds) {
+      const wholeSeconds = Math.floor(totalSeconds);
+      const hours = Math.floor(wholeSeconds / 3600);
+      const minutes = Math.floor(wholeSeconds / 60) % 60;
+      const seconds = wholeSeconds % 60;
+      const hoursHH = String(hours).padStart(2, '0');
+      const minutesMM = String(minutes).padStart(2, '0');
+      const secondsSS = String(seconds).padStart(2, '0');
+
+      if (hours === 0) {
+        return minutesMM + ':' + secondsSS;
+      }
+
+      return hoursHH + ':' + minutesMM + ':' + secondsSS;
+    }
+
+    function seekAudio(seconds) {
+      if (!Number.isFinite(seconds) || seconds < 0) {
+        return;
+      }
+
+      audio.currentTime = seconds;
+    }
+
+    let pendingHashSeek = null;
+
+    function seekFromHash() {
+      const seconds = parseTimecode(window.location.hash);
+      if (seconds === null) {
+        return;
+      }
+
+      if (audio.readyState >= 1) {
+        seekAudio(seconds);
+        return;
+      }
+
+      if (pendingHashSeek) {
+        audio.removeEventListener('loadedmetadata', pendingHashSeek);
+      }
+
+      pendingHashSeek = function onLoadedMetadata() {
+        pendingHashSeek = null;
+        seekAudio(seconds);
+      };
+
+      audio.addEventListener('loadedmetadata', pendingHashSeek, { once: true });
+    }
+
+    document.querySelectorAll('.audiotime').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        const seconds = Number(link.dataset.seconds);
+        if (!Number.isFinite(seconds) || seconds < 0) {
+          return;
+        }
+
+        seekAudio(seconds);
+        window.history.replaceState(null, '', '#t=' + formatTimecode(seconds));
+      });
+    });
+
+    window.addEventListener('hashchange', seekFromHash);
+    seekFromHash();
+  }());
+</script>
+{% endif %}
