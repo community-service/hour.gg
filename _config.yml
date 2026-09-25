@@ -2,6 +2,9 @@ collections:
   episodes:
     output: true
 
+# Scheduled episodes are dated in the future and still need a page.
+future: true
+
 defaults:
   -
     scope:

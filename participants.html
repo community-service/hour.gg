@@ -2,6 +2,7 @@
 layout: page
 title: Participants
 description: "Participant directory with links, photos, and the most recent episode each person appeared on."
+show_breadcrumbs: false
 ---
 <style>
   .participants-video {
@@ -61,11 +62,15 @@ description: "Participant directory with links, photos, and the most recent epis
   }
   .participants-table th:nth-child(1),
   .participants-table td:nth-child(1) {
+    min-width: 10rem;
+  }
+  .participants-table th:nth-child(2),
+  .participants-table td:nth-child(2) {
     min-width: 150px;
   }
   .participants-table th:nth-child(3),
   .participants-table td:nth-child(3) {
-    min-width: 250px;
+    min-width: 11rem;
   }
   .participants-table th:nth-child(4),
   .participants-table td:nth-child(4) {
@@ -93,9 +98,10 @@ description: "Participant directory with links, photos, and the most recent epis
 </div>
 
 <p class="lead">
-  🚨 <a
-    href="https://twitter.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg">DM
-    Will</a>
+  <a class="icon-link"
+    href="https://twitter.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg">
+    <i class="bi bi-chat-dots"></i>
+    DM Will</a>
   or click <kbd>EDIT</kbd> below to update how you are shown on this website.
 </p>
 
@@ -107,8 +113,8 @@ description: "Participant directory with links, photos, and the most recent epis
   <table class="table participants-table">
     <thead>
       <tr>
-        <th>Participant</th>
         <th>Name</th>
+        <th>Participant</th>
         <th>Ethereum</th>
         <th>GitHub</th>
         <th>Photo</th>
@@ -117,59 +123,79 @@ description: "Participant directory with links, photos, and the most recent epis
       </tr>
     </thead>
     <tbody>
-      {% for participant in site.data.participants -%}
-      <tr id="{{ participant[0] }}">
+      {% assign episodes_newest = site.episodes | where: "posted", true | reverse %}
+      {% assign seen_ids = "" | split: "" %}
+      {% assign ordered_ids = "" | split: "" %}
+      {% for episode in episodes_newest %}
+      {% for pid in episode.participants %}
+      {% unless seen_ids contains pid %}
+      {% if site.data.participants[pid] %}
+      {% assign seen_ids = seen_ids | push: pid %}
+      {% assign ordered_ids = ordered_ids | push: pid %}
+      {% endif %}
+      {% endunless %}
+      {% endfor %}
+      {% endfor %}
+      {% for participant in site.data.participants %}
+      {% unless seen_ids contains participant[0] %}
+      {% assign ordered_ids = ordered_ids | push: participant[0] %}
+      {% endunless %}
+      {% endfor %}
+      {% for pid in ordered_ids -%}
+      {% assign info = site.data.participants[pid] %}
+      <tr id="{{ pid }}">
         <td class="position-relative">
-          <a href="http://twitter.com/{{ participant[1].x }}" class="stretched-link icon-link" target="_blank">
+          {{ info.name | default: "???" }}
+        </td>
+        <td class="position-relative">
+          <a href="http://twitter.com/{{ info.x }}" class="stretched-link icon-link" target="_blank">
             <i class="bi-twitter-x"></i>
-            {{ participant[1].x }}
+            {{ info.x }}
           </a>
         </td>
         <td class="position-relative">
-          {{ participant[1].name | default: "???" }}
-        </td>
-        <td class="position-relative">
-          {% assign ethereum = participant[1].ethereum | default: "???" %}
+          {% assign ethereum = info.ethereum | default: "???" %}
           {% if ethereum == "???" %}
           ???
           {% else %}
-          <a href="ethereum:{{ participant[1].ethereum }}" class="stretched-link icon-link">
+          <a href="ethereum:{{ ethereum }}" class="stretched-link icon-link" title="{{ ethereum }}">
             <i class="bi-wallet"></i>
-            {% assign suffix = participant[1].ethereum | slice: -4, 4 %}
+            {% assign suffix = ethereum | slice: -4, 4 %}
             {% if suffix == ".eth" %}
-            {{ participant[1].ethereum }}
+            {{ ethereum }}
             {% else %}
-            <code>{{ participant[1].ethereum }}</code>
+            {% assign eth_head = ethereum | slice: 0, 6 %}
+            {% assign eth_tail = ethereum | slice: -4, 4 %}
+            <code>{{ eth_head }}...{{ eth_tail }}</code>
             {% endif %}
           </a>
           {% endif %}
         </td>
         <td class="position-relative">
-          {% assign github = participant[1].github | default: "???" %}
+          {% assign github = info.github | default: "???" %}
           {% if github == "???" %}
           ???
           {% else %}
-          <a href="https://github.com/{{ participant[1].github }}" class="stretched-link icon-link">
+          <a href="https://github.com/{{ github }}" class="stretched-link icon-link">
             <i class="bi-github"></i>
-            {{ participant[1].github }}
+            {{ github }}
           </a>
           {% endif %}
         </td>
         <td class="position-relative">
           {% for file in site.static_files %}
-          {% if file.path contains participant[0] %}
+          {% if file.path contains pid %}
           <p>
             <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem"
-              alt="Photo of {{ participant[0] }}">
+              alt="Photo of {{ pid }}">
           </p>
           {% break %}
           {% endif %}
           {% endfor %}
         </td>
         <td class="position-relative">
-          {% assign episodes = site.episodes | where: "posted", true | reverse %}
-          {% for episode in episodes -%}
-          {% if episode.participants contains participant[0] %}
+          {% for episode in episodes_newest -%}
+          {% if episode.participants contains pid %}
           <a href="{{ episode.url }}" target="_blank" class="stretched-link">
             {{ episode.itunes-episode }} / {{ episode.title | escape }}
           </a>
