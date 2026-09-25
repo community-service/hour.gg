@@ -14,8 +14,18 @@ breadcrumbs:
   }
 </style>
 
+{% assign is_upcoming = false %}
+{% if page.posted == false %}
+{% assign show_day = page.date | date: "%Y-%m-%d" %}
+{% assign today = site.time | date: "%Y-%m-%d" %}
+{% if show_day > today %}
+{% assign is_upcoming = true %}
+{% endif %}
+{% endif %}
 <h1 class="fs-3">
-  {% if page.posted == false %}
+  {% if is_upcoming %}
+  <span class="badge rounded-pill bg-warning text-dark">Upcoming</span>
+  {% elsif page.posted == false %}
   <span class="badge rounded-pill bg-warning text-dark">Draft</span>
   {% endif %}
   {{ page.title | escape }}
@@ -24,6 +34,26 @@ breadcrumbs:
   {% endif %}
 </h1>
 <p class="lead">{{ page.itunes-episode }} / {{ page.description | escape }}</p>
+{% if page.posted == false and page.start-time %}
+<p>
+  Scheduled for
+  <time class="scheduled-time" datetime="{{ page.start-time | date_to_xmlschema }}" style="cursor: help; text-decoration: underline dotted;">{{ page.start-time | date_to_xmlschema }}</time>.
+</p>
+<script>
+  (function () {
+    var el = document.querySelector(".scheduled-time");
+    if (!el) return;
+    var when = new Date(el.getAttribute("datetime"));
+    if (isNaN(when.getTime())) return;
+    var opts = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "2-digit" };
+    var localZone = new Intl.DateTimeFormat("en-US", { timeZoneName: "short" }).formatToParts(when).filter(function (part) { return part.type === "timeZoneName"; })[0];
+    var local = new Intl.DateTimeFormat("en-US", opts).format(when);
+    var ny = new Intl.DateTimeFormat("en-US", Object.assign({ timeZone: "America/New_York" }, opts)).format(when);
+    el.textContent = local + " " + (localZone ? localZone.value : "") + ", local time";
+    el.setAttribute("title", ny + ", New York time");
+  })();
+</script>
+{% endif %}
 
 {% if page.posted == true %}
 <div class="d-flex flex-wrap align-items-center gap-3">
@@ -58,7 +88,8 @@ breadcrumbs:
 </div>
 {% endif %}
 
-<div class="row row-cols-1 row-cols-lg-2">
+<div class="row{% unless is_upcoming %} row-cols-1 row-cols-lg-2{% endunless %}">
+  {% unless is_upcoming %}
   <div class="col">
     <h2 id="timeline" class="mt-4">Timeline</h2>
     <div class="timeline">
@@ -71,8 +102,10 @@ breadcrumbs:
       {% assign time = minutesMM | append: ":" | append: secondsSS %}
       {% endif %}
       <div>
+        {% if page.posted == true %}
         <a class="me-2 audiotime" href="#t={{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
-        {% if page.youtube-full %}
+        {% endif %}
+        {% if page.youtube-full contains "://" %}
         <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
         {% endif %}
         <code>{{ time }}</code>
@@ -81,9 +114,10 @@ breadcrumbs:
       {% endfor %}
     </div>
   </div>
+  {% endunless %}
 
-  <div class="col mt-5 mt-lg-0">
-    <h2>Participants</h2>
+  <div class="col{% unless is_upcoming %} mt-5 mt-lg-0{% endunless %}">
+    <h2{% if is_upcoming %} class="mt-4"{% endif %}>Participants</h2>
     {% for participant in page.participants %}
     <div class="col hstack align-self-start gap-2 mb-3">
       <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
