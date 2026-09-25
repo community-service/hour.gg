@@ -34,7 +34,7 @@ dtedesco1:
   x: dtedesco1
   name: Daniel Tedesco # https://twitter.com/dtedesco1
   github: dtedesco1 # https://twitter.com/dtedesco1 > https://dtedes.co > https://github.com/dtedesco1
-  ethereum: "0x072408eA37972B83720693D158a85D98A8316340"
+  ethereum: "0x072408eA37972B83720693D158a85D98A8316340" # https://twitter.com/dtedesco1 > https://dtedes.co
 "037":
   x: "037"
   name: AKM # https://x.com/037 > https://spuz.me/about/ > https://www.linkedin.com/in/uname
@@ -72,10 +72,11 @@ bturtel:
   ethereum: bturtel.eth # from DM with @fulldecent 2023-11-27
 cameronjohnbale:
   x: CameronJohnBale
-  name: ???
+  name: Cameron Bale # https://x.com/CameronJohnBale
+  ethereum: "cameronjohnbale.eth" # https://x.com/CameronJohnBale
 cer_andrew:
   x: cer_andrew
-  name: Andrew Cer
+  name: Andrew Cer # https://x.com/cer_andrew
   ethereum: "0x70a2d674cF9F503ac3cb45915Be248961128EF5f" # from DM with @fulldecent 2023-11-22
 cryptonerdylady:
   x: cryptonerdylady
@@ -96,10 +97,10 @@ dov_______:
   ethereum: "0xb7d8E0F586f0838dCc6BDaa25d608472cc419B60"
 duribeb:
   x: duribeb
-  name: ???
+  name: Daniel Uribe # https://x.com/duribeb
 ellievoxel:
   x: EllieVoxel
-  name: ???
+  name: Ellie Voxel # https://x.com/EllieVoxel
   ethereum: "0x28b135DB8b49B4360189d239A7a2f8B332aEf452" # from DM with @fulldecent 2023-11-24
 exstalis:
   x: exstalis
@@ -107,21 +108,22 @@ exstalis:
   ethereum: extalis.eth # from DM with @fulldecent 2023-11-24
 gjohnsx:
   x: gjohnsx
-  name: ???
+  name: Greg Johns # https://x.com/gjohnsx > https://www.gregjohns.dev/
+  github: gjohnsx # https://x.com/gjohnsx > https://www.gregjohns.dev/ > https://github.com/gjohnsx
 gm8xx8:
   x: gm8xx8
   name: ???
 h_t_v_:
   x: H_T_V_
-  name: ???
+  name: Havin Akar # https://x.com/H_T_V_
   ethereum: Hightv.eth # from DM with @fulldecent 2023-11-24
 jacobhaap:
   x: jacobhaap
-  name: ???
+  name: Jacob Haap # https://x.com/jacobhaap > https://jacobhaap.com/
   ethereum: "0x035b46EDDB16eE871129D99dB1416d433747070A" # from DM with @fulldecent 2023-11-24
 jeremymckane:
   x: jeremymckane
-  name: ???
+  name: Jeremy McKane # https://x.com/jeremymckane
 jhinnbay:
   x: jhinnbay
   name: ???
@@ -130,7 +132,7 @@ legend:
   name: ???
 lockey374:
   x: Lockey374
-  name: ???
+  name: Eoin MacLochlainn # https://x.com/Lockey374
 lorvg_eraeu:
   x: lorvg_eraeu
   name: ???
@@ -143,7 +145,7 @@ missvikii:
   ethereum: "0x26715b05758fC09964733dd4B6a87e084d8Ce69e" # from DM with @fulldecent 2023-11-27
 mlitman:
   x: mlitman
-  name: Michael Litman # @fulldecent vouches to have received this in a DM from them 2023-11-21
+  name: Michael Litman # https://x.com/mlitman > https://mikelitman.me
   ethereum: "mlitman.eth" # @fulldecent vouches to have received this in a DM from them 2023-11-21
 nunya_crypto:
   x: nunya_crypto
@@ -152,26 +154,27 @@ qbuttonphd:
   x: qbuttonphd
   name: ???
 ethereumremix:
-  x: Remix
-  name: Remix Project # https://twitter.com/EthereumRemix
-  github: # https://twitter.com/EthereumRemix > https://remix-project.org > https://github.com/ethereum/remix-project/
-  ethereum: "remix-project.eth" # https://twitter.com/EthereumRemix > https://github.com/ethereum/remix-project/
+  x: EthereumRemix
+  name: Remix Project # https://x.com/EthereumRemix
+  github: ethereum/remix-project # https://x.com/EthereumRemix > https://remix.live > https://github.com/ethereum/remix-project
+  ethereum: "remix-project.eth" # https://x.com/EthereumRemix > https://remix.live > https://github.com/ethereum/remix-project ; https://app.ens.domains/remix-project.eth github record is that repo
 retromort:
   x: retromort
   name: ???
 rito_rhymes:
   x: Rito_Rhymes
-  name: Ritorhymes
+  name: Rito # https://x.com/Rito_Rhymes > https://www.ritovision.com
+  github: ritorhymes # https://x.com/Rito_Rhymes > https://www.ritovision.com > https://github.com/ritorhymes
   ethereum: "Ritorhymes.eth" # from DM with @fulldecent 2023-11-22
 rocsolmiami:
   x: rocsolmiami
-  name: ???
-  ethereum: Rocsol.eth # from DM with @fulldecent 2023-11-23
+  name: Roc Sol # https://x.com/rocsolmiami
+  ethereum: Rocsol.eth # https://x.com/rocsolmiami
 ryestew:
   x: ryestew
-  name: Rob Stupay # https//twitter.com/ryestew
-  github: # https://twitter.com/ryestew > https://github.com/ryestew
-  ethereum: "ryestew.eth" # https://twitter.com/ryestew > https://github.com/ryestew
+  name: Rob Stupay # https://x.com/ryestew > https://github.com/ryestew
+  github: ryestew # https://x.com/ryestew > https://github.com/ryestew
+  ethereum: "ryestew.eth"
 sbu_honeyradio:
   x: SBU_HoneyRadio
   name: ???
@@ -196,36 +199,37 @@ tasrikan:
   name: ???
 temmanuel:
   x: temmanuel
-  name: ???
+  name: Thomas Emmanuel # https://x.com/temmanuel
 thealchemist_17:
   x: thealchemist_17
   name: ???
 themiamiape:
   x: TheMiamiApe
-  name: ???
+  name: Laura Rodriguez # https://x.com/TheMiamiApe
   ethereum: Themiamiape.eth # from DM with @fulldecent 2023-12-20
 thewhyman:
   x: thewhyman
-  name: ???
+  name: Anand Vallamsetla # https://x.com/thewhyman > https://thewhyman.com
+  github: thewhyman # https://x.com/thewhyman > https://thewhyman.com > https://github.com/thewhyman
 urbanwarriornft:
   x: UrbanWarriorNFT
   name: ???
 vjdeliria:
   x: VjDeliria
-  name: Vj Deliria
+  name: Vj Deliria # https://x.com/VjDeliria > https://www.vjdeliria.com/
   ethereum: "Vjdeliria.eth" # from DM with @fulldecent 2023-11-22
 web3news_media:
   x: web3news_media
   name: ???
 wingdude:
   x: WingDude
-  name: ???
+  name: Jodee Rich # https://x.com/WingDude
 xtinatedesco:
   x: xtinatedesco
-  name: ???
+  name: Tina # https://x.com/xtinatedesco > https://www.instagram.com/tinatedesco
 yodude38:
   x: yodude38
-  name: ???
+  name: Bill Entriken # https://x.com/yodude38
   ethereum: "0x9a33B0f538aBAdCe20C89d67A7C9c457eBF678bF"
 jamescbury:
   x: jamescbury  
@@ -251,7 +255,8 @@ cliffvandercave:
   ethereum: "0x145EB0c7F29E0d9481473623eF3c2182A58EDE01"
 natyshi_:
   x: natyshi_
-  name: ???
+  name: NatyShi # https://x.com/natyshi_ > https://www.natyshi.xyz
+  github: NatyShi # https://x.com/natyshi_ > https://www.natyshi.xyz > https://github.com/NatyShi/x-post-auditor
   ethereum: NatyShi.eth # from DM with @fulldecent 2023-11-24
 afri_deva:
   x: afri_deva
@@ -270,7 +275,7 @@ chelobyte:
   name: ???
 ervincastrop:
   x: ervincastrop
-  name: ???
+  name: Ervin Castro Perez # https://x.com/ervincastrop
 sizzlejia:
   x: sizzlejia
   name: ???
@@ -300,7 +305,8 @@ digawen_xd:
   name: ???
 djing_04:
   x: djing_04
-  name: ???
+  name: "Jing Đỗ" # https://x.com/djing_04
+  ethereum: "0x9561B904111FF88c5952c9E07b1FaBa7d36C37c4" # https://x.com/djing_04
 dkarr1234:
   x: dkarr1234
   name: ???
@@ -326,7 +332,7 @@ itscuzzo:
   name: ???
 itsnickreyes:
   x: itsnickreyes
-  name: ???
+  name: Nick Reyes # https://x.com/itsnickreyes > https://linktr.ee/nicksvision
 jeffalomaniac:
   x: jeffalomaniac
   name: ???
@@ -339,7 +345,7 @@ lana_lux:
   name: ???
 lazererik:
   x: lazererik #TinyVikingsNFT
-  name: Lars #SagaverseApp
+  name: Lars # https://x.com/lazererik
   ethereum: "0x6bf8FF99B6F469bA684A510Ae7DA4D636258557d"
 lil_astr_0:
   x: lil_astr_0
@@ -354,9 +360,9 @@ lucasgw:
   name: ???
 magicking_:
   x: magicking_
-  name: https://6120.eu
-  github: Magicking
-  ethereum: 6120.eth
+  name: Sylvain Laurent # https://x.com/magicking_ > https://6120.eu
+  github: Magicking # https://x.com/magicking_ > https://6120.eu > https://github.com/Magicking
+  ethereum: "6120.eth" # https://x.com/magicking_ > https://6120.eu ; https://app.ens.domains/6120.eth url record is https://6120.eu
 marctehan:
   x: marctehan
   name: ???
@@ -389,7 +395,7 @@ nosocialengine:
   name: ???
 nowandishh60492:
   x: nowandishh60492
-  name: ???
+  name: Hadi Nowandish # https://x.com/nowandishh60492
 perusojohn:
   x: perusojohn
   name: ???
@@ -407,10 +413,10 @@ reubenmetcalfe:
   name: ???
 rungoodrussell:
   x: rungoodrussell
-  name: ???
+  name: Russell Thomas # https://x.com/rungoodrussell
 sandergansen:
   x: sandergansen
-  name: ???
+  name: Sander Gansen # https://x.com/sandergansen
   ethereum: "0x7196e387E6dAFf279C964559d3D64c0faF523B20" # from DM with @fulldecent 2023-11-27
 shaggyrax:
   x: shaggyrax
@@ -424,7 +430,7 @@ tigerisfine:
 tommybytes:
   x: tommybytes
   name: ???
-  ethereum: "0x32DbdcFe81043c8F90d66D6aDe66A5C9739784d2" # from DM with @fulldecent 2023-11-27
+  ethereum: "0x32DbdcFe81043c8F90d66D6aDe66A5C9739784d2" # https://x.com/tommybytes > https://allmylinks.com/tommybytes
 ulticrypto:
   x: ulticrypto
   name: Neil # https://twitter.com/ulticrypto > https://twitter.com/dyvexyz > www.dyve.xyz
@@ -453,4 +459,13 @@ tw4nfts:
   name: ???
 irishnftgal:
   x: irishnftgal
+  name: Niamh Aughney # https://x.com/irishnftgal > https://linktr.ee/irishnftgal > https://intro.co/niamhaughney
+serenaseek:
+  x: SerenaSeek
+  name: Serena # https://x.com/SerenaSeek
+jaycinyourears:
+  x: jaycinyourears
+  name: ???
+phillipsiu1:
+  x: phillipsiu1
   name: ???
