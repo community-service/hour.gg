@@ -80,6 +80,11 @@ breadcrumbs:
         text-decoration-color: grey !important;
       }
 
+      .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+        color: #f8fafc;
+      }
+
       footer.footer-links a i,
       footer.footer-links a svg {
         color: inherit !important;
@@ -97,6 +102,7 @@ breadcrumbs:
     {% include main-nav.html %}
 
     <div class="container-xl py-4">
+      {% unless page.show_breadcrumbs == false %}
       <nav aria-label="breadcrumb" class="text-primary">
         <ol class="breadcrumb">
           {% assign breadcrumbs = page.breadcrumbs | default: layout.breadcrumbs %}
@@ -109,6 +115,7 @@ breadcrumbs:
           {% endfor %}
         </ol>
       </nav>
+      {% endunless %}
 
       <main>
         {{ content }}
