@@ -344,8 +344,8 @@ lana_lux:
   x: lana_lux
   name: ???
 lazererik:
-  x: lazererik #TinyVikingsNFT
-  name: Lars # https://x.com/lazererik
+  x: LazerErik # TinyVikingsNFT
+  name: Lars # https://x.com/LazerErik
   ethereum: "0x6bf8FF99B6F469bA684A510Ae7DA4D636258557d"
 lil_astr_0:
   x: lil_astr_0
@@ -432,8 +432,8 @@ tommybytes:
   name: ???
   ethereum: "0x32DbdcFe81043c8F90d66D6aDe66A5C9739784d2" # https://x.com/tommybytes > https://allmylinks.com/tommybytes
 ulticrypto:
-  x: ulticrypto
-  name: Neil # https://x.com/ulticrypto > https://x.com/dyvexyz > www.dyve.xyz
+  x: UltiCrypto
+  name: Ulti
   github: ulticrypto # from pull request (don't think it's connected elsewhere)
   ethereum: "0x14759b2e39Aab546d8b47342977e06aB5668290C" # https://x.com/UltiCrypto/status/1473365507755675655
 ynnitan:
@@ -468,4 +468,64 @@ jaycinyourears:
   name: ???
 phillipsiu1:
   x: phillipsiu1
+  name: ???
+"0xmastersifu":
+  x: "0xMasterSifu"
+  name: GrandMasterSifu
+8l4nc0:
+  x: "8l4nc0"
+  name: Jose Blanco
+ab_jhaleel:
+  x: Ab_Jhaleel
+  name: Aebeeh
+aslanruby:
+  x: aslanruby
+  name: SARANA
+bigfishimagery:
+  x: BIGFISHIMAGERY
+  name: "BIGFISHIMAGERY 📷📸"
+captainmorie:
+  x: CaptainMorie
+  name: "Captain💀🌎"
+champagnewang:
+  x: champagnewang
+  name: champagnewang
+gauthier_z:
+  x: Gauthier_Z
+  name: Zoup
+kamalhsan:
+  x: kamalhsan
+  name: "C͙a͙r͙m͙e͙n͙ H͙u͙d͙s͙o͙n͙ (◉ ◡ ◉) | 🆄🅽🆂🆃"
+moodslime_:
+  x: moodSlime_
+  name: "🎭"
+patonchain:
+  x: patonchain
+  name: "Patonchain.eth 👽"
+poweredbypain:
+  x: poweredbypain
+  name: "Pain☻"
+seanbroome1:
+  x: SeanBroome1
+  name: Sean
+solmirito:
+  x: SolMirito
+  name: ???
+toolipse:
+  x: toolipse
+  name: Thomas L-J
+ueeism:
+  x: Ueeism
+  name: "Uee〰️"
+fortifiedyoumd:
+  x: fortifiedyourmd
+  name: ???
+gracedepin:
+  x: GraceDePIN
+  name: ???
+sergeinca:
+  x: Sergeinca
+  name: ???
+zainanzhou:
+  x: ZainanZhou
   name: ???
