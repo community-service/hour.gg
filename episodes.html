@@ -25,7 +25,7 @@ description: "All Community Service Hour episodes and show notes, upcoming and p
 
 {% assign episodes = site.episodes | where: "posted", "false" | sort: 'date' | reverse %}
 {% for episode in episodes %}
-<div class="upcoming-or-draft" data-date="{{ episode.date | date: "%Y-%m-%d" }}">
+<div class="upcoming-or-draft" data-date="{{ episode.date | date: " %Y-%m-%d" }}">
   <h2 class="episode-heading fs-4">
     <a href="{{ episode.url | relative_url }}" class="episode-heading-title link-primary">
       {{ episode.title | escape }}
@@ -82,7 +82,7 @@ description: "All Community Service Hour episodes and show notes, upcoming and p
       {{ episode.excerpt }}
 
       <!-- edit on GitHub, use this episode's file name -->
-      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: "%Y-%m-%d"
+      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
         }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
         <i class="bi bi-github"></i>
         Edit these notes&hellip;
@@ -156,7 +156,7 @@ description: "All Community Service Hour episodes and show notes, upcoming and p
     {{ episode.excerpt }}
 
     <!-- edit on GitHub, use this episode's file name -->
-    <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: "%Y-%m-%d"
+    <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
       }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
       <i class="bi bi-github"></i>
       Edit these notes&hellip;
