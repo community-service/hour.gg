@@ -37,7 +37,8 @@ breadcrumbs:
 {% if page.posted == false and page.start-time %}
 <p>
   Scheduled for
-  <time class="scheduled-time" datetime="{{ page.start-time | date_to_xmlschema }}" style="cursor: help; text-decoration: underline dotted;">{{ page.start-time | date_to_xmlschema }}</time>.
+  <time class="scheduled-time" datetime="{{ page.start-time | date_to_xmlschema }}"
+    style="cursor: help; text-decoration: underline dotted;">{{ page.start-time | date_to_xmlschema }}</time>.
 </p>
 <script>
   (function () {
@@ -78,7 +79,8 @@ breadcrumbs:
 
     {% if page.youtube-cuts %}
     {% for youtube-cut in page.youtube-cuts %}
-    <a href="{{ youtube-cut.url }}" class="btn btn-secondary" target="_blank" rel="noopener" title="{{ youtube-cut.name | escape }}">
+    <a href="{{ youtube-cut.url }}" class="btn btn-secondary" target="_blank" rel="noopener"
+      title="{{ youtube-cut.name | escape }}">
       <i class="bi bi-youtube"></i>
     </a>
     {% endfor %}
@@ -103,10 +105,12 @@ breadcrumbs:
       {% endif %}
       <div>
         {% if page.posted == true %}
-        <a class="me-2 audiotime" href="#t={{ time }}" title="Jump to {{ time }} in audio" data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
+        <a class="me-2 audiotime" href="#t={{ time }}" title="Jump to {{ time }} in audio"
+          data-seconds="{{ item.seconds }}"><i class="bi bi-play"></i></a>
         {% endif %}
         {% if page.youtube-full contains "://" %}
-        <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener" title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
+        <a class="me-2" href="{{ page.youtube-full }}#t={{ item.seconds }}" target="_blank" rel="noopener"
+          title="Jump to {{ time }} in video"><i class="bi bi-youtube"></i></a>
         {% endif %}
         <code>{{ time }}</code>
         {{ item.title | escape }}
@@ -117,26 +121,46 @@ breadcrumbs:
   {% endunless %}
 
   <div class="col{% unless is_upcoming %} mt-5 mt-lg-0{% endunless %}">
-    <h2{% if is_upcoming %} class="mt-4"{% endif %}>Participants</h2>
-    {% for participant in page.participants %}
-    <div class="col hstack align-self-start gap-2 mb-3">
-      <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}" class="rounded-circle" style="width: 3rem; height: 3rem;">
-      <div>
-        <h5 class="card-title">
-          <a href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{ site.data.participants[participant].x }}</a>
-        </h5>
-        <p class="card-text">
-          {{ site.data.participants[participant].name }}
-        </p>
+    <h2{% if is_upcoming %} class="mt-4" {% endif %}>Participants</h2>
+      {% for participant in page.participants %}
+      {% assign info = site.data.participants[participant] %}
+      {% assign participant_x = info.x | default: participant %}
+      {% assign participant_photo_path = "/assets/participants/" | append: participant | append: ".webp" %}
+      {% assign has_participant_photo = false %}
+      {% for file in site.static_files %}
+      {% if file.path == participant_photo_path %}
+      {% assign has_participant_photo = true %}
+      {% break %}
+      {% endif %}
+      {% endfor %}
+      <div class="col hstack align-self-start gap-2 mb-3">
+        {% if has_participant_photo %}
+        <img src="{{ participant_photo_path }}" alt="{{ participant }}" class="rounded-circle"
+          style="width: 3rem; height: 3rem;">
+        {% else %}
+        <img src="/assets/empty-participant.webp" alt="" class="rounded-circle" style="width: 3rem; height: 3rem;">
+        {% endif %}
+        <div>
+          <h5 class="card-title">
+            <a href="https://x.com/{{ participant_x }}">@{{ participant_x }}</a>
+          </h5>
+          <p class="card-text">
+            {% if info and has_participant_photo %}
+            {{ info.name | default: "???" }}
+            {% else %}
+            <a href="/participants#{{ participant }}">Please add participant information</a>
+            {% endif %}
+          </p>
+        </div>
       </div>
-    </div>
-    {% endfor %}
+      {% endfor %}
   </div>
 </div>
 <hr>
 
 <h2>Episode notes</h2>
-<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: "%Y-%m-%d" }}-episode-{{ page.itunes-episode }}.md" class="icon-link mb-5">
+<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: " %Y-%m-%d" }}-episode-{{
+  page.itunes-episode }}.md" class="icon-link mb-5">
   <i class="bi bi-github"></i>
   Edit these notes&hellip;
 </a>

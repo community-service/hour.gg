@@ -274,7 +274,15 @@ layout: none
             <span class="hstack d-inline-flex ms-1">
               {% assign some_participant_ids = episode.participants | sample: 3 %}
               {% for participant_id in some_participant_ids %}
-              <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle participant-default-image"
+              {% assign participant_photo_path = "/assets/participants/" | append: participant_id | append: ".webp" %}
+              {% assign participant_photo = "/assets/empty-participant.webp" %}
+              {% for file in site.static_files %}
+              {% if file.path == participant_photo_path %}
+              {% assign participant_photo = participant_photo_path %}
+              {% break %}
+              {% endif %}
+              {% endfor %}
+              <img src="{{ participant_photo }}" class="rounded-circle"
                 style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
               {% endfor %}
               {% assign remaining = episode.participants.size | minus: 3 %}
@@ -320,8 +328,8 @@ layout: none
       </div>
       <div class="col">
         <p class="lead mb-0">builders showing up and shipping together</p>
-        <p class="mb-0">Follow everyone at once with <a class="link-primary"
-            href="https://twitter.com/fulldecent/lists">our lists on X</a>.</p>
+        <p class="mb-0">Follow everyone at once with <a class="link-primary" href="https://x.com/fulldecent/lists">our
+            lists on X</a>.</p>
       </div>
     </div>
 
@@ -332,11 +340,19 @@ layout: none
       {% endfor -%}
       {% for participant in all_participants2 -%}
       <div class="col hstack align-self-start gap-2 mb-3">
-        <img src="/assets/participants/{{ participant }}.webp" alt="{{ participant }}"
-          class="rounded-circle participant-default-image" style="width: 3rem; height: 3rem;">
+        {% assign participant_photo_path = "/assets/participants/" | append: participant | append: ".webp" %}
+        {% assign participant_photo = "/assets/empty-participant.webp" %}
+        {% for file in site.static_files %}
+        {% if file.path == participant_photo_path %}
+        {% assign participant_photo = participant_photo_path %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        <img src="{{ participant_photo }}" alt="{{ participant }}"
+          class="rounded-circle" style="width: 3rem; height: 3rem;">
         <div>
           <h5 class="card-title"><a class="link-primary"
-              href="https://twitter.com/{{ site.data.participants[participant].x }}">@{{
+              href="https://x.com/{{ site.data.participants[participant].x }}">@{{
               site.data.participants[participant].x
               }}</a></h5>
           {% if site.data.participants[participant].name != "???" %}
@@ -453,9 +469,6 @@ layout: none
           return;
         }
       });
-
-    document.querySelectorAll('.participant-default-image')
-      .forEach(img => img.onerror = () => img.src = '/assets/empty-participant.webp');
   </script>
 </body>
 

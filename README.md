@@ -18,6 +18,18 @@ Do you like how Community Service Hour is produced? Here is our tech stack:
 - Twitch / X Spaces / Discord event
 - OBS / 1 stream audio / 2 vocal mic / 3 aux mic / 4 laptop mic / 5 desktop audio / 6 other audio
 
+## Running the site locally
+
+This is a Jekyll site. The system ruby's bundler install is broken (homebrew's `bundler-2.6.9` gem is missing its files even though the gemspec is present), so use [rbenv](https://github.com/rbenv/rbenv) with ruby 3.3.6 instead, which already has a working jekyll and bundler.
+
+```sh
+rbenv local 3.3.6 # only needed once; writes .ruby-version
+export PATH="$HOME/.rbenv/shims:$PATH"
+bundle exec jekyll serve
+```
+
+Then open <http://127.0.0.1:4000>.
+
 ## [Instructions](./instructions)
 
 - When a show is over, please copy details from the [live show notes](https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG) into the [episode file](_episodes) (anybody can pull request).

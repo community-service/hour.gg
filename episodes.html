@@ -36,7 +36,15 @@ description: "All Community Service Hour episodes and show notes, upcoming and p
     <span class="episode-heading-people hstack">
       {% assign some_participant_ids = episode.participants | sample: 3 %}
       {% for participant_id in some_participant_ids %}
-      <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle"
+      {% assign participant_photo_path = "/assets/participants/" | append: participant_id | append: ".webp" %}
+      {% assign participant_photo = "/assets/empty-participant.webp" %}
+      {% for file in site.static_files %}
+      {% if file.path == participant_photo_path %}
+      {% assign participant_photo = participant_photo_path %}
+      {% break %}
+      {% endif %}
+      {% endfor %}
+      <img src="{{ participant_photo }}" class="rounded-circle"
         style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
       {% endfor %}
       {% assign remaining = episode.participants.size | minus: 3 %}
@@ -99,7 +107,15 @@ description: "All Community Service Hour episodes and show notes, upcoming and p
     <!-- Participants from this specific episode -->
     {% assign some_participant_ids = episode.participants | sample: 3 %}
     {% for participant_id in some_participant_ids %}
-    <img src="/assets/participants/{{ participant_id }}.webp" class="rounded-circle"
+    {% assign participant_photo_path = "/assets/participants/" | append: participant_id | append: ".webp" %}
+    {% assign participant_photo = "/assets/empty-participant.webp" %}
+    {% for file in site.static_files %}
+    {% if file.path == participant_photo_path %}
+    {% assign participant_photo = participant_photo_path %}
+    {% break %}
+    {% endif %}
+    {% endfor %}
+    <img src="{{ participant_photo }}" class="rounded-circle"
       style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
     {% endfor %}
     <!-- + how many not shown... -->
