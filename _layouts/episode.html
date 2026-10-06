@@ -1,9 +1,9 @@
 ---
 layout: page
 breadcrumbs:
-  - label: CSH
-    url: "/"
-  - label: Episodes
+- label: CSH
+url: "/"
+- label: Episodes
 url: "/episodes"
 ---
 <style>
@@ -88,6 +88,12 @@ url: "/episodes"
   </div>
   {% endif %}
 </div>
+{% if page.transcript-url %}
+<details class="mt-3" data-transcript-url="{{ page.transcript-url | escape }}">
+  <summary class="link-primary">Read transcript</summary>
+  <div class="transcript-content mt-3" aria-live="polite">Open to load transcript.</div>
+</details>
+{% endif %}
 {% endif %}
 
 <div class="row{% unless is_upcoming %} row-cols-1 row-cols-lg-2{% endunless %}">
@@ -260,6 +266,82 @@ url: "/episodes"
 
     window.addEventListener('hashchange', seekFromHash);
     seekFromHash();
+
+    document.querySelectorAll('[data-transcript-url]').forEach(function (details) {
+      const content = details.querySelector('.transcript-content');
+      let loaded = false;
+
+      details.addEventListener('toggle', function () {
+        if (!details.open || loaded) {
+          return;
+        }
+
+        loaded = true;
+        content.textContent = 'Loading transcript...';
+
+        fetch(details.dataset.transcriptUrl)
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error('Transcript request failed');
+            }
+            return response.text();
+          })
+          .then(function (webvtt) {
+            const fragment = document.createDocumentFragment();
+            const blocks = webvtt.replace(/\r/g, '').split(/\n{2,}/);
+
+            blocks.forEach(function (block) {
+              const lines = block.split('\n');
+              const timingLine = lines.findIndex(function (line) {
+                return line.includes('-->');
+              });
+              if (timingLine < 0) {
+                return;
+              }
+
+              const startTime = lines[timingLine].match(/(?:(\d{2}):)?(\d{2}):(\d{2})\.(\d{3})/);
+              if (!startTime) {
+                return;
+              }
+
+              const seconds = Number(startTime[1] || 0) * 3600
+                + Number(startTime[2]) * 60
+                + Number(startTime[3])
+                + Number(startTime[4]) / 1000;
+              const text = lines.slice(timingLine + 1).join(' ')
+                .replace(/<v(?:\s+[^>]*)?>/g, '')
+                .replace(/<\/v>/g, '')
+                .replace(/<[^>]+>/g, '')
+                .trim();
+              if (!text) {
+                return;
+              }
+
+              const cue = document.createElement('p');
+              cue.className = 'transcript-cue';
+              const time = document.createElement('button');
+              time.type = 'button';
+              time.className = 'btn btn-link btn-sm p-0 me-2';
+              time.textContent = formatTimecode(seconds);
+              time.setAttribute('aria-label', 'Play from ' + time.textContent);
+              time.addEventListener('click', function () {
+                seekAudio(seconds);
+              });
+              cue.append(time, document.createTextNode(text));
+              fragment.append(cue);
+            });
+
+            if (!fragment.childNodes.length) {
+              throw new Error('Transcript contains no readable cues');
+            }
+            content.replaceChildren(fragment);
+          })
+          .catch(function () {
+            content.textContent = 'Transcript could not be loaded.';
+            loaded = false;
+          });
+      });
+    });
   }());
 </script>
 {% endif %}
