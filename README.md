@@ -36,3 +36,12 @@ Then open <http://127.0.0.1:4000>.
 
 - [Production checklist](./instructions/Production checklist.md)—print this and keep on hand for the show
 - [Postproduction checklist](./instructions/Postproduction checklist.md)—print this and keep on hand for the show
+
+## Run this site locally
+
+```sh
+brew install rv
+rv ruby install # uses .ruby-version
+rv run bundle install
+rv run bundle exec jekyll serve --port 4009
+```

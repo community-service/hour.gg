@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Episodes
-description: "All Community Service Hour episodes and show notes, upcoming and past."
+description: "Past live hours and show notes. Each one is a worked example: the work on the table, and the reaction."
 ---
 <style>
   .episode-heading {
@@ -21,6 +21,8 @@ description: "All Community Service Hour episodes and show notes, upcoming and p
     margin-left: auto;
   }
 </style>
+<p class="lead">Past live hours and show notes. Each one is a worked example: the work on the table, and the reaction.
+</p>
 <h1 class="my-4">Upcoming episodes</h1>
 
 {% assign episodes = site.episodes | where: "posted", "false" | sort: 'date' | reverse %}
