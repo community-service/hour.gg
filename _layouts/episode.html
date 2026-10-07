@@ -1,10 +1,10 @@
 ---
 layout: page
 breadcrumbs:
-- label: CSH
-url: "/"
-- label: Episodes
-url: "/episodes"
+  - label: CSH
+    url: "/"
+  - label: Episodes
+    url: "/episodes"
 ---
 <style>
   /* Longer episodes need longer timelines */
@@ -165,8 +165,7 @@ url: "/episodes"
 <hr>
 
 <h2>Episode notes</h2>
-<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: " %Y-%m-%d" }}-episode-{{
-  page.itunes-episode }}.md" class="icon-link mb-5">
+<a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ page.date | date: "%Y-%m-%d" }}-episode-{{ page.itunes-episode }}.md" class="icon-link mb-5">
   <i class="bi bi-github"></i>
   Edit these notes&hellip;
 </a>
