@@ -372,34 +372,18 @@ layout: none
           if (endTime < new Date()) {
             continue;
           }
-          document.getElementById('next-show').innerHTML = episode.title;
-
-          // If is live now, show it
-          if (startTime < new Date()) {
-            document.getElementById('next-show-time').innerHTML = 'Live now!';
-            return;
-          }
-
-          // If starting within 8 hours, show countdown
-          const now = new Date();
-          const eightHours = 8 * 60 * 60 * 1000;
-          if (1) {
-            //if (startTime < new Date(now.getTime() + eightHours)) {
-            // show countdown and update every second
-            setInterval(() => {
-              const now = new Date();
-              const diff = startTime - now;
-              const hours = Math.floor(diff / (1000 * 60 * 60));
-              const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-              const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-              document.getElementById('next-show-time').innerHTML = `Join live in ${hours}h ${minutes}m ${seconds}s`;
-            }, 1000);
-            document.getElementById('next-show-time').innerHTML = `Join live in &hellip;`;
-            return;
-          }
-
-          // Otherwise, show next episode
-          document.getElementById('next-show-time').innerHTML = "Join live Tuesday 6pm, New York time";
+          document.getElementById('next-show').textContent = episode.title;
+          const localDateTime = new Intl.DateTimeFormat(undefined, {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZoneName: 'short'
+          }).format(startTime);
+          const status = startTime <= new Date() ? 'Live now — ' : '';
+          document.getElementById('next-show-time').textContent = `${status}${localDateTime} (your local time)`;
           return;
         }
       });
