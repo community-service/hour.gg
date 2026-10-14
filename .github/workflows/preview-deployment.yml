@@ -1,0 +1,110 @@
+# Push a built site to Cloudflare Pages. Cloudflare is not given access to this repo.
+# Same direct-upload pattern as modern-training-solutions/public-websites
+# and su-squares/tenthousandsu.com. Production stays on GitHub Pages.
+
+name: Preview deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Preview deployment
+    runs-on: ubuntu-latest
+    concurrency:
+      group: preview-deployments-${{ github.ref }}
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    outputs:
+      preview_url: ${{ steps.deploy.outputs.preview-url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.6"
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build --config _config.yml,_config.preview.yml
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # Cloudflare rotates the OAuth refresh token on every use. A Worker keeps
+      # that login and returns an access token. Reusing a token that is still
+      # valid means a second deploy does not rotate the login.
+      - name: Refresh Cloudflare access token
+        env:
+          PREVIEW_AUTH_URL: ${{ vars.PREVIEW_AUTH_URL }}
+          PREVIEW_AUTH_PASSWORD: ${{ secrets.PREVIEW_AUTH_PASSWORD }}
+        run: node .github/scripts/preview-cloudflare-auth.mjs
+
+      - name: Install Wrangler CLI
+        run: npm i wrangler@4
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        run: |
+          set -euo pipefail
+          npx wrangler pages deploy _site --project-name=hour-gg --branch=${{ github.head_ref || github.ref_name }} | tee /tmp/wrangler.log
+          preview_url="$(grep -Eo 'https://[^ ]+\.pages\.dev[^ ]*' /tmp/wrangler.log | tail -n1)"
+          test -n "$preview_url"
+          echo "preview-url=$preview_url" >> "$GITHUB_OUTPUT"
+
+  post-preview-url:
+    name: Post preview URL
+    runs-on: ubuntu-latest
+    needs: [preview]
+    if: github.event_name == 'pull_request' && needs.preview.result == 'success'
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const MARKER = '<!-- preview-url -->';
+            const url = '${{ needs.preview.outputs.preview_url }}';
+            if (!url) return;
+            const branch = context.payload.pull_request.head.ref;
+            const body = [
+              MARKER,
+              '### Preview deployment',
+              '',
+              url,
+              '',
+              `Branch: \`${branch}\``,
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            const existing = comments.find(c => c.body.includes(MARKER));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                comment_id: existing.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            }

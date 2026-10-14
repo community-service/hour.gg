@@ -1,0 +1,15 @@
+# Used only by the Cloudflare Pages preview workflow.
+# Direct upload, not a Git connection. Production stays on GitHub Pages.
+#
+# Jekyll replaces the exclude list, so the defaults are repeated here.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - CNAME
+
+incremental: false
