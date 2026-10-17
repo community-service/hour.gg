@@ -64,16 +64,15 @@ echo $EPISODE # like 2024-07-23-episode-127
 
 Use <https://hour.gg/timecode-tool> with the episode EDL to get and run the `ffmpeg` mixdown code.
 
-Encode VTT transcript
+Backfill VTT transcripts from the local produced folder, which is the primary source. For each episode without a local `.vtt`, use its `.m4a`, `.m4v` or `.mp4`, in that order. Existing local VTTs are never overwritten. Audio is extracted to a temporary WAV outside the produced folder and deleted after each transcription.
 
 ```sh
-whisper_path="$HOME/Developer/whisper.cpp"
-# model_path="${whisper_path}/models/ggml-base.en.bin"
-model_path="${whisper_path}/models/ggml-medium.en.bin"
-
-cd $EPISODE_MEDIA
-ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --language en --diarize --output-vtt --model "${model_path}" --output-file $EPISODE -
+cd "$WEBSITE"
+DRY_RUN=1 bash backfill-missing-vtt.sh
+bash backfill-missing-vtt.sh
 ```
+
+The script uses `~/Developer/whisper.cpp/build/bin/whisper-cli` with `~/Developer/whisper.cpp/models/ggml-medium.en.bin` and VTT-only output. After transcription, rsync copies only top-level `.vtt` files to `apps.phor.net:public_html/media/csh/`. It does not delete remote files or transfer other file types. Remote VTTs may be updated from the primary local copies.
 
 ## Upload media to static hosting
 
@@ -81,8 +80,7 @@ ffmpeg -i $EPISODE.m4a -ar 16000 -ac 2 -f wav - | "${whisper_path}/main" --langu
 REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
 scp "$EPISODE_MEDIA/$EPISODE.m4a" "$REMOTE_HOSTING_PATH"
 scp "$EPISODE_MEDIA/$EPISODE.png" "$REMOTE_HOSTING_PATH"
-scp "$EPISODE_MEDIA/$EPISODE.vtt" "$REMOTE_HOSTING_PATH"
-ssh apps.phor.net "chmod 644 public_html/media/csh/$EPISODE.m4a public_html/media/csh/$EPISODE.png public_html/media/csh/$EPISODE.vtt public_html/media/csh/.htaccess"
+ssh apps.phor.net "chmod 644 public_html/media/csh/$EPISODE.m4a public_html/media/csh/$EPISODE.png public_html/media/csh/.htaccess"
 ```
 
 ## Draft episode file
