@@ -10,3 +10,4 @@ _site
 /_episodes/*.shorts.md
 /_episodes/*.x-thread.txt
 /_episodes/*.shorts-description.md
+/.production
