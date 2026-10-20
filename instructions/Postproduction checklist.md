@@ -50,94 +50,87 @@ Use Pixelmator Pro's YouTube poster templates.
   - [ ] `YYYY-MM-DD-episode-###.pxd` save as
   - [ ] `YYYY-MM-DD-episode-###.png` export
 
-## Encode audio and text
+## Collect files for processing
 
-Follow all the specific podcasting [technical requirements](podcast-specifications.md) using these steps below.
-
-```sh
-EPISODE_MEDIA=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes/
-WEBSITE=~/Sites/hour.gg
-cd $EPISODE_MEDIA
-EPISODE=$(basename "$(ls *mp4 | sort -r | head -n 1)" .mp4)
-echo $EPISODE # like 2024-07-23-episode-127
-```
-
-Use <https://hour.gg/timecode-tool> with the episode EDL to get and run the `ffmpeg` mixdown code.
-
-Backfill VTT transcripts from the local produced folder, which is the primary source. For each episode without a local `.vtt`, use its `.m4a`, `.m4v` or `.mp4`, in that order. Existing local VTTs are never overwritten. Audio is extracted to a temporary WAV outside the produced folder and deleted after each transcription.
+> [!NOTE]
+> Run this OUTSIDE of VS Code, since I have limited its permission to access disks.
 
 ```sh
-cd "$WEBSITE"
-DRY_RUN=1 bash backfill-missing-vtt.sh
-bash backfill-missing-vtt.sh
+EPISODE_MEDIA=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes
+EPISODE=$(basename "$(find $EPISODE_MEDIA/*.mp4 | sort | tail -n1)" .mp4)
+echo $EPISODE # like 20##-##-##-episode-###
 ```
 
-The script uses `~/Developer/whisper.cpp/build/bin/whisper-cli` with `~/Developer/whisper.cpp/models/ggml-medium.en.bin` and VTT-only output. After transcription, rsync copies only top-level `.vtt` files to `apps.phor.net:public_html/media/csh/`. It does not delete remote files or transfer other file types. Remote VTTs may be updated from the primary local copies.
-
-## Upload media to static hosting
+After verifying that episode is correct, then shuttle with:
 
 ```sh
-REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
-scp "$EPISODE_MEDIA/$EPISODE.m4a" "$REMOTE_HOSTING_PATH"
-scp "$EPISODE_MEDIA/$EPISODE.png" "$REMOTE_HOSTING_PATH"
-ssh apps.phor.net "chmod 644 public_html/media/csh/$EPISODE.m4a public_html/media/csh/$EPISODE.png public_html/media/csh/.htaccess"
+cd ~/Sites/hour.gg/
+rm -rf .production/
+mkdir -p ./.production
+cp $EPISODE_MEDIA/$EPISODE* ./.production
 ```
 
-## Draft episode file
+## Draft all episode parts
 
-- [ ] Use VS Code chat agent
+Use VS Code chat agent for each part:
 
-  ```plain
-  /draft-episode-file 
-  ```
+```chat
+/draft-audio
+/draft-vtt
+/draft-episode-file
+/draft-youtube-description
+/draft-shorts
+/draft-x-thread
+/draft-helpful-replies
+```
 
-- [ ] Fix participants and get their X profile images if needed and then convert to WebP per instructions.
+## Deploy
 
-## Post long-form videos
+1. Post to YouTube
 
-- [ ] Use VS Code chat agent
+   1. <https://youtube.com/upload>
+   2. Copy from [.,/.production](../.production) > ....youtube-description.txt
+   3. Add to CSH playlist
+   4. Publish, get URL into the episode file
 
-  ```plain
-  /draft-youtube-description
-  ```
+2. [TikTok](https://www.tiktok.com/@fulldecent) > [upload](https://www.tiktok.com/tiktokstudio/upload?from=creator_center&tab=video)
 
-- [ ] Post to <https://youtube.com/upload>
+   1. Select the videos from [.,/.production](../.production)
+   2. Add descriptions from [.,/.production](../.production)
 
-  - [ ] Use draft description at `_episodes/$EPISODE.youtube-description.txt`
-  - [ ] Add the URL to the episode file
-  - [ ] Attach the poster PNG
+3. X > [post](https://x.com/compose/post)
 
-## Shorts
+   1. Add thread from [.,/.production](../.production)
+   2. Publish, get URL into the episode file
 
-- [ ] Use VS Code chat agent
+4. Deploy media
 
-  ```plain
-  /cut-shorts
-  ```
+   ```sh
+   EPISODE_MEDIA=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Produced\ full\ episodes
+   SHORTS=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour/Clips
+   cd ~/Sites/hour.gg/
+   
+   # Save to disk
+   cp .production/*.m4a .production/*.vtt "$EPISODE_MEDIA"
+   cp .production/*-short-*.mp4 "$SHORTS"
+   
+   # Post to network
+   REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
+   scp .production/*.m4a .production/*.png .production/*.vtt "$REMOTE_HOSTING_PATH"
+   ```
 
-- [ ] Post to <https://www.tiktok.com/tiktokstudio/upload?from=webapp&tab=video>
+5. Edit the episode file:
 
-This extracts three to five clips (30 seconds max each) to the Desktop and creates `_episodes/$EPISODE.shorts-description.md` with descriptions and hashtags for each clip.
+   ```diff
+   - posted: false
+   + posted: true
+   ```
 
-## Post to X
+   and push.
 
-- [ ] Use VS Code chat agent
+6. Review `.production/$EPISODE.helpful-replies.md`, verify the episode links are live, and post appropriate helpful replies yourself.
 
-  ```plain
-  /draft-x-thread
-  ```
-
-- [ ] Post to <https://x.com/compose/post>
-
-  - [ ] Use draft thread at `_episodes/$EPISODE.x-thread.txt`
-  - [ ] Add the post URL to the episode `discussion` field
-
-Set the `posted=true` and git commit and push!
-
-## Helpful
-
-- [ ] Find two people that recently asked a relevant question on internet and recommend them to a specific part of a past episode
-- [ ] Create/update next week's event titles on TW SPACES and DISCORD EVENTS and TWITCH CHANNEL NAME
+7. After publishing and outreach are complete, keep any draft artifacts you want to retain, then delete `.production`.
 
 ## Draft upcoming episodes
 
