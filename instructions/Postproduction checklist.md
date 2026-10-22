@@ -114,9 +114,11 @@ Use VS Code chat agent for each part:
    cp .production/*.m4a .production/*.vtt "$EPISODE_MEDIA"
    cp .production/*-short-*.mp4 "$SHORTS"
    
-   # Post to network
+   # Post to network.
+   # The hosting account umask is 0077. scp applies that umask unless -p is set,
+   # and mode 600 is served as 403. -p keeps the local 644.
    REMOTE_HOSTING_PATH='apps.phor.net:public_html/media/csh/'
-   scp .production/*.m4a .production/*.png .production/*.vtt "$REMOTE_HOSTING_PATH"
+   scp -p .production/*.m4a .production/*.png .production/*.vtt "$REMOTE_HOSTING_PATH"
    ```
 
 5. Edit the episode file:
