@@ -43,6 +43,7 @@ Our selections:
 - Stereo, 44.1kHz, 160kbps
 - Overall loudness of -16 dB LKFS with +/- 1 dB tolerance, true peak of -1 dBTP
 - Encode loudness information in the header of the MP4 file
+- An audio-only voice episode cut with the draft-video skill is mono, 48 kHz, 128 kbps, with the same loudness and peak targets. That is inside Apple's table for mono.
 
 ## Chapter markers
 

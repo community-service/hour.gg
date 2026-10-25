@@ -1,8 +1,22 @@
 #!/usr/bin/env bash
 # Print "milliseconds<TAB>title" for each marker in a DaVinci Resolve marker EDL, relative to the timeline start.
-# Usage: edl-chapters.sh FILE.edl
+# A FILE.tsv of the same "milliseconds<TAB>title" lines, for audio-only episodes with no EDL, is checked and printed as is.
+# Usage: edl-chapters.sh FILE.edl|FILE.tsv
 set -euo pipefail
-[[ $# -eq 1 && -r $1 ]] || { echo "usage: $0 FILE.edl" >&2; exit 1; }
+[[ $# -eq 1 && -r $1 ]] || { echo "usage: $0 FILE.edl|FILE.tsv" >&2; exit 1; }
+
+if [[ $1 == *.tsv ]]; then
+  awk -F'\t' '
+  function fail(msg) { print "ERROR: " FILENAME ", line " NR ": " msg > "/dev/stderr"; bad = 1; exit 1 }
+  { sub(/\r$/, "") }
+  NF != 2 || $1 !~ /^[0-9]+$/ { fail("expected milliseconds<TAB>title") }
+  $2 ~ /^ *$/ { fail("empty title") }
+  NR == 1 && $1 != 0 { fail("the first chapter must start at 0") }
+  NR > 1 && $1 - last < 10000 { fail("chapters must be at least 10 seconds apart and in order") }
+  { last = $1; print }
+  END { if (!bad && NR == 0) { print "ERROR: " FILENAME ": no chapters" > "/dev/stderr"; exit 1 } }' "$1"
+  exit
+fi
 
 awk '
 function fail(msg) { print "ERROR: " FILENAME ", " msg > "/dev/stderr"; bad = 1; exit 1 }

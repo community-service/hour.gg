@@ -9,7 +9,7 @@ description: "Transcribe the staged episode with whisper into a vtt, then correc
 bash .agents/skills/draft-vtt/scripts/draft-vtt.sh
 ```
 
-The script takes no arguments and does not choose an episode. It requires exactly one episode in `.production` and fails, listing what it found, if there are none or several. It transcribes that episode's mp4 with whisper.cpp (medium.en model) and prints progress. It prints `Episode: <name>`; that name is `$EPISODE` below. It writes two identical files:
+The script takes no arguments and does not choose an episode. It requires exactly one episode in `.production` and fails, listing what it found, if there are none or several. It transcribes that episode's mp4 with whisper.cpp (medium.en model), or its m4a when the episode has no mp4, and prints progress. It prints `Episode: <name>`; that name is `$EPISODE` below. It writes two identical files:
 
 - `.production/$EPISODE.vtt` is the transcript to correct.
 - `.production/$EPISODE.vtt.orig` is whisper's untouched output. Never edit it.
@@ -24,12 +24,13 @@ This is a careful read, not a search for known names. Normalizing product names 
 
 First gather vocabulary. The transcript is a live weekly call about AI, blockchain, security, open source and software engineering, hosted by William Entriken with guests:
 
-- Marker titles from `bash .agents/skills/episode-timecodes/scripts/edl-to-youtube.sh .production/$EPISODE.edl`. They name the topics, but they are typed by hand and can contain typos, so use them as hints and not as the spelling.
+- Marker titles from `bash .agents/skills/episode-timecodes/scripts/edl-to-youtube.sh .production/$EPISODE.edl`, or from `.production/$EPISODE.chapters.tsv` for an audio-only episode. They name the topics, but they are typed by hand and can contain typos, so use them as hints and not as the spelling.
 - Names and handles in `_data/participants.yml`, and the titles, descriptions and notes of recent files in `_episodes/`, for how products, people, companies and standards are spelled.
 - What you know about the topics: product and company names, acronyms, protocols, tools and jargon.
 
 Fix a word or phrase when the right one is not in doubt, for example:
 
+- A name from another language, such as a place, a deity, a dish or a collective, that the English model heard as common words. On the ALMA episode `Mictlán` came out as `MECLAM`, `midland`, `mixed land`, `Maitland` and `gimmick land`, and `Xoloitzcuintli` as `Sholo Squinkly`. Take the spelling, with its accents, from the guest's own site or the episode notes, and make every occurrence match.
 - A product, company, person, protocol or acronym that whisper heard as a similar sounding common word, where the topic of that part of the call makes the intended term clear.
 - A term that whisper spelled several different ways. Make them all consistent with the correct one.
 - A guest or host name that is spelled one way in `participants.yml` or the episode notes and another in the transcript.

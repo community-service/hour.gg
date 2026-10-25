@@ -10,7 +10,9 @@ EPISODE=$(bash "$HERE/../../../scripts/staged-episode.sh")
 cd "$HERE/../../../../.production" || die ".production folder not found"
 
 echo "Episode: $EPISODE"
-[[ -s $EPISODE.mp4 ]] || die "need $EPISODE.mp4 in $PWD"
+SOURCE=$EPISODE.mp4
+[[ -s $SOURCE ]] || SOURCE=$EPISODE.m4a # audio-only episode
+[[ -s $SOURCE ]] || die "need $EPISODE.mp4 or $EPISODE.m4a in $PWD"
 for f in "$EPISODE.vtt" "$EPISODE.vtt.orig"; do
   [[ ! -e $f && ! -L $f ]] || die "$f already exists; not overwriting"
 done
@@ -23,7 +25,7 @@ TMP=$(mktemp -d .draft-vtt.XXXXXX)
 trap 'rm -rf "$TMP"' EXIT
 
 echo "extracting audio"
-ffmpeg -nostdin -hide_banner -loglevel error -xerror -i "$EPISODE.mp4" -map 0:a:0 -vn -ar 16000 -ac 1 -c:a pcm_s16le "$TMP/audio.wav"
+ffmpeg -nostdin -hide_banner -loglevel error -xerror -i "$SOURCE" -map 0:a:0 -vn -ar 16000 -ac 1 -c:a pcm_s16le "$TMP/audio.wav"
 DUR=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$TMP/audio.wav")
 
 echo "transcribing"

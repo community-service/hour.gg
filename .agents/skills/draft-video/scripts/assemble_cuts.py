@@ -24,8 +24,8 @@ from pathlib import Path
 
 DEFAULT_CROSSFADE = 0.12
 RATE = 48000
-# The limiter sits at -3 dB so the aac encode still lands under -1 dBTP.
-MASTER = "highpass=f=75,afftdn=nr=8:nf=-38:tn=1,loudnorm=I=-16:TP=-3:LRA=7,alimiter=limit=0.707:level=false"
+# Measured on the ALMA tape: -16.2 LUFS, -1.6 dBTP. loudnorm resamples to 192 kHz, so aresample puts it back.
+MASTER = "highpass=f=75,afftdn=nr=8:nf=-38:tn=1,loudnorm=I=-15:TP=-2:LRA=7,alimiter=limit=0.794:level=false,aresample=48000"
 
 
 def seconds(stamp):
@@ -139,7 +139,7 @@ def encode(raw_path, destination, master):
     ]
     if master:
         command += ["-af", MASTER]
-    command += ["-c:a", "aac", "-b:a", "128k", str(destination)]
+    command += ["-c:a", "aac_at", "-b:a", "128k", "-movflags", "+faststart", str(destination)]
     subprocess.run(command, check=True)
 
 

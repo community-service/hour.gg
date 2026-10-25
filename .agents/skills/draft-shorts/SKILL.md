@@ -9,6 +9,15 @@ Create three to five short clips and `.production/$EPISODE.shorts.txt` with a de
 
 All inputs and persistent outputs belong in `.production`. Do not use the Desktop or external disks, write into `_episodes`, modify source media, or upload anything.
 
+## Audio-only episode
+
+With no mp4, make audio clips and skip the H.264 steps below. Everything else, including selection, the 30 second limit, `.shorts.txt`, and the tweets, applies.
+
+- Inputs: the corrected `.production/$EPISODE.vtt` and the original source audio staged as `.production/$EPISODE.original.m4a`, plus the episode's cuts csv staged as `.production/$EPISODE.cuts.csv`. The clips come from the original voice, not the mastered episode, so each clip is encoded once and nothing already encoded is encoded again.
+- Cut each clip with [draft-video's assembler](../draft-video/SKILL.md), with one csv per clip, `.production/$EPISODE-short-{name}.csv`, and no `master` argument: `python3 .agents/skills/draft-video/scripts/assemble_cuts.py .production/$EPISODE.original.m4a .production/$EPISODE-short-{name}.csv .production/$EPISODE-short-{name}.m4a`. The default crossfade of 0.12 s is right for clips. Times in a clip csv are source times, so find the passage in the episode cuts csv by the first words of its rows, then settle the edges with short slices.
+- Check each clip with `ffprobe` for a duration at or below 30.000 seconds and decode it with `ffmpeg -v error -xerror`.
+- In `.shorts.txt`, each block's `File:` is the `.m4a`, and the description is the caption to paste under the clip. Keep it short, in the speaker's framing, with no tweet.
+
 ## Select the staged episode
 
 Run from the repository root:

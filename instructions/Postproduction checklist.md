@@ -34,7 +34,7 @@ click v2 "https://www.tiktok.com/@fulldecent"
 
 Cut the video, add chapter markers and save the artifacts.
 
-- [ ] Save to `Season 20XX DaVinci timelines exports`
+- [ ] Save to `Episode project archives/Season 20XX DaVinci timelines exports`
   - [ ] `YYYY-MM-DD-episode-###.drt` export this from the Media screen
 - [ ] Save to `Produced full episodes`
   - [ ] `YYYY-MM-DD-episode-###.edl` export timecode markers from Timeline in cut page
@@ -69,6 +69,27 @@ rm -rf .production/
 mkdir -p ./.production
 cp $EPISODE_MEDIA/$EPISODE* ./.production
 ```
+
+## Audio-only episode
+
+A recorded interview with no video has no EDL and no DaVinci project. Everything is in `Community Service Hour` on the disk, so run the filing OUTSIDE of VS Code.
+
+1. Cut and master the voice from the original with the [draft-video](../.agents/skills/draft-video/SKILL.md) skill. Stage `.production/$EPISODE.master.m4a`, `.production/$EPISODE.chapters.tsv` with chapters placed on the voice, and the poster `.production/$EPISODE.png`.
+2. Run `/draft-audio` (it only adds chapters, by stream copy), `/draft-vtt`, `/draft-episode-file`, `/draft-x-thread`, and `/draft-shorts` for audio clips. Skip `/draft-youtube-description`, since there is no video.
+3. File the sources, then verify every copy. `cp -n` never overwrites.
+
+   ```sh
+   D=/Volumes/FDBeta/Video\ production/Community\ Service\ Hour
+   A="$D/Episode project archives"
+   E=YYYY-MM-DD-episode-###
+   cp -n ORIGINAL.m4a "$A/Season 20XX raw media/YYYY-MM-DD NAME.m4a"
+   for f in assemble_cuts.py cuts.csv; do cp -n "$f" "$A/Season 20XX DaVinci timelines exports/$E.$f"; done
+   cp -n .production/$E.{m4a,png,vtt} "$D/Produced full episodes/"
+   cp -n .production/$E-short-*.m4a "$D/Clips/"
+   cmp ORIGINAL.m4a "$A/Season 20XX raw media/YYYY-MM-DD NAME.m4a" && echo ok
+   ```
+
+4. Deploy as below, but there is no YouTube or TikTok step, and the episode file has no `youtube-full`.
 
 ## Draft all episode parts
 

@@ -1,6 +1,6 @@
 ---
 name: draft-video
-description: 'Reference for automating the main episode cut: transcribe by short slices to place cuts on the voice, decide what to cut and what to keep, and assemble from a csv of keeps. Use for /draft-video, jump cuts, and rough cuts of the episode video.'
+description: "Reference for automating the main episode cut: transcribe by short slices to place cuts on the voice, decide what to cut and what to keep, and assemble from a csv of keeps. Use for /draft-video, jump cuts, and rough cuts of the episode video."
 ---
 
 # Draft video
@@ -44,7 +44,7 @@ whisper-cli -m ggml-medium.en.bin -f slice.wav -l en -nt -of slice
 
 `-ss` before `-i` is faster and, on long-GOP video and on AAC, lands late enough to swallow short words. It swallowed "cemetery" and "November 1" on the test file.
 
-When two words are close, measure the waveform with `python3 scripts/rms.py SOURCE START DURATION`. Speech sat well above the room, so a quiet frame between two loud frames is the gap. Pick the threshold from a stretch of the same file. `silencedetect` at -32 dB found nothing, because the mean level was about -19 dB and the detector never saw a pause.
+When two words are close, measure the waveform with `python3 scripts/rms.py SOURCE START DURATION`. Speech sat well above the room, so a quiet frame between two loud frames is the gap. The script picks its threshold from the window, because a fixed one fails on mastered audio; pass a fourth argument to override it. `silencedetect` at -32 dB found nothing, because the mean level was about -19 dB and the detector never saw a pause, and at -38 dB it found nothing on the mastered file either.
 
 Rules for the edge itself:
 
@@ -130,7 +130,7 @@ Change the csv and assemble again from the source. Never encode the finished fil
 Speech only. The filter runs inside the one pcm-to-aac encode:
 
 ```text
-highpass=f=75,afftdn=nr=8:nf=-38:tn=1,loudnorm=I=-16:TP=-3:LRA=7,alimiter=limit=0.707:level=false
+highpass=f=75,afftdn=nr=8:nf=-38:tn=1,loudnorm=I=-15:TP=-2:LRA=7,alimiter=limit=0.794:level=false,aresample=48000
 ```
 
 Why those values, measured on the test tape:
@@ -138,7 +138,8 @@ Why those values, measured on the test tape:
 - A high pass at 75 Hz takes out rumble below the voice.
 - `afftdn` at `nr=8` took about 2 dB off the pauses. `nr=18` took about one decibel more and started to hollow the voice. The noise is room tone under people who almost never stop talking, so there is no clean noise floor to subtract.
 - Loudness was already narrow, about 5 LU, so a compressor was left out. Makeup gain would have lifted the pauses.
-- AAC overshot a -2 dBTP target and came back at -0.3 dBTP. The limiter is linear, and 0.707 is -3 dB, with `level=false` so it does not add the gain back. The shipped encode measured about -17.3 LUFS and -1.9 dBTP.
+- The built-in `aac` encoder overshot a -2 dBTP target and came back at -0.3 dBTP, so the script encodes with `aac_at`, which stayed under the limiter. The limiter is linear, and 0.794 is -2 dB, with `level=false` so it does not add the gain back. This setting measured -16.2 LUFS and -1.6 dBTP. The earlier I=-16, TP=-3 setting measured -17.3 LUFS, below the -17 floor.
+- `loudnorm` resamples to 192 kHz, and the encoder then wrote a 96 kHz file. `aresample=48000` at the end of the chain puts it back.
 - Measure with `loudnorm=print_format=json` and read `input_i` and `input_tp`. `output_i` in that report is the analyzer's own target, not the file.
 
 ```bash
@@ -147,11 +148,15 @@ ffmpeg -i FINISHED.m4a -af loudnorm=print_format=json -f null -
 
 If the peak is hot, change the filter and assemble from the source pcm again. The hour.gg targets are in [draft-audio](../draft-audio/SKILL.md): between -17 and -15 LUFS, and at most -1 dBTP.
 
+Never encode already-encoded audio a second time, to fix loudness, sample rate, or anything else. Go back to the source and assemble again. Putting chapters into the finished file is a stream copy, not an encode.
+
 ## The finished file
 
 Chapters, the YouTube chapter list, and the vtt are timed on the finished file, after the crossfades have shortened it. The source cues are not a caption track for the cut.
 
 Transcribe the finished file as the source was, with `-ovtt`, and clamp cue ends that run past the file duration. [episode-timecodes](../episode-timecodes/SKILL.md) turns markers into chapters.
+
+Place each chapter on the voice of the finished file. On the ALMA episode, chapters taken from source times or from vtt cues started 4 to 37 seconds off the topic, and vtt cues ran 3 to 7 seconds late at topic starts. Use a cue as the place to look, step short slices as in "Place a cut on the voice", and start the chapter in the pause just before the first word of the sentence. Slice only the boundaries you cannot settle from the cue, and use the `small.en` model for them: a loop of `medium.en` over sixty windows costs a lot of processor time.
 
 For chapter metadata, `TIMEBASE=1/1000`, `START` and `END` in milliseconds, the first start at 0, each end equal to the next start, and the last end equal to the file duration in milliseconds. YouTube needs a first line at `0:00`, at least three chapters, and at least ten seconds between lines. Mux with stream copy, then confirm with `ffprobe -show_chapters` and transcribe the first few seconds, to check the voice is still at the right speed.
 

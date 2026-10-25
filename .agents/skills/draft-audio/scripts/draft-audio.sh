@@ -9,6 +9,46 @@ EPISODE=$(bash "$HERE/../../../scripts/staged-episode.sh")
 cd "$HERE/../../../../.production" || die ".production folder not found"
 
 echo "Episode: $EPISODE"
+# Audio-only episode: draft-video's assemble_cuts.py already mastered the voice in one encode, so only add chapters.
+if [[ ! -e $EPISODE.mp4 && -s $EPISODE.master.m4a ]]; then
+  [[ -s $EPISODE.chapters.tsv ]] || die "need $EPISODE.chapters.tsv in $PWD"
+  [[ ! -e $EPISODE.m4a && ! -L $EPISODE.m4a ]] || die "$EPISODE.m4a already exists; not overwriting"
+  TMP=$(mktemp -d .draft-audio.XXXXXX)
+  trap 'rm -rf "$TMP"' EXIT
+  [[ $(ffprobe -v error -select_streams a -show_entries stream=codec_name,sample_rate -of csv=p=0 "$EPISODE.master.m4a") =~ ^aac,(44100|48000)$ ]] \
+    || die "$EPISODE.master.m4a is not AAC at 44100 or 48000 Hz"
+  DUR=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$EPISODE.master.m4a")
+  MEASURED=$(ffmpeg -nostdin -hide_banner -i "$EPISODE.master.m4a" -map 0:a:0 -af ebur128=peak=true:framelog=quiet -f null - 2>&1)
+  LUFS=$(grep -E '^ +I:' <<<"$MEASURED" | tail -n 1 | awk '{print $2}')
+  PEAK=$(grep -E '^ +Peak:' <<<"$MEASURED" | tail -n 1 | awk '{print $2}')
+  awk -v l="${LUFS:-x}" -v p="${PEAK:-x}" 'BEGIN { exit !(l ~ /^-?[0-9.]+$/ && p ~ /^-?[0-9.]+$/ && l >= -17 && l <= -15 && p <= -1) }' \
+    || die "master is $LUFS LUFS, $PEAK dBTP; need -17 to -15 and at most -1. Assemble it again from the source; never encode it again"
+  bash "$HERE/../../episode-timecodes/scripts/edl-to-ffmetadata.sh" "$EPISODE.chapters.tsv" > "$TMP/chapters.raw"
+  awk -v end="$(awk -v d="$DUR" 'BEGIN { printf "%d", d * 1000 + 0.5 }')" '
+  BEGIN { RS = ""; ORS = "\n\n" }
+  NR == 1 { print; next }
+  {
+    match($0, /START=[0-9]+/)
+    if (substr($0, RSTART + 6, RLENGTH - 6) + 0 >= end) { print "ERROR: a chapter starts at or after the end of the audio" > "/dev/stderr"; bad = 1 }
+    kept[++n] = $0
+  }
+  END {
+    if (bad) exit 1
+    sub(/END=[0-9]+/, "END=" end, kept[n])
+    for (i = 1; i <= n; i++) print kept[i]
+  }' "$TMP/chapters.raw" > "$TMP/chapters.ffmetadata" || die "chapters do not fit the audio"
+  # Stream copy: the audio is never encoded again.
+  ffmpeg -nostdin -y -v error -i "$EPISODE.master.m4a" -i "$TMP/chapters.ffmetadata" -map 0:a:0 -c copy -map_chapters 1 -movflags +faststart -f mp4 "$TMP/out.m4a" \
+    || die "ffmpeg failed"
+  WANT=$(grep '^title=' "$TMP/chapters.ffmetadata" | sed 's/^title=//; s/\\\(.\)/\1/g')
+  GOT=$(ffprobe -v error -show_entries chapter_tags=title -of default=nw=1:nk=1 "$TMP/out.m4a")
+  [[ $GOT == "$WANT" ]] || die "chapters in the output do not match $EPISODE.chapters.tsv"
+  OUT_DUR=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$TMP/out.m4a")
+  awk -v a="$OUT_DUR" -v b="$DUR" 'BEGIN { d = a - b; exit !(d < 0.1 && d > -0.1) }' || die "output is ${OUT_DUR}s; master is ${DUR}s"
+  ln "$TMP/out.m4a" "$EPISODE.m4a"
+  echo "Done: $PWD/$EPISODE.m4a ($(wc -c < "$EPISODE.m4a" | tr -d ' ') bytes, ${OUT_DUR}s, $(echo "$WANT" | wc -l | tr -d ' ') chapters, $LUFS LUFS, $PEAK dBTP)"
+  exit 0
+fi
 [[ -s $EPISODE.mp4 && -s $EPISODE.edl ]] || die "need $EPISODE.mp4 and $EPISODE.edl in $PWD"
 [[ ! -e $EPISODE.m4a && ! -L $EPISODE.m4a ]] || die "$EPISODE.m4a already exists; not overwriting"
 # ffmpeg's built-in aac encoder overshoots peaks by about 3 dB on this audio; Apple's does not.

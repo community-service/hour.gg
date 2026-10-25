@@ -13,7 +13,7 @@ Update the existing `_episodes/$EPISODE.md` in place. It was created when the ep
 EPISODE=$(bash .agents/scripts/staged-episode.sh) && printf 'Episode: %s\n' "$EPISODE"
 ```
 
-Run from the repository root. The [shared selector](../../scripts/staged-episode.sh) requires exactly one episode in `.production`, ignoring unrelated files, directories, and generated shorts. On failure, stop and report its error; do not choose an episode or move or delete files to bypass the check. Terminal history showing an earlier run is not your run. Confirm that `_episodes/$EPISODE.md` and nonempty `.production/$EPISODE.m4a`, `.production/$EPISODE.edl`, and `.production/$EPISODE.vtt` exist before editing. If any are missing, stop and name them; do not run other workflows automatically.
+Run from the repository root. The [shared selector](../../scripts/staged-episode.sh) requires exactly one episode in `.production`, ignoring unrelated files, directories, and generated shorts. On failure, stop and report its error; do not choose an episode or move or delete files to bypass the check. Terminal history showing an earlier run is not your run. Confirm that `_episodes/$EPISODE.md` and nonempty `.production/$EPISODE.m4a`, `.production/$EPISODE.edl`, and `.production/$EPISODE.vtt` exist before editing. For an audio-only episode, `.production/$EPISODE.chapters.tsv` stands in for the `.edl`. If any are missing, stop and name them; do not run other workflows automatically.
 
 ## Get the facts
 
@@ -23,7 +23,7 @@ ffprobe -v error -show_entries format=duration -of csv=p=0 ".production/$EPISODE
 bash .agents/skills/episode-timecodes/scripts/edl-to-yaml.sh ".production/$EPISODE.edl"
 ```
 
-The first is the size of the audio in bytes, the second is its length in whole seconds, and the third is the `timeline:` block from the EDL. Stop on a failed command or invalid measurement; do not insert partial results. `/draft-audio` makes the m4a and `/draft-vtt` makes the transcript.
+The first is the size of the audio in bytes, the second is its length in whole seconds, and the third is the `timeline:` block from the EDL. For an audio-only episode pass `.production/$EPISODE.chapters.tsv` to the third script instead of the EDL. Stop on a failed command or invalid measurement; do not insert partial results. `/draft-audio` makes the m4a and `/draft-vtt` makes the transcript.
 
 ## Insert them
 
@@ -42,7 +42,7 @@ Edit the episode file with targeted replacements of single lines or blocks. Do n
 
 ## Draft the rest
 
-This is most of the work. Read the whole of `.production/$EPISODE.vtt` before writing editorial content, in chunks until every line is covered. Then fill title, subtitle and description where they are still `UPDATE ME`, empty or placeholder text; do not stop after the first two. Keep an unpublished episode at `posted: false`; never unpublish an existing published episode. Leave `start-time`, `participants`, `youtube-full` and `discussion` alone. Participants need people's X usernames and the links only exist after posting, so list who spoke and say which values a human still needs to fill in.
+This is most of the work. Read the whole of `.production/$EPISODE.vtt` before writing editorial content, in chunks until every line is covered. Then fill title, subtitle and description where they are still `UPDATE ME`, empty or placeholder text; do not stop after the first two. Keep an unpublished episode at `posted: false`; never unpublish an existing published episode. Leave `start-time`, `participants`, `youtube-full` and `discussion` alone. For an audio-only episode there is no video, so delete the `youtube-full` line (a placeholder there shows a dead video button once the episode is posted), and add `transcript-url: https://media.phor.net/csh/$EPISODE.vtt`. Participants need people's X usernames and the links only exist after posting, so list who spoke and say which values a human still needs to fill in.
 
 **Title:** short, concrete and recognizable, usually 2 to 6 words, built from the strongest topic a listener will remember. No empty hype or clickbait, and do not repeat the subtitle.
 
@@ -56,7 +56,7 @@ If an existing `description` is a placeholder, shorter than 150 characters, or j
 
 **Notes:** the file has two parts, split by `<!--end of quick notes-->`. Match the layout of the most recent finished episode in `_episodes` (the newest one with `posted: true`).
 
-- Before the marker, a short list of the highest value links a listener wants immediately: official sites for the products, companies, standards or tools that were a major topic, the exact article, repo or post that was referenced, and a person's page only when they were central. About 3 to 10 bullets, one link each, with concise labels.
+- Before the marker, a short list of the highest value links a listener wants immediately: official sites for the products, companies, standards or tools that were a major topic, the exact article, repo or post that was referenced, and a person's page only when they were central. About 3 to 10 bullets, one link each, with concise labels. For a news article or other secondary source, the label gives the publisher and date, and the link is there only if the page establishes the fact it is used for.
 - After the marker, the start of the written post: an opening summary, cleaned up topic bullets, the main claims, disagreements and open questions, and supporting context. Rewrite; do not paste transcript text, and do not pad.
 
 Research the products, companies, people, standards and articles that were materially discussed, using available public web tools. For browser automation, follow the installed `web-browser` skill. Prefer official pages first. Include a link only after you have opened it and confirmed it is the right page. Never invent URLs, names, participants or claims; leave `UPDATE ME` for what you cannot support.

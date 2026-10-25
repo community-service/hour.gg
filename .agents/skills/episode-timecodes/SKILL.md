@@ -1,6 +1,6 @@
 ---
 name: episode-timecodes
-description: 'Turn a DaVinci Resolve marker EDL into episode-file timeline yaml, youtube description timecodes, or ffmpeg chapter metadata. Use when filling the timeline in an episode file, drafting a youtube description, or embedding chapters in podcast audio.'
+description: "Turn a DaVinci Resolve marker EDL into episode-file timeline yaml, youtube description timecodes, or ffmpeg chapter metadata. Use when filling the timeline in an episode file, drafting a youtube description, or embedding chapters in podcast audio."
 ---
 
 # Episode timecodes
@@ -19,6 +19,8 @@ bash $S/edl-to-ffmetadata.sh something.edl > chapters.ffmetadata
 - `edl-to-ffmetadata.sh` prints chapter metadata for `ffmpeg -f ffmetadata -i`, which the draft-audio skill uses.
 
 All three share `edl-chapters.sh`, which reads the EDL and prints `milliseconds<TAB>title`.
+
+An audio-only episode has no EDL. Give any of the scripts a `something.tsv` of those same `milliseconds<TAB>title` lines instead. It must start at 0, run in order, and keep chapters at least ten seconds apart; the script checks that and prints the lines as written. Place each chapter on the voice of the finished audio, as in [draft-video](../draft-video/SKILL.md).
 
 ## How times are read
 
