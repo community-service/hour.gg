@@ -10,7 +10,6 @@ show_breadcrumbs: false
     max-width: 500px;
   }
 
-
   .participants-video-row {
     display: flex;
     width: 100%;
@@ -80,19 +79,25 @@ show_breadcrumbs: false
 <!-- Always directly under the H1 -->
 <div class="participants-video-row">
   <div class="participants-video ratio ratio-16x9">
-    <iframe src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx" title="YouTube video player"
+    <iframe
+      src="https://www.youtube.com/embed/E-oBTjJz4xM?si=ZOXU3-DpyFakahSx"
+      title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
+      allowfullscreen
+    >
     </iframe>
   </div>
 </div>
 
 <p class="lead">
-  <a class="icon-link"
-    href="https://x.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg">
+  <a
+    class="icon-link"
+    href="https://x.com/messages/compose?recipient_id=47729549&text=Please%20update%20my%20name,%20Ethereum%20address,%20GitHub%20username%20on%20the%20hour.gg"
+  >
     <i class="bi bi-chat-dots"></i>
-    DM Will</a>
+    DM Will</a
+  >
   or click <kbd>EDIT</kbd> below to update how you are shown on this website.
 </p>
 
@@ -101,42 +106,46 @@ show_breadcrumbs: false
 </p>
 
 {% assign all_episodes_newest = site.episodes | reverse %}
-{% assign candidate_ids = "" | split: "" %}
+{% assign candidate_ids = '' | split: '' %}
 {% for episode in all_episodes_newest %}
-{% for pid in episode.participants %}
-{% unless candidate_ids contains pid %}
-{% assign candidate_ids = candidate_ids | push: pid %}
-{% endunless %}
-{% endfor %}
+  {% for pid in episode.participants %}
+    {% unless candidate_ids contains pid %}
+      {% assign candidate_ids = candidate_ids | push: pid %}
+    {% endunless %}
+  {% endfor %}
 {% endfor %}
 {% for participant in site.data.participants %}
-{% unless candidate_ids contains participant[0] %}
-{% assign candidate_ids = candidate_ids | push: participant[0] %}
-{% endunless %}
+  {% unless candidate_ids contains participant[0] %}
+    {% assign candidate_ids = candidate_ids | push: participant[0] %}
+  {% endunless %}
 {% endfor %}
-{% assign missing_ids = "" | split: "" %}
+{% assign missing_ids = '' | split: '' %}
 {% for pid in candidate_ids %}
-{% assign info = site.data.participants[pid] %}
-{% unless info %}
-{% assign missing_ids = missing_ids | push: pid %}
-{% endunless %}
+  {% assign info = site.data.participants[pid] %}
+  {% unless info %}
+    {% assign missing_ids = missing_ids | push: pid %}
+  {% endunless %}
 {% endfor %}
 {% if missing_ids.size > 0 %}
-<section class="border rounded p-3 my-4" aria-labelledby="missing-participants-heading">
-  <h2 id="missing-participants-heading">People we need details for</h2>
-  <p>These participants need information:</p>
-  <ul>
-    {% for pid in missing_ids %}
-    {% assign info = site.data.participants[pid] %}
-    {% assign participant_x = info.x | default: pid %}
-    <li class="d-flex align-items-center gap-2 mb-2">
-      <a href="#{{ pid }}">@{{ participant_x }}</a>
-      <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank"
-        class="btn btn-primary btn-sm">Add</a>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
+  <section class="border rounded p-3 my-4" aria-labelledby="missing-participants-heading">
+    <h2 id="missing-participants-heading">People we need details for</h2>
+    <p>These participants need information:</p>
+    <ul>
+      {% for pid in missing_ids %}
+        {% assign info = site.data.participants[pid] %}
+        {% assign participant_x = info.x | default: pid %}
+        <li class="d-flex align-items-center gap-2 mb-2">
+          <a href="#{{ pid }}">@{{ participant_x }}</a>
+          <a
+            href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml"
+            target="_blank"
+            class="btn btn-primary btn-sm"
+            >Add</a
+          >
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
 {% endif %}
 
 <div class="participants-table-wrap">
@@ -153,94 +162,101 @@ show_breadcrumbs: false
       </tr>
     </thead>
     <tbody>
-      {% assign episodes_newest = site.episodes | where: "posted", true | reverse %}
-      {% assign seen_ids = "" | split: "" %}
+      {% assign episodes_newest = site.episodes | where: 'posted', true | reverse %}
+      {% assign seen_ids = '' | split: '' %}
       {% assign ordered_ids = missing_ids %}
       {% for episode in episodes_newest %}
-      {% for pid in episode.participants %}
-      {% unless seen_ids contains pid %}
-      {% if site.data.participants[pid] %}
-      {% assign seen_ids = seen_ids | push: pid %}
-      {% assign ordered_ids = ordered_ids | push: pid %}
-      {% endif %}
-      {% endunless %}
-      {% endfor %}
+        {% for pid in episode.participants %}
+          {% unless seen_ids contains pid %}
+            {% if site.data.participants[pid] %}
+              {% assign seen_ids = seen_ids | push: pid %}
+              {% assign ordered_ids = ordered_ids | push: pid %}
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
       {% endfor %}
       {% for participant in site.data.participants %}
-      {% unless seen_ids contains participant[0] %}
-      {% assign ordered_ids = ordered_ids | push: participant[0] %}
-      {% endunless %}
+        {% unless seen_ids contains participant[0] %}
+          {% assign ordered_ids = ordered_ids | push: participant[0] %}
+        {% endunless %}
       {% endfor %}
       {% for pid in ordered_ids -%}
-      {% assign info = site.data.participants[pid] %}
-      {% assign participant_x = info.x | default: pid %}
-      <tr id="{{ pid }}">
-        <td class="position-relative">
-          {{ info.name | default: "???" }}
-        </td>
-        <td class="position-relative">
-          <a href="https://x.com/{{ participant_x }}" class="stretched-link icon-link" target="_blank">
-            <i class="bi-twitter-x"></i>
-            {{ participant_x }}
-          </a>
-        </td>
-        <td class="position-relative">
-          {% assign ethereum = info.ethereum | default: "???" %}
-          {% if ethereum == "???" %}
-          ???
-          {% else %}
-          <a href="ethereum:{{ ethereum }}" class="stretched-link icon-link" title="{{ ethereum }}">
-            <i class="bi-wallet"></i>
-            {% assign suffix = ethereum | slice: -4, 4 %}
-            {% if suffix == ".eth" %}
-            {{ ethereum }}
+        {% assign info = site.data.participants[pid] %}
+        {% assign participant_x = info.x | default: pid %}
+        <tr id="{{ pid }}">
+          <td class="position-relative">
+            {{ info.name | default: '???' }}
+          </td>
+          <td class="position-relative">
+            <a href="https://x.com/{{ participant_x }}" class="stretched-link icon-link" target="_blank">
+              <i class="bi-twitter-x"></i>
+              {{ participant_x }}
+            </a>
+          </td>
+          <td class="position-relative">
+            {% assign ethereum = info.ethereum | default: '???' %}
+            {% if ethereum == '???' %}
+              ???
             {% else %}
-            {% assign eth_head = ethereum | slice: 0, 6 %}
-            {% assign eth_tail = ethereum | slice: -4, 4 %}
-            <code>{{ eth_head }}...{{ eth_tail }}</code>
+              <a href="ethereum:{{ ethereum }}" class="stretched-link icon-link" title="{{ ethereum }}">
+                <i class="bi-wallet"></i>
+                {% assign suffix = ethereum | slice: -4, 4 %}
+                {% if suffix == '.eth' %}
+                  {{ ethereum }}
+                {% else %}
+                  {% assign eth_head = ethereum | slice: 0, 6 %}
+                  {% assign eth_tail = ethereum | slice: -4, 4 %}
+                  <code>{{ eth_head }}...{{ eth_tail }}</code>
+                {% endif %}
+              </a>
             {% endif %}
-          </a>
-          {% endif %}
-        </td>
-        <td class="position-relative">
-          {% assign github = info.github | default: "???" %}
-          {% if github == "???" %}
-          ???
-          {% else %}
-          <a href="https://github.com/{{ github }}" class="stretched-link icon-link">
-            <i class="bi-github"></i>
-            {{ github }}
-          </a>
-          {% endif %}
-        </td>
-        <td class="position-relative">
-          {% for file in site.static_files %}
-          {% if file.path contains pid %}
-          <p>
-            <img src="{{ file.path }}" class="rounded-circle" style="width: 2.5rem; height: 2.5rem"
-              alt="Photo of {{ pid }}">
-          </p>
-          {% break %}
-          {% endif %}
-          {% endfor %}
-        </td>
-        <td class="position-relative">
-          {% for episode in episodes_newest -%}
-          {% if episode.participants contains pid %}
-          <a href="{{ episode.url }}" target="_blank" class="stretched-link">
-            {{ episode.itunes-episode }} / {{ episode.title | escape }}
-          </a>
-          {% break %}
-          {% endif -%}
-          {% endfor -%}
-        </td>
-        <td class="position-relative">
-          <a href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml" target="_blank"
-            class="stretched-link btn btn-primary btn-sm">
-            Edit
-          </a>
-        </td>
-      </tr>
+          </td>
+          <td class="position-relative">
+            {% assign github = info.github | default: '???' %}
+            {% if github == '???' %}
+              ???
+            {% else %}
+              <a href="https://github.com/{{ github }}" class="stretched-link icon-link">
+                <i class="bi-github"></i>
+                {{ github }}
+              </a>
+            {% endif %}
+          </td>
+          <td class="position-relative">
+            {% for file in site.static_files %}
+              {% if file.path contains pid %}
+                <p>
+                  <img
+                    src="{{ file.path }}"
+                    class="rounded-circle"
+                    style="width: 2.5rem; height: 2.5rem"
+                    alt="Photo of {{ pid }}"
+                  >
+                </p>
+                {% break %}
+              {% endif %}
+            {% endfor %}
+          </td>
+          <td class="position-relative">
+            {% for episode in episodes_newest -%}
+              {% if episode.participants contains pid %}
+                <a href="{{ episode.url }}" target="_blank" class="stretched-link">
+                  {{ episode['itunes-episode'] }} / {{ episode.title | escape }}
+                </a>
+                {% break %}
+              {% endif -%}
+            {% endfor -%}
+          </td>
+          <td class="position-relative">
+            <a
+              href="https://github.com/community-service/hour.gg/edit/main/_data/participants.yml"
+              target="_blank"
+              class="stretched-link btn btn-primary btn-sm"
+            >
+              Edit
+            </a>
+          </td>
+        </tr>
       {% endfor -%}
     </tbody>
   </table>

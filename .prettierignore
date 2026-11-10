@@ -1,0 +1,4 @@
+# Markdown is formatted by markdownlint-cli2. Prettier's Markdown parser fights kramdown.
+*.md
+# Liquid, not JSON. Prettier's JSON parser cannot read the assign tags.
+assets/upcoming-episodes.json

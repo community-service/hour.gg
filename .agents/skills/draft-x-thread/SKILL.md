@@ -44,7 +44,7 @@ Write 5 to 9 posts. Open with a concrete hook in post 1, then keep each post foc
 
 Preserve the speaker's meaning, qualifications, and attribution. Frame anecdotes and reported results as such; do not turn one person's example into a verified general claim. Do not invent quotations, names, handles, statistics, product capabilities, or outcomes. Omit unsupported claims rather than inserting placeholders or uncertainty notes into the artifact. Use hashtags only when relevant and within the character limit.
 
-Every complete post must be strictly under 280 characters, including its `X/N ` prefix, spaces, punctuation, hashtags, and URL. Count the literal URL in full as a conservative budget rather than relying on X's URL shortening. Also check X's weighted count where applicable: emoji and some Unicode characters can count more than once. Prefer plain text when unsure, and shorten a post rather than assuming it fits. Recount after every edit to a post or to the total post count.
+Every complete post must be strictly under 280 characters, including its `X/N` prefix, spaces, punctuation, hashtags, and URL. Count the literal URL in full as a conservative budget rather than relying on X's URL shortening. Also check X's weighted count where applicable: emoji and some Unicode characters can count more than once. Prefer plain text when unsure, and shorten a post rather than assuming it fits. Recount after every edit to a post or to the total post count.
 
 Include the final episode URL exactly once, only in the final post. End with a concrete invitation to watch or read the episode, without claiming that it has already been published unless that is established by the inputs.
 

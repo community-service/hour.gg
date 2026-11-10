@@ -3,452 +3,529 @@ layout: none
 ---
 <!doctype html>
 <html lang="en">
+  <head>
+    <title>Community Service Hour</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg="
+      crossorigin="anonymous"
+    >
+    <link rel="alternate" type="application/rss+xml" title="Community Service Hour" href="/podcast.xml">
 
-<head>
-  <title>Community Service Hour</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg=" crossorigin="anonymous">
-  <link rel="alternate" type="application/rss+xml" title="Community Service Hour" href="/podcast.xml">
+    <style>
+      :root {
+        --bs-body-bg: #341334;
+        --bs-body-color: #f8fafc;
+        --bs-primary-rgb: 242, 47, 84;
+        --bs-link-color-rgb: 242, 47, 84;
+      }
 
-  <style>
-    :root {
-      --bs-body-bg: #341334;
-      --bs-body-color: #f8fafc;
-      --bs-primary-rgb: 242, 47, 84;
-      --bs-link-color-rgb: 242, 47, 84;
-    }
+      .navbar-nav {
+        --bs-nav-link-color: rgba(255, 255, 255, 0.85);
+      }
 
-    .navbar-nav {
-      --bs-nav-link-color: rgba(255, 255, 255, 0.85);
-    }
+      .btn-primary {
+        --bs-btn-bg: #f22f54;
+        --bs-btn-border-color: #f22f54;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #ce3e59;
+        --bs-btn-hover-border-color: #ce3e59;
+        --bs-btn-focus-shadow-rgb: 0 0 0;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #a84b5c;
+        --bs-btn-active-border-color: #a84b5c;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+      }
 
-    .btn-primary {
-      --bs-btn-bg: #f22f54;
-      --bs-btn-border-color: #f22f54;
-      --bs-btn-hover-color: #fff;
-      --bs-btn-hover-bg: #ce3e59;
-      --bs-btn-hover-border-color: #ce3e59;
-      --bs-btn-focus-shadow-rgb: 0 0 0;
-      --bs-btn-active-color: #fff;
-      --bs-btn-active-bg: #a84b5c;
-      --bs-btn-active-border-color: #a84b5c;
-      --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    }
+      /* temp hack */
+      .link-primary:hover {
+        color: #c61838 !important;
+        -webkit-text-decoration-color: #c61838 !important;
+        text-decoration-color: #c61838 !important;
+      }
 
-    /* temp hack */
-    .link-primary:hover {
-      color: #c61838 !important;
-      -webkit-text-decoration-color: #c61838 !important;
-      text-decoration-color: #c61838 !important;
-    }
+      .font-primary {
+        font-family: 'Rockwell', 'Georgia', 'Times New Roman', 'Times', serif;
+      }
 
-    .font-primary {
-      font-family: "Rockwell", "Georgia", "Times New Roman", "Times", serif;
-    }
+      /* Hero layout */
+      .hero-logo {
+        max-height: 14rem;
+        object-fit: contain;
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+      }
 
+      /* Custom scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+      }
 
+      ::-webkit-scrollbar-track {
+        background-color: #5c0e1f;
+        border-radius: 20px;
+      }
 
-    /* Hero layout */
-    .hero-logo {
-      max-height: 14rem;
-      object-fit: contain;
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-    }
+      ::-webkit-scrollbar-thumb {
+        background-color: #ffffff;
+        border-radius: 20px;
+        border: 3px solid #5c0e1f;
+      }
 
-    /* Custom scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 12px;
-      height: 12px;
-    }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #f2f2f2;
+      }
 
-    ::-webkit-scrollbar-track {
-      background-color: #5c0e1f;
-      border-radius: 20px;
-    }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #ffffff #5c0e1f;
+      }
 
-    ::-webkit-scrollbar-thumb {
-      background-color: #ffffff;
-      border-radius: 20px;
-      border: 3px solid #5c0e1f;
-    }
+      footer.footer-links a {
+        color: #ffffff !important;
+      }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #f2f2f2;
-    }
+      footer.footer-links a:visited {
+        color: #ffffff !important;
+      }
 
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: #ffffff #5c0e1f;
-    }
+      footer.footer-links a:hover,
+      footer.footer-links a:focus {
+        color: grey !important;
+        -webkit-text-decoration-color: grey !important;
+        text-decoration-color: grey !important;
+      }
 
-    footer.footer-links a {
-      color: #ffffff !important;
-    }
+      footer.footer-links a i,
+      footer.footer-links a svg {
+        color: inherit !important;
+        fill: currentColor;
+        stroke: currentColor;
+      }
+    </style>
+  </head>
 
-    footer.footer-links a:visited {
-      color: #ffffff !important;
-    }
+  <body>
+    {% include main-nav.html %}
 
-    footer.footer-links a:hover,
-    footer.footer-links a:focus {
-      color: grey !important;
-      -webkit-text-decoration-color: grey !important;
-      text-decoration-color: grey !important;
-    }
-
-    footer.footer-links a i,
-    footer.footer-links a svg {
-      color: inherit !important;
-      fill: currentColor;
-      stroke: currentColor;
-    }
-  </style>
-</head>
-
-<body>
-  {% include main-nav.html %}
-
-  <section class="container-xl pt-4" aria-labelledby="jawncon-welcome">
-    <div class="border border-secondary rounded-3 p-4">
-      <h2 class="h3 font-primary mb-4" id="jawncon-welcome">Welcome JawnCon participants</h2>
-      <div class="row g-4">
-        <div class="col-12 col-md-6">
-          <h3 class="h5 mb-3">Links from the talk:</h3>
-          <ul class="mb-0">
-            <li class="mb-2"><a class="link-primary" href="https://hour.gg/episodes/2026-10-05-episode-143">The
-                Pannellum zero day episode</a></li>
-            <li class="mb-2"><a class="link-primary" href="https://hour.gg/episodes/2026-10-05-episode-143">Blog write
-                up</a></li>
-            <li>Get the podcast:
-              <a class="link-primary"
-                href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217">Apple</a> /
-              <a class="link-primary" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ">Spotify</a> /
-              <a class="link-primary"
-                href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN">YouTube</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-12 col-md-6">
-          <h3 class="h5 mb-3">Speakers</h3>
-          <ul class="list-unstyled d-flex flex-wrap gap-4 mb-0">
-            <li class="d-flex align-items-center gap-3">
-              <img src="https://unavatar.io/twitter/pwncmd" alt="Christy" width="64" height="64"
-                class="rounded-circle object-fit-cover">
-              <div>
-                <p class="fw-bold mb-1">Christy</p>
-                <a class="link-primary" href="https://x.com/pwncmd">X @pwncmd</a>
-              </div>
-            </li>
-            <li class="d-flex align-items-center gap-3">
-              <img src="/assets/participants/fulldecent.webp" alt="Will" width="64" height="64"
-                class="rounded-circle object-fit-cover">
-              <div>
-                <p class="fw-bold mb-1">Will</p>
-                <a class="link-primary" href="https://x.com/fulldecent">X @fulldecent</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HERO SECTION -->
-  <header class="container-xl py-5">
-    <div class="row g-4 justify-content-center align-items-center py-4">
-      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center order-2 order-lg-1">
-        <div>
-          <h1 class="display-4 font-monospace fw-bold lh-1 mb-3">Community Service Hour</h1>
-          <p class="lead mb-2" style="max-width: 32em;">Bring the work. Get it argued with, live.</p>
-          <p class="mb-4" style="max-width: 32em;">Every Tuesday, one hour. Bring a change and take the floor, or
-            listen while someone else does. The reaction is live: design, implementation, and whether it is correct.</p>
-          <div class="d-flex flex-wrap gap-2 mb-3">
-            <a class="btn btn-primary btn-lg" href="/calendar.ics"><i class="bi bi-calendar-event"></i> Join the Next
-              Live Call</a>
-            <a class="btn btn-outline-light btn-lg" href="/episodes"><i class="bi bi-headphones"></i> Listen to Recent
-              Episodes</a>
+    <section class="container-xl pt-4" aria-labelledby="jawncon-welcome">
+      <div class="border border-secondary rounded-3 p-4">
+        <h2 class="h3 font-primary mb-4" id="jawncon-welcome">Welcome JawnCon participants</h2>
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <h3 class="h5 mb-3">Links from the talk:</h3>
+            <ul class="mb-0">
+              <li class="mb-2">
+                <a class="link-primary" href="https://hour.gg/episodes/2026-10-05-episode-143"
+                  >The Pannellum zero day episode</a
+                >
+              </li>
+              <li class="mb-2">
+                <a class="link-primary" href="https://hour.gg/episodes/2026-10-05-episode-143">Blog write up</a>
+              </li>
+              <li>
+                Get the podcast:
+                <a
+                  class="link-primary"
+                  href="https://podcasts.apple.com/us/podcast/community-service-hour/id1662422217"
+                  >Apple</a
+                >
+                / <a class="link-primary" href="https://open.spotify.com/show/3k4PnmjfLiuNo9HpXemCdJ">Spotify</a> /
+                <a
+                  class="link-primary"
+                  href="https://www.youtube.com/playlist?list=PLaMigeN8Exx-ChNPpO-j6pFQ3F8oJWrBN"
+                  >YouTube</a
+                >
+              </li>
+            </ul>
           </div>
-          <p class="small text-light mb-0">
-            <span id="next-show"></span>
-            <span id="next-show-time"></span>
-          </p>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center order-1 order-lg-2">
-        <img src="/assets/logo-icon-large.webp" class="img-fluid hero-logo" alt="Community Service Hour logo">
-      </div>
-    </div>
-  </header>
-
-  <!-- WHO IT'S FOR -->
-  <section class="container-xl pt-3 pb-5">
-    <h2 class="display-6 fw-bold mb-3">This is for you if&hellip;</h2>
-    <div class="row g-4">
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="card bg-dark border-secondary h-100">
-          <div class="card-body">
-            <p class="card-text mb-0">You can produce a draft, and still cannot tell if it is right. A model will write
-              the code. It will not defend the design on a live call.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="card bg-dark border-secondary h-100">
-          <div class="card-body">
-            <p class="card-text mb-0">You do not yet know a correct change from a wrong one. A first pull request is a
-              rep. It is not a portfolio.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="card bg-dark border-secondary h-100">
-          <div class="card-body">
-            <p class="card-text mb-0">You would rather watch the argument than read a tutorial. The episodes are the
-              worked example.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <aside>
-    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
-  </aside>
-
-  <!-- HOW IT WORKS -->
-  <section class="container-xl py-5" id="how-to-csh">
-    <h2 class="display-6 fw-bold mb-4">How it works</h2>
-    <div class="row g-4">
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="text-center mb-3">
-          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">1</span>
-        </div>
-        <h5 class="text-center">Make a change</h5>
-        <p class="text-center">A typo fix, a small pull request, or the thing you are building. Bring a diff.</p>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="text-center mb-3">
-          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">2</span>
-        </div>
-        <h5 class="text-center">Show up, or listen</h5>
-        <p class="text-center">One hour, live. In the ring, the work goes on the table. In the audience, you watch that
-          hour.</p>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="text-center mb-3">
-          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">3</span>
-        </div>
-        <h5 class="text-center">Get it argued with</h5>
-        <p class="text-center">Design, implementation, and whether it is correct. Early is fine. Unchecked is not.</p>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="text-center mb-3">
-          <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">4</span>
-        </div>
-        <h5 class="text-center">Leave a record</h5>
-        <p class="text-center">The episode, the notes, and the participant page are the proof it was looked at.</p>
-      </div>
-    </div>
-    <div class="mt-4 p-4 rounded-3" style="background: rgba(255,255,255,0.05);">
-      <p class="lead mb-2">Never landed a correct change before? Start there.</p>
-      <p class="mb-0">Create a GitHub profile. Pick a project you can actually read, including <a class="link-primary"
-          href="https://github.com/community-service/hour.gg">this site</a>. Make the smallest correct change and open a
-        pull request. Then bring the diff to the call. You will get a reaction, not a medal for having a profile.</p>
-    </div>
-  </section>
-
-  <aside>
-    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
-  </aside>
-
-  <!-- RECENT EPISODES -->
-  <section class="container-xl py-5">
-    <h2 class="display-6 fw-bold mb-4">Recent hours</h2>
-
-    {% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse | slice: 0, 4 %}
-    {% for episode in episodes %}
-    <div class="row my-4 episode-row">
-      <div class="col-12 position-relative">
-        <h3 class="fs-4">
-          <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
-            <div>
-              {{ episode.title | escape }}
-              {% if episode.subtitle != "" %}
-              <br><small>{{ episode.subtitle }}</small>
-              {% endif %}
-            </div>
-            <span class="hstack d-inline-flex ms-1">
-              {% assign some_participant_ids = episode.participants | sample: 3 %}
-              {% for participant_id in some_participant_ids %}
-              {% assign participant_photo_path = "/assets/participants/" | append: participant_id | append: ".webp" %}
-              {% assign participant_photo = "/assets/empty-participant.webp" %}
-              {% for file in site.static_files %}
-              {% if file.path == participant_photo_path %}
-              {% assign participant_photo = participant_photo_path %}
-              {% break %}
-              {% endif %}
-              {% endfor %}
-              <img src="{{ participant_photo }}" class="rounded-circle"
-                style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
-              {% endfor %}
-              {% assign remaining = episode.participants.size | minus: 3 %}
-              {% if remaining > 0 %}
-              <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
-                {{- remaining -}}
-              </span>
-              {% endif %}
-            </span>
-          </a>
-        </h3>
-        <p>{{ episode.homepage-description | default: episode.description | escape }}</p>
-      </div>
-      {% if episode.youtube-full %}
-      {% assign youtube-id = episode.youtube-full | split: '/' | last %}
-      <div class="col-12">
-        <div class="ratio ratio-16x9" style="max-width: 500px;">
-          <iframe src="https://www.youtube-nocookie.com/embed/{{ youtube-id }}"
-            allow="accelerometer; autoplay; gyroscope; picture-in-picture" allowfullscreen class="rounded-5"></iframe>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-    {% endfor %}
-
-    <p class="mt-4">
-      <a class="link-primary" href="episodes">All episodes&hellip;</a>
-    </p>
-  </section>
-
-  <!-- COMMUNITY HIGHLIGHTS -->
-  <section class="container-xl pt-3 pb-5">
-    <h2 class="display-6 fw-bold mb-4">
-      People who took the floor.
-      <span class="text-primary">{{- site.data.participants.size -}}+</span>
-    </h2>
-
-    <div class="d-flex flex-wrap gap-3 mb-4">
-      {% assign all_participants2 = "" | split: "" -%}
-      {% for participant in site.data.participants -%}
-      {% assign all_participants2 = all_participants2 | push: participant[0] | sample: 5 -%}
-      {% endfor -%}
-      {% for participant in all_participants2 -%}
-      <a class="link-primary" href="https://x.com/{{ site.data.participants[participant].x }}">@{{
-        site.data.participants[participant].x }}</a>
-      {% endfor %}
-    </div>
-
-    <p class="mt-4">
-      <a class="link-primary" href="participants">All participants&hellip;</a>
-    </p>
-  </section>
-
-  <aside>
-    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
-  </aside>
-
-  <!-- NEWSLETTER + FINAL CTA -->
-  <section class="container-xl py-5">
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-8">
-        <div class="text-center mb-4">
-          <h2 class="display-6 fw-bold">The call is free. Bring a change, or listen to one get torn down.</h2>
-          <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
-            <a class="btn btn-primary btn-lg" href="/calendar.ics"><i class="bi bi-calendar-event"></i> Join the Next
-              Live Call</a>
-            <a class="btn btn-outline-light btn-lg" href="/episodes"><i class="bi bi-headphones"></i> Listen to Recent
-              Episodes</a>
-          </div>
-        </div>
-        <div class="card bg-dark text-light border border-secondary shadow-sm mx-auto" style="max-width: 500px;">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Monthly email</h5>
-            <p class="card-text small text-light mb-3">Recaps of the live hour, the change that got argued with, and the
-              next call.</p>
-            <form
-              action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
-              method="post">
-              <div class="input-group">
-                <input type="email" name="EMAIL" class="form-control bg-dark text-light border-secondary"
-                  placeholder="Email address" required>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
-              </div>
-            </form>
-            <ul class="small mt-3 mb-0 text-light ps-3">
-              <li>What was on the table</li>
-              <li>The cut, and why</li>
-              <li>The next hour</li>
+          <div class="col-12 col-md-6">
+            <h3 class="h5 mb-3">Speakers</h3>
+            <ul class="list-unstyled d-flex flex-wrap gap-4 mb-0">
+              <li class="d-flex align-items-center gap-3">
+                <img
+                  src="https://unavatar.io/twitter/pwncmd"
+                  alt="Christy"
+                  width="64"
+                  height="64"
+                  class="rounded-circle object-fit-cover"
+                >
+                <div>
+                  <p class="fw-bold mb-1">Christy</p>
+                  <a class="link-primary" href="https://x.com/pwncmd">X @pwncmd</a>
+                </div>
+              </li>
+              <li class="d-flex align-items-center gap-3">
+                <img
+                  src="/assets/participants/fulldecent.webp"
+                  alt="Will"
+                  width="64"
+                  height="64"
+                  class="rounded-circle object-fit-cover"
+                >
+                <div>
+                  <p class="fw-bold mb-1">Will</p>
+                  <a class="link-primary" href="https://x.com/fulldecent">X @fulldecent</a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <aside>
-    <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
-  </aside>
+    <!-- HERO SECTION -->
+    <header class="container-xl py-5">
+      <div class="row g-4 justify-content-center align-items-center py-4">
+        <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center order-2 order-lg-1">
+          <div>
+            <h1 class="display-4 font-monospace fw-bold lh-1 mb-3">Community Service Hour</h1>
+            <p class="lead mb-2" style="max-width: 32em;">Bring the work. Get it argued with, live.</p>
+            <p class="mb-4" style="max-width: 32em;">
+              Every Tuesday, one hour. Bring a change and take the floor, or listen while someone else does. The
+              reaction is live: design, implementation, and whether it is correct.
+            </p>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <a class="btn btn-primary btn-lg" href="/calendar.ics"
+                ><i class="bi bi-calendar-event"></i> Join the Next Live Call</a
+              >
+              <a class="btn btn-outline-light btn-lg" href="/episodes"
+                ><i class="bi bi-headphones"></i> Listen to Recent Episodes</a
+              >
+            </div>
+            <p class="small text-light mb-0">
+              <span id="next-show"></span>
+              <span id="next-show-time"></span>
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center order-1 order-lg-2">
+          <img src="/assets/logo-icon-large.webp" class="img-fluid hero-logo" alt="Community Service Hour logo">
+        </div>
+      </div>
+    </header>
 
-  <footer class="container-xl my-4 py-4 footer-links">
-    <a class="lead link-primary icon-link" href="https://github.com/community-service/hour.gg"><i
-        class="bi bi-github"></i> Edit this page &hellip;</a>
-    <a class="lead link-primary icon-link" href="https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG"><i
-        class="bi bi-file-earmark"></i> Show notes</a>
-  </footer>
+    <!-- WHO IT'S FOR -->
+    <section class="container-xl pt-3 pb-5">
+      <h2 class="display-6 fw-bold mb-3">This is for you if&hellip;</h2>
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="card bg-dark border-secondary h-100">
+            <div class="card-body">
+              <p class="card-text mb-0">
+                You can produce a draft, and still cannot tell if it is right. A model will write the code. It will not
+                defend the design on a live call.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="card bg-dark border-secondary h-100">
+            <div class="card-body">
+              <p class="card-text mb-0">
+                You do not yet know a correct change from a wrong one. A first pull request is a rep. It is not a
+                portfolio.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="card bg-dark border-secondary h-100">
+            <div class="card-body">
+              <p class="card-text mb-0">
+                You would rather watch the argument than read a tutorial. The episodes are the worked example.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-    crossorigin="anonymous"></script>
+    <aside>
+      <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+    </aside>
 
-  <script>
-    // Load next show from assets/upcoming-episodes.json
-    fetch('/assets/upcoming-episodes.json')
-      .then(response => response.json())
-      .then(data => {
-        for (const episode of data) {
-          const startTime = new Date(episode.startTime); // YYYY-MM-DDTHH:MM:SS-XX:YY
-          const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
+    <!-- HOW IT WORKS -->
+    <section class="container-xl py-5" id="how-to-csh">
+      <h2 class="display-6 fw-bold mb-4">How it works</h2>
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="text-center mb-3">
+            <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">1</span>
+          </div>
+          <h5 class="text-center">Make a change</h5>
+          <p class="text-center">A typo fix, a small pull request, or the thing you are building. Bring a diff.</p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="text-center mb-3">
+            <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">2</span>
+          </div>
+          <h5 class="text-center">Show up, or listen</h5>
+          <p class="text-center">
+            One hour, live. In the ring, the work goes on the table. In the audience, you watch that hour.
+          </p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="text-center mb-3">
+            <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">3</span>
+          </div>
+          <h5 class="text-center">Get it argued with</h5>
+          <p class="text-center">Design, implementation, and whether it is correct. Early is fine. Unchecked is not.</p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="text-center mb-3">
+            <span class="display-4 fw-bold" style="color: rgb(var(--bs-primary-rgb));">4</span>
+          </div>
+          <h5 class="text-center">Leave a record</h5>
+          <p class="text-center">The episode, the notes, and the participant page are the proof it was looked at.</p>
+        </div>
+      </div>
+      <div class="mt-4 p-4 rounded-3" style="background: rgba(255,255,255,0.05);">
+        <p class="lead mb-2">Never landed a correct change before? Start there.</p>
+        <p class="mb-0">
+          Create a GitHub profile. Pick a project you can actually read, including
+          <a
+            class="link-primary"
+            href="https://github.com/community-service/hour.gg"
+            >this site</a
+          >. Make the smallest correct change and open a pull request. Then bring the diff to the call. You will get a
+          reaction, not a medal for having a profile.
+        </p>
+      </div>
+    </section>
 
-          // If this episode ended, skip it
-          if (endTime < new Date()) {
-            continue;
-          }
-          document.getElementById('next-show').innerHTML = episode.title;
+    <aside>
+      <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+    </aside>
 
-          // If is live now, show it
-          if (startTime < new Date()) {
-            document.getElementById('next-show-time').innerHTML = 'Live now!';
+    <!-- RECENT EPISODES -->
+    <section class="container-xl py-5">
+      <h2 class="display-6 fw-bold mb-4">Recent hours</h2>
+
+      {% assign episodes = site.episodes | where: 'posted', true | sort: 'date' | reverse | slice: 0, 4 %}
+      {% for episode in episodes %}
+        <div class="row my-4 episode-row">
+          <div class="col-12 position-relative">
+            <h3 class="fs-4">
+              <a href="{{ episode.url | relative_url }}" class="link-primary hstack">
+                <div>
+                  {{ episode.title | escape }}
+                  {% if episode.subtitle != '' %}
+                    <br>
+                    <small>{{ episode.subtitle }}</small>
+                  {% endif %}
+                </div>
+                <span class="hstack d-inline-flex ms-1">
+                  {% assign some_participant_ids = episode.participants | sample: 3 %}
+                  {% for participant_id in some_participant_ids %}
+                    {% assign participant_photo_path = '/assets/participants/'
+                      | append: participant_id
+                      | append: '.webp'
+                    %}
+                    {% assign participant_photo = '/assets/empty-participant.webp' %}
+                    {% for file in site.static_files %}
+                      {% if file.path == participant_photo_path %}
+                        {% assign participant_photo = participant_photo_path %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    <img
+                      src="{{ participant_photo }}"
+                      class="rounded-circle"
+                      style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;"
+                      alt="Photo of {{ participant_id }}"
+                    >
+                  {% endfor %}
+                  {% assign remaining = episode.participants.size | minus: 3 %}
+                  {% if remaining > 0 %}
+                    <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;"
+                      >+
+                      {{- remaining -}}
+                    </span>
+                  {% endif %}
+                </span>
+              </a>
+            </h3>
+            <p>{{ episode['homepage-description'] | default: episode.description | escape }}</p>
+          </div>
+          {% if episode['youtube-full'] %}
+            {% assign youtube-id = episode['youtube-full'] | split: '/' | last %}
+            <div class="col-12">
+              <div class="ratio ratio-16x9" style="max-width: 500px;">
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/{{ youtube-id }}"
+                  allow="accelerometer; autoplay; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  class="rounded-5"
+                ></iframe>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <p class="mt-4">
+        <a class="link-primary" href="episodes">All episodes&hellip;</a>
+      </p>
+    </section>
+
+    <!-- COMMUNITY HIGHLIGHTS -->
+    <section class="container-xl pt-3 pb-5">
+      <h2 class="display-6 fw-bold mb-4">
+        People who took the floor.
+        <span class="text-primary">
+          {{- site.data.participants.size -}}
+          +</span
+        >
+      </h2>
+
+      <div class="d-flex flex-wrap gap-3 mb-4">
+        {% assign all_participants2 = '' | split: '' -%}
+        {% for participant in site.data.participants -%}
+          {% assign all_participants2 = all_participants2 | push: participant[0] | sample: 5 -%}
+        {% endfor -%}
+        {% for participant in all_participants2 -%}
+          <a class="link-primary" href="https://x.com/{{ site.data.participants[participant].x }}"
+            >@{{ site.data.participants[participant].x -}}
+          </a>
+        {% endfor %}
+      </div>
+
+      <p class="mt-4">
+        <a class="link-primary" href="participants">All participants&hellip;</a>
+      </p>
+    </section>
+
+    <aside>
+      <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+    </aside>
+
+    <!-- NEWSLETTER + FINAL CTA -->
+    <section class="container-xl py-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <div class="text-center mb-4">
+            <h2 class="display-6 fw-bold">The call is free. Bring a change, or listen to one get torn down.</h2>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+              <a class="btn btn-primary btn-lg" href="/calendar.ics"
+                ><i class="bi bi-calendar-event"></i> Join the Next Live Call</a
+              >
+              <a class="btn btn-outline-light btn-lg" href="/episodes"
+                ><i class="bi bi-headphones"></i> Listen to Recent Episodes</a
+              >
+            </div>
+          </div>
+          <div class="card bg-dark text-light border border-secondary shadow-sm mx-auto" style="max-width: 500px;">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Monthly email</h5>
+              <p class="card-text small text-light mb-3">
+                Recaps of the live hour, the change that got argued with, and the next call.
+              </p>
+              <form
+                action="https://phor.us9.list-manage.com/subscribe/post?u=8b49e10ddf197497c02ff4eae&amp;id=e3fcfddf94&amp;MERGE1=blog.phor.net"
+                method="post"
+              >
+                <div class="input-group">
+                  <input
+                    type="email"
+                    name="EMAIL"
+                    class="form-control bg-dark text-light border-secondary"
+                    placeholder="Email address"
+                    required
+                  >
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-bell-fill"></i> Subscribe</button>
+                </div>
+              </form>
+              <ul class="small mt-3 mb-0 text-light ps-3">
+                <li>What was on the table</li>
+                <li>The cut, and why</li>
+                <li>The next hour</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside>
+      <img src="assets/divider.svg" style="width: 100%; height: 3rem;" alt="Divider">
+    </aside>
+
+    <footer class="container-xl my-4 py-4 footer-links">
+      <a class="lead link-primary icon-link" href="https://github.com/community-service/hour.gg"
+        ><i
+          class="bi bi-github"
+        ></i>
+        Edit this page &hellip;</a
+      >
+      <a class="lead link-primary icon-link" href="https://drive.proton.me/urls/P51R6H0JF0#s99indgxujhG"
+        ><i
+          class="bi bi-file-earmark"
+        ></i>
+        Show notes</a
+      >
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // Load next show from assets/upcoming-episodes.json
+      fetch('/assets/upcoming-episodes.json')
+        .then((response) => response.json())
+        .then((data) => {
+          for (const episode of data) {
+            const startTime = new Date(episode.startTime); // YYYY-MM-DDTHH:MM:SS-XX:YY
+            const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
+
+            // If this episode ended, skip it
+            if (endTime < new Date()) {
+              continue;
+            }
+            document.getElementById('next-show').innerHTML = episode.title;
+
+            // If is live now, show it
+            if (startTime < new Date()) {
+              document.getElementById('next-show-time').innerHTML = 'Live now!';
+              return;
+            }
+
+            // If starting within 8 hours, show countdown
+            const now = new Date();
+            const eightHours = 8 * 60 * 60 * 1000;
+            if (1) {
+              //if (startTime < new Date(now.getTime() + eightHours)) {
+              // show countdown and update every second
+              setInterval(() => {
+                const now = new Date();
+                const diff = startTime - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('next-show-time').innerHTML = `Join live in ${hours}h ${minutes}m ${seconds}s`;
+              }, 1000);
+              document.getElementById('next-show-time').innerHTML = `Join live in &hellip;`;
+              return;
+            }
+
+            // Otherwise, show next episode
+            document.getElementById('next-show-time').innerHTML = 'Join live Tuesday 6pm, New York time';
             return;
           }
-
-          // If starting within 8 hours, show countdown
-          const now = new Date();
-          const eightHours = 8 * 60 * 60 * 1000;
-          if (1) {
-            //if (startTime < new Date(now.getTime() + eightHours)) {
-            // show countdown and update every second
-            setInterval(() => {
-              const now = new Date();
-              const diff = startTime - now;
-              const hours = Math.floor(diff / (1000 * 60 * 60));
-              const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-              const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-              document.getElementById('next-show-time').innerHTML = `Join live in ${hours}h ${minutes}m ${seconds}s`;
-            }, 1000);
-            document.getElementById('next-show-time').innerHTML = `Join live in &hellip;`;
-            return;
-          }
-
-          // Otherwise, show next episode
-          document.getElementById('next-show-time').innerHTML = "Join live Tuesday 6pm, New York time";
-          return;
-        }
-      });
-  </script>
-</body>
-
+        });
+    </script>
+  </body>
 </html>

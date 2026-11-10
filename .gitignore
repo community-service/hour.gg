@@ -11,3 +11,12 @@ _site
 /_episodes/*.x-thread.txt
 /_episodes/*.shorts-description.md
 /.production
+# Yarn Berry and the Prettier cache used by the pages lint workflow
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+cache/

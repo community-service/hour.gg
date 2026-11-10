@@ -8,8 +8,18 @@ breadcrumbs:
   <head>
     <title>{{ page.title | escape }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg=" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      integrity="sha256-u2/YzYU5TLNn6KxY5HKS8taOsoj6Evq2jmVDCl3fzkg="
+      crossorigin="anonymous"
+    >
     <link rel="alternate" type="application/rss+xml" title="Community Service Hour" href="/podcast.xml">
     <link rel="canonical" href="{{ page.url | absolute_url }}">
 
@@ -81,7 +91,7 @@ breadcrumbs:
       }
 
       .breadcrumb-item + .breadcrumb-item::before {
-        content: ">";
+        content: '>';
         color: #f8fafc;
       }
 
@@ -103,18 +113,20 @@ breadcrumbs:
 
     <div class="container-xl py-4">
       {% unless page.show_breadcrumbs == false %}
-      <nav aria-label="breadcrumb" class="text-primary">
-        <ol class="breadcrumb">
-          {% assign breadcrumbs = page.breadcrumbs | default: layout.breadcrumbs %}
-          {% for breadcrumb in breadcrumbs %}
-            {% if breadcrumb.url %}
-              <li class="breadcrumb-item"><a href="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a></li>
-            {% else %}
-              <li class="breadcrumb-item">{{ breadcrumb.label }}</li>
-            {% endif %}
-          {% endfor %}
-        </ol>
-      </nav>
+        <nav aria-label="breadcrumb" class="text-primary">
+          <ol class="breadcrumb">
+            {% assign breadcrumbs = page.breadcrumbs | default: layout.breadcrumbs %}
+            {% for breadcrumb in breadcrumbs %}
+              {% if breadcrumb.url %}
+                <li class="breadcrumb-item">
+                  <a href="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a>
+                </li>
+              {% else %}
+                <li class="breadcrumb-item">{{ breadcrumb.label }}</li>
+              {% endif %}
+            {% endfor %}
+          </ol>
+        </nav>
       {% endunless %}
 
       <main>
@@ -132,10 +144,14 @@ breadcrumbs:
       </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('[title]').forEach(el => new bootstrap.Tooltip(el));
+        document.querySelectorAll('[title]').forEach((el) => new bootstrap.Tooltip(el));
       });
     </script>
   </body>

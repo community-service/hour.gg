@@ -6,8 +6,7 @@ collections:
 future: true
 
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
       type: episodes
     values:
@@ -18,5 +17,5 @@ defaults:
 # https://jekyllrb.com/docs/configuration/liquid/
 liquid:
   error_mode: strict
-#  strict_variables: true
+  #  strict_variables: true
   strict_filters: true

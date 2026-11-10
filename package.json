@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.11.2",
+    "markdownlint-cli2": "^0.23.3",
+    "prettier": "^3.9.9"
+  },
+  "scripts": {
+    "lint:prettier": "sh -c 'yarn prettier --cache --cache-location=cache/.prettiercache --check ${@:-\".\"}' --",
+    "lint:markdown": "sh -c 'if [ $# -eq 0 ]; then yarn markdownlint-cli2 \"**/*.md\"; else for file in \"$@\"; do case \"$file\" in *.md) yarn markdownlint-cli2 \"$file\";; esac; done; fi' --"
+  },
+  "packageManager": "yarn@4.18.1",
+  "private": true
+}

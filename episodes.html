@@ -21,61 +21,153 @@ description: "Past live hours and show notes. Each one is a worked example: the 
     margin-left: auto;
   }
 </style>
-<p class="lead">Past live hours and show notes. Each one is a worked example: the work on the table, and the reaction.
+<p class="lead">
+  Past live hours and show notes. Each one is a worked example: the work on the table, and the reaction.
 </p>
 <h1 class="my-4">Upcoming episodes</h1>
 
-{% assign episodes = site.episodes | where: "posted", "false" | sort: 'date' | reverse %}
+{% assign episodes = site.episodes | where: 'posted', 'false' | sort: 'date' | reverse %}
 {% for episode in episodes %}
-<div class="upcoming-or-draft" data-date="{{ episode.date | date: " %Y-%m-%d" }}">
+  <div class="upcoming-or-draft" data-date="{{ episode.date | date: " %Y-%m-%d" }}">
+    <h2 class="episode-heading fs-4">
+      <a href="{{ episode.url | relative_url }}" class="episode-heading-title link-primary">
+        {{ episode.title | escape }}
+        {% if episode.subtitle != '' %}
+          <br>
+          <small>{{ episode.subtitle | escape }}</small>
+        {% endif %}
+      </a>
+      <span class="episode-heading-people hstack">
+        {% assign some_participant_ids = episode.participants | sample: 3 %}
+        {% for participant_id in some_participant_ids %}
+          {% assign participant_photo_path = '/assets/participants/' | append: participant_id | append: '.webp' %}
+          {% assign participant_photo = '/assets/empty-participant.webp' %}
+          {% for file in site.static_files %}
+            {% if file.path == participant_photo_path %}
+              {% assign participant_photo = participant_photo_path %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          <img
+            src="{{ participant_photo }}"
+            class="rounded-circle"
+            style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;"
+            alt="Photo of {{ participant_id }}"
+          >
+        {% endfor %}
+        {% assign remaining = episode.participants.size | minus: 3 %}
+        {% if remaining > 0 %}
+          <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;"
+            >+
+            {{- remaining -}}
+          </span>
+        {% endif %}
+      </span>
+    </h2>
+    <div class="row mb-4">
+      <div class="col-lg">
+        Episode {{ episode['itunes-episode'] }}
+        <ul>
+          {% assign timeline = episode.timeline | where_exp: 'item', 'item.seconds > 0' %}
+          {% for item in timeline %}
+            {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: '0' | slice: -2, 2 %}
+            {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: '0' | slice: -2, 2 %}
+            {% assign secondsSS = item.seconds | modulo: 60 | prepend: '0' | slice: -2, 2 %}
+            {% assign time = hoursHH | append: ':' | append: minutesMM | append: ':' | append: secondsSS %}
+            {% if hoursHH == '00' %}
+              {% assign time = minutesMM | append: ':' | append: secondsSS %}
+            {% endif %}
+            <li>
+              <a href="{{ episode.url | relative_url }}#t={{ time }}" title="Jump to {{ time }} in audio">
+                <code>{{ time }}</code>
+              </a>
+              {{ item.title | escape }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-lg">
+        <!-- page excerpt -->
+        {{ episode.excerpt }}
+
+        <!-- edit on GitHub, use this episode's file name -->
+        <a
+          href="
+            https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
+            }}-episode-{{ episode.itunes-episode }}.md
+          "
+          class="icon-link"
+        >
+          <i class="bi bi-github"></i>
+          Edit these notes&hellip;
+        </a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+<h1 class="my-4">Past episodes</h1>
+
+{% assign episodes = site.episodes | where: 'posted', true | sort: 'date' | reverse %}
+{% for episode in episodes %}
   <h2 class="episode-heading fs-4">
     <a href="{{ episode.url | relative_url }}" class="episode-heading-title link-primary">
       {{ episode.title | escape }}
-      {% if episode.subtitle != "" %}
-      <br><small>{{ episode.subtitle | escape }}</small>
+      {% if episode.subtitle != '' %}
+        <br>
+        <small>{{ episode.subtitle | escape }}</small>
       {% endif %}
     </a>
     <span class="episode-heading-people hstack">
+      <!-- Participants from this specific episode -->
       {% assign some_participant_ids = episode.participants | sample: 3 %}
       {% for participant_id in some_participant_ids %}
-      {% assign participant_photo_path = "/assets/participants/" | append: participant_id | append: ".webp" %}
-      {% assign participant_photo = "/assets/empty-participant.webp" %}
-      {% for file in site.static_files %}
-      {% if file.path == participant_photo_path %}
-      {% assign participant_photo = participant_photo_path %}
-      {% break %}
-      {% endif %}
+        {% assign participant_photo_path = '/assets/participants/' | append: participant_id | append: '.webp' %}
+        {% assign participant_photo = '/assets/empty-participant.webp' %}
+        {% for file in site.static_files %}
+          {% if file.path == participant_photo_path %}
+            {% assign participant_photo = participant_photo_path %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        <img
+          src="{{ participant_photo }}"
+          class="rounded-circle"
+          style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;"
+          alt="Photo of {{ participant_id }}"
+        >
       {% endfor %}
-      <img src="{{ participant_photo }}" class="rounded-circle"
-        style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
-      {% endfor %}
+      <!-- + how many not shown... -->
       {% assign remaining = episode.participants.size | minus: 3 %}
       {% if remaining > 0 %}
-      <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
-        {{- remaining -}}
-      </span>
+        <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;"
+          >+
+          {{- remaining -}}
+        </span>
       {% endif %}
     </span>
   </h2>
   <div class="row mb-4">
     <div class="col-lg">
-      Episode {{ episode.itunes-episode }}
+      Episode {{ episode['itunes-episode'] }}
       <ul>
-        {% assign timeline = episode.timeline | where_exp: "item", "item.seconds > 0" %}
+        <!-- timeline entries -->
+        <!-- Set timeline = episode.timeline except 00:00 Intro -->
+        {% assign timeline = episode.timeline | where_exp: 'item', 'item.seconds > 0' %}
         {% for item in timeline %}
-        {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
-        {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-        {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-        {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
-        {% if hoursHH == "00" %}
-        {% assign time = minutesMM | append: ":" | append: secondsSS %}
-        {% endif %}
-        <li>
-          <a href="{{ episode.url | relative_url }}#t={{ time }}" title="Jump to {{ time }} in audio">
-            <code>{{ time }}</code>
-          </a>
-          {{ item.title | escape }}
-        </li>
+          {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: '0' | slice: -2, 2 %}
+          {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: '0' | slice: -2, 2 %}
+          {% assign secondsSS = item.seconds | modulo: 60 | prepend: '0' | slice: -2, 2 %}
+          {% assign time = hoursHH | append: ':' | append: minutesMM | append: ':' | append: secondsSS %}
+          {% if hoursHH == '00' %}
+            {% assign time = minutesMM | append: ':' | append: secondsSS %}
+          {% endif %}
+          <li>
+            <a href="{{ episode.url | relative_url }}#t={{ time }}" title="Jump to {{ time }} in audio">
+              <code>{{ time }}</code>
+            </a>
+            {{ item.title | escape }}
+          </li>
         {% endfor %}
       </ul>
     </div>
@@ -84,96 +176,30 @@ description: "Past live hours and show notes. Each one is a worked example: the 
       {{ episode.excerpt }}
 
       <!-- edit on GitHub, use this episode's file name -->
-      <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
-        }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
+      <a
+        href="
+          https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
+          }}-episode-{{ episode.itunes-episode }}.md
+        "
+        class="icon-link"
+      >
         <i class="bi bi-github"></i>
         Edit these notes&hellip;
       </a>
     </div>
   </div>
-</div>
-{% endfor %}
-
-<h1 class="my-4">Past episodes</h1>
-
-{% assign episodes = site.episodes | where: "posted", true | sort: 'date' | reverse %}
-{% for episode in episodes %}
-<h2 class="episode-heading fs-4">
-  <a href="{{ episode.url | relative_url }}" class="episode-heading-title link-primary">
-    {{ episode.title | escape }}
-    {% if episode.subtitle != "" %}
-    <br><small>{{ episode.subtitle | escape }}</small>
-    {% endif %}
-  </a>
-  <span class="episode-heading-people hstack">
-    <!-- Participants from this specific episode -->
-    {% assign some_participant_ids = episode.participants | sample: 3 %}
-    {% for participant_id in some_participant_ids %}
-    {% assign participant_photo_path = "/assets/participants/" | append: participant_id | append: ".webp" %}
-    {% assign participant_photo = "/assets/empty-participant.webp" %}
-    {% for file in site.static_files %}
-    {% if file.path == participant_photo_path %}
-    {% assign participant_photo = participant_photo_path %}
-    {% break %}
-    {% endif %}
-    {% endfor %}
-    <img src="{{ participant_photo }}" class="rounded-circle"
-      style="width: 2.5rem; height: 2.5rem; margin-right: -0.5rem;" alt="Photo of {{ participant_id }}">
-    {% endfor %}
-    <!-- + how many not shown... -->
-    {% assign remaining = episode.participants.size | minus: 3 %}
-    {% if remaining > 0 %}
-    <span class="badge rounded-pill text-bg-warning" style="margin-left: -0.2rem;">+
-      {{- remaining -}}
-    </span>
-    {% endif %}
-  </span>
-</h2>
-<div class="row mb-4">
-  <div class="col-lg">
-    Episode {{ episode.itunes-episode}}
-    <ul>
-      <!-- timeline entries -->
-      <!-- Set timeline = episode.timeline except 00:00 Intro -->
-      {% assign timeline = episode.timeline | where_exp: "item", "item.seconds > 0" %}
-      {% for item in timeline %}
-      {% assign hoursHH = item.seconds | divided_by: 3600 | prepend: "0" | slice: -2, 2 %}
-      {% assign minutesMM = item.seconds | divided_by: 60 | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-      {% assign secondsSS = item.seconds | modulo: 60 | prepend: "0" | slice: -2, 2 %}
-      {% assign time = hoursHH | append: ":" | append: minutesMM | append: ":" | append: secondsSS %}
-      {% if hoursHH == "00" %}
-      {% assign time = minutesMM | append: ":" | append: secondsSS %}
-      {% endif %}
-      <li>
-        <a href="{{ episode.url | relative_url }}#t={{ time }}" title="Jump to {{ time }} in audio">
-          <code>{{ time }}</code>
-        </a>
-        {{ item.title | escape }}
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div class="col-lg">
-    <!-- page excerpt -->
-    {{ episode.excerpt }}
-
-    <!-- edit on GitHub, use this episode's file name -->
-    <a href="https://github.com/community-service/hour.gg/edit/main/_episodes/{{ episode.date | date: " %Y-%m-%d"
-      }}-episode-{{ episode.itunes-episode }}.md" class="icon-link">
-      <i class="bi bi-github"></i>
-      Edit these notes&hellip;
-    </a>
-  </div>
-</div>
 {% endfor %}
 
 <script>
   // Keep the two upcoming episodes closest to today.
   const todayYYYYMMDD = new Date().toISOString().split('T')[0];
   const upcoming = Array.prototype.slice.call(document.querySelectorAll('.upcoming-or-draft'));
-  upcoming.filter(function (el) {
-    return el.dataset.date > todayYYYYMMDD;
-  }).slice(0, -2).forEach(function (el) {
-    el.remove();
-  });
+  upcoming
+    .filter(function (el) {
+      return el.dataset.date > todayYYYYMMDD;
+    })
+    .slice(0, -2)
+    .forEach(function (el) {
+      el.remove();
+    });
 </script>
